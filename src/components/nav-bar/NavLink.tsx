@@ -1,5 +1,3 @@
-"use client";
-
 import { NavbarItem } from "@nextui-org/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,9 +8,11 @@ const NavLink = ({ href, label }: Props) => {
   const pathname = usePathname();
 
   return (
-    <NavbarItem isActive={pathname === href} as={Link} href={href}>
-      {label}
-    </NavbarItem>
+    <div>
+      <NavbarItem isActive={pathname === href} as={Link} href={href}>
+        {label}
+      </NavbarItem>
+    </div>
   );
 };
 
