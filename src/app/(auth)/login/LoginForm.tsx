@@ -4,28 +4,29 @@ import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
 import { GiPadlock } from "react-icons/gi";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { loginSchema, LoginSchema } from "@/lib/schemas/LoginSchema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: { email: "", password: "" },
+    formState: { errors, isValid, isSubmitting },
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(loginSchema),
+    mode: "onTouched",
   });
 
-  const onSubmit = handleSubmit((data) => console.log(data));
-  
+  const onSubmit = handleSubmit((data: LoginSchema) => console.log(data));
+
   const [isSSR, setIsSSR] = useState(true);
 
-  // Run useEffect only on the client to switch to client-side rendering
   useEffect(() => {
-    setIsSSR(false); // Set isSSR to false after the component is mounted
+    setIsSSR(false);
   }, []);
 
-  // Render only after the component is mounted (client-side)
   if (isSSR) {
-    return null; // or show a loading spinner, placeholder, etc.
+    return null;
   }
 
   return (
@@ -42,23 +43,49 @@ const LoginForm = () => {
       <CardBody>
         <form onSubmit={onSubmit} autoComplete="off">
           <div className="space-y-4 flex flex-col">
-            <Input
-              type="new-email"
-              autoComplete="off"
-              label="E-mail"
-              name="email"
-              {...register("email", { required: true })}
-            />
-            <Input
-              type="new-password"
-              autoComplete="off"
-              label="Password"
-              name="password"
-              {...register("password", { required: true })}
-            />
-            {errors.email && <span>This field is required</span>}
+            <div className="flex flex-col space-y-2">
+              <Input
+                type="new-email"
+                autoComplete="off"
+                label="E-mail"
+                name="email"
+                variant="bordered"
+                {...register("email")}
+                isInvalid={!!errors?.email}
+                errorMessage={errors?.email?.message as string}
+              />
+              {!errors.email && (
+                <p className="pl-3 text-xs font-semibold text-gray-700">
+                  Enter a valid email. (E.g. user123@gmail.com)
+                </p>
+              )}
+            </div>
 
-            <Button type="submit" fullWidth color="default">
+            <div className="flex flex-col space-y-2">
+              <Input
+                type="new-password"
+                autoComplete="off"
+                label="Password"
+                name="password"
+                variant="bordered"
+                {...register("password")}
+                isInvalid={!!errors?.password}
+                errorMessage={errors?.password?.message as string}
+              />
+              {!errors.password && (
+                <p className="pl-3 text-xs font-semibold text-gray-700">
+                  Min. 8 characters. (E.g. Password@123)
+                </p>
+              )}
+            </div>
+
+            <Button
+              isDisabled={!isValid}
+              isLoading={isSubmitting}
+              type="submit"
+              fullWidth
+              color="default"
+            >
               Sign In
             </Button>
           </div>
