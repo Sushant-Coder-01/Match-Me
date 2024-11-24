@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { loginSchema, LoginSchema } from "@/lib/schemas/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 
 const LoginForm = () => {
   const {
@@ -20,17 +21,26 @@ const LoginForm = () => {
   const onSubmit = handleSubmit((data: LoginSchema) => console.log(data));
 
   const [isSSR, setIsSSR] = useState(true);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
     setIsSSR(false);
   }, []);
 
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   if (isSSR) {
-    return null;
+    return (
+      <div className="w-11/12 md:w-1/3 h-4/6 mx-auto bg-gray-300 rounded-3xl bg-gradient-to-tl from-gray-300 via-gray-200 to-gray-300 shimmer">
+        {/* design placeholder */}
+      </div>
+    );
   }
 
   return (
-    <Card className="w-11/12 md:w-1/3 mx-auto p-5">
+    <Card className="w-11/12 md:w-1/3 mx-auto px-1 py-5">
       <CardHeader className="flex flex-col items-center gap-2">
         <div className="flex flex-row items-center gap-3">
           <GiPadlock size={30} className="text-gray-500" />
@@ -45,8 +55,8 @@ const LoginForm = () => {
           <div className="space-y-4 flex flex-col">
             <div className="flex flex-col space-y-2">
               <Input
-                type="new-email"
-                autoComplete="off"
+                type="email"
+                autoComplete="new-email"
                 label="E-mail"
                 name="email"
                 variant="bordered"
@@ -61,10 +71,10 @@ const LoginForm = () => {
               )}
             </div>
 
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-2 relative">
               <Input
-                type="new-password"
-                autoComplete="off"
+                type={passwordVisible ? "text" : "password"}
+                autoComplete="new-password"
                 label="Password"
                 name="password"
                 variant="bordered"
@@ -77,6 +87,22 @@ const LoginForm = () => {
                   Min. 8 characters. (E.g. Password@123)
                 </p>
               )}
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-3 text-gray-500"
+                aria-label="Toggle Password Visibility"
+              >
+                {passwordVisible ? (
+                  <span>
+                    <BiSolidShow size={20} />
+                  </span>
+                ) : (
+                  <span>
+                    <BiSolidHide size={20}/>
+                  </span>
+                )}
+              </button>
             </div>
 
             <Button

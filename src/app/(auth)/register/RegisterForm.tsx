@@ -5,7 +5,8 @@ import { GiPadlock } from "react-icons/gi";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerSchema, RegisterSchema } from "@/lib/schemas/RegisterSchema";
-import { zodResolver } from "@hookform/resolvers/zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 
 const RegisterForm = () => {
   const {
@@ -18,6 +19,7 @@ const RegisterForm = () => {
   });
 
   const onSubmit = handleSubmit((data: RegisterSchema) => console.log(data));
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [isSSR, setIsSSR] = useState(true);
 
@@ -26,12 +28,20 @@ const RegisterForm = () => {
   }, []);
 
   if (isSSR) {
-    return null;
+    return (
+      <div className="w-11/12 md:w-1/3 h-5/6 mx-auto bg-gray-300 rounded-3xl bg-gradient-to-tl from-gray-300 via-gray-200 to-gray-300 shimmer">
+        {/* design placeholder */}
+      </div>
+    );
   }
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   return (
     <div className="flex items-center justify-center mt-20 w-11/12 md:1/3">
-      <Card className="w-11/12 md:w-1/3 mx-auto">
+      <Card className="w-11/12 md:w-1/3 mx-auto px-1 py-5">
         <CardHeader className="flex flex-col items-center gap-2">
           <div className="flex flex-row items-center gap-3">
             <GiPadlock size={30} className="text-gray-500" />
@@ -47,7 +57,7 @@ const RegisterForm = () => {
                   type="name"
                   autoComplete="off"
                   label="Full Name"
-                  name="user"
+                  name="name"
                   variant="bordered"
                   {...register("name", {
                     required: "Full Name is required.",
@@ -56,9 +66,11 @@ const RegisterForm = () => {
                   isInvalid={!!errors?.name}
                   errorMessage={errors?.name?.message as string}
                 />
-                {!errors.name && <p className="pl-3 text-xs font-semibold text-gray-700">
-                  Start with a capital letter. (E.g. - John Doe)
-                </p>}
+                {!errors.name && (
+                  <p className="pl-3 text-xs font-semibold text-gray-700">
+                    Start with a capital letter. (E.g. - John Doe)
+                  </p>
+                )}
               </div>
 
               <div className="flex flex-col space-y-2">
@@ -72,15 +84,17 @@ const RegisterForm = () => {
                   isInvalid={!!errors?.email}
                   errorMessage={errors?.email?.message as string}
                 />
-                {!errors.email && <p className="pl-3 text-xs font-semibold text-gray-700">
-                  Enter a valid email. (E.g. user123@gmail.com)
-                </p>}
+                {!errors.email && (
+                  <p className="pl-3 text-xs font-semibold text-gray-700">
+                    Enter a valid email. (E.g. user123@gmail.com)
+                  </p>
+                )}
               </div>
 
-              <div className="flex flex-col space-y-2">
+              <div className="flex flex-col space-y-2 relative">
                 <Input
-                  type="new-password"
-                  autoComplete="off"
+                  type={passwordVisible ? "text" : "password"}
+                  autoComplete="new-password"
                   label="Password"
                   name="password"
                   variant="bordered"
@@ -88,9 +102,26 @@ const RegisterForm = () => {
                   isInvalid={!!errors?.password}
                   errorMessage={errors?.password?.message as string}
                 />
-                {!errors.password && <p className="pl-3 text-xs font-semibold text-gray-700">
-                  Min. 8 characters. (E.g. - Password@123)
-                </p>}
+                {!errors.password && (
+                  <p className="pl-3 text-xs font-semibold text-gray-700">
+                    Min. 8 characters. (E.g. - Password@123)
+                  </p>
+                )}
+                <button
+                  onClick={togglePasswordVisibility}
+                  className="absolute right-3 top-3 text-gray-500"
+                  aria-label="Toggle Password Visibility"
+                >
+                  {passwordVisible ? (
+                    <span>
+                      <BiSolidShow size={20} />
+                    </span>
+                  ) : (
+                    <span>
+                      <BiSolidHide size={20} />
+                    </span>
+                  )}
+                </button>
               </div>
 
               <div className="flex flex-col space-y-2">
@@ -103,9 +134,11 @@ const RegisterForm = () => {
                   isInvalid={!!errors?.age}
                   errorMessage={errors?.age?.message as string}
                 />
-                {!errors.age && <p className="pl-3 text-xs font-semibold text-gray-700 w-full">
-                  Age should be above 18.
-                </p>} 
+                {!errors.age && (
+                  <p className="pl-3 text-xs font-semibold text-gray-700 w-full">
+                    Age should be above 18.
+                  </p>
+                )}
               </div>
 
               <Button

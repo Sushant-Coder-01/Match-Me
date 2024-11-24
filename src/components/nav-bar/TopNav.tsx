@@ -31,14 +31,14 @@ const TopNav = () => {
         <Button
           as={Link}
           href="/login"
-          className="text-white border-none"
+          variant="bordered"
         >
           Login
         </Button>
         <Button
           as={Link}
           href="/register"
-          className="text-white border-none"
+          variant="bordered"
         >
           Register
         </Button>
