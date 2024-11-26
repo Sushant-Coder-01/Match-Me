@@ -90,7 +90,7 @@ const LoginForm = () => {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute right-3 top-3 text-gray-500"
+                className="absolute right-5 top-3 text-gray-500"
                 aria-label="Toggle Password Visibility"
               >
                 {passwordVisible ? (

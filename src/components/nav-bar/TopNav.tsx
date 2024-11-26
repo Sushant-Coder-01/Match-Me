@@ -11,6 +11,14 @@ const TopNav = () => {
     <Navbar
       maxWidth="full"
       className="bg-gradient-to-r from-pink-400 via-red-400 to-pink-400"
+      classNames={{
+        item: [
+          "text-xl",
+          "text-white",
+          "uppercase",
+          "data-[active=true]:text-yellow-200",
+        ],
+      }}
     >
       <NavbarBrand as={Link} href={"/"}>
         <GiSelfLove size={40} className="text-gray-200" />
@@ -20,7 +28,7 @@ const TopNav = () => {
       </NavbarBrand>
       
       {/* Desktop Links */}
-      <NavbarContent justify="center" className="hidden md:flex">
+      <NavbarContent justify="center" className="hidden md:flex md:space-x-10">
         <NavLink href="/members" label="Matches" />
         <NavLink href="/lists" label="Lists" />
         <NavLink href="/messages" label="Messages" />

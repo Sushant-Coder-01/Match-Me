@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { registerSchema, RegisterSchema } from "@/lib/schemas/RegisterSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
+import { registerUser } from "@/app/actions/authActions";
 
 const RegisterForm = () => {
   const {
@@ -18,7 +19,15 @@ const RegisterForm = () => {
     mode: "onTouched",
   });
 
-  const onSubmit = handleSubmit((data: RegisterSchema) => console.log(data));
+  const onSubmit = handleSubmit(async (data: RegisterSchema) => {
+    const result = await registerUser(data);
+
+    if (result.status === "success") {
+      console.log("User Register Successfully.");
+    } else {
+      console.log(result.error);
+    }
+  });
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const [isSSR, setIsSSR] = useState(true);
@@ -109,7 +118,7 @@ const RegisterForm = () => {
                 )}
                 <button
                   onClick={togglePasswordVisibility}
-                  className="absolute right-3 top-3 text-gray-500"
+                  className="absolute right-5 top-3 text-gray-500"
                   aria-label="Toggle Password Visibility"
                 >
                   {passwordVisible ? (

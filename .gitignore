@@ -3,3 +3,7 @@ node_modules/
 .next/
 
 *.log
+
+.env
+
+next-env.d.ts
