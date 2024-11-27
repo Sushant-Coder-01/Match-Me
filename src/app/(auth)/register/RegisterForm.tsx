@@ -8,6 +8,7 @@ import { registerSchema, RegisterSchema } from "@/lib/schemas/RegisterSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { registerUser } from "@/app/actions/authActions";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const {
@@ -25,7 +26,7 @@ const RegisterForm = () => {
     if (result.status === "success") {
       console.log("User Register Successfully.");
     } else {
-      console.log(result.error);
+      toast.error(result.error as string);
     }
   });
   const [passwordVisible, setPasswordVisible] = useState(false);

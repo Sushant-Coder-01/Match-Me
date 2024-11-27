@@ -7,6 +7,9 @@ import { useForm } from "react-hook-form";
 import { loginSchema, LoginSchema } from "@/lib/schemas/LoginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
+import { signInUser } from "@/app/actions/authActions";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const {
@@ -18,7 +21,20 @@ const LoginForm = () => {
     mode: "onTouched",
   });
 
-  const onSubmit = handleSubmit((data: LoginSchema) => console.log(data));
+  const router = useRouter();
+
+  const onSubmit = handleSubmit(async (data: LoginSchema) => {
+    const result = await signInUser(data);
+
+    console.log("result::: ", result);
+
+    if (result.status === "success") {
+      router.push("/members");
+      router.refresh();
+    } else {
+      toast.error(result.error as string || "An unknown error occurred");
+    }
+  });
 
   const [isSSR, setIsSSR] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -99,7 +115,7 @@ const LoginForm = () => {
                   </span>
                 ) : (
                   <span>
-                    <BiSolidHide size={20}/>
+                    <BiSolidHide size={20} />
                   </span>
                 )}
               </button>
