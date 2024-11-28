@@ -10,6 +10,7 @@ import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { signInUser } from "@/app/actions/authActions";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useSession } from "next-auth/react";
 
 const LoginForm = () => {
   const {
@@ -22,17 +23,18 @@ const LoginForm = () => {
   });
 
   const router = useRouter();
-
+  const { data: session, status, update } = useSession();
   const onSubmit = handleSubmit(async (data: LoginSchema) => {
     const result = await signInUser(data);
 
     console.log("result::: ", result);
 
     if (result.status === "success") {
+      await update();
       router.push("/members");
       router.refresh();
     } else {
-      toast.error(result.error as string || "An unknown error occurred");
+      toast.error((result.error as string) || "An unknown error occurred");
     }
   });
 

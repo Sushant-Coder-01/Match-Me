@@ -9,8 +9,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { registerUser } from "@/app/actions/authActions";
 import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+
+  const router = useRouter();
+
+
   const {
     register,
     handleSubmit,
@@ -20,11 +25,14 @@ const RegisterForm = () => {
     mode: "onTouched",
   });
 
+
+
   const onSubmit = handleSubmit(async (data: RegisterSchema) => {
     const result = await registerUser(data);
 
     if (result.status === "success") {
       console.log("User Register Successfully.");
+      router.push("/members");
     } else {
       toast.error(result.error as string);
     }

@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { LoginSchema } from "@/lib/schemas/LoginSchema";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 
 export const registerUser = async (
@@ -69,6 +69,10 @@ export const signInUser = async (
       return { status: "error", error: "Something else went wrong" };
     }
   }
+};
+
+export const signOutUser = async () => {
+  await signOut();
 };
 
 export const getUserByEmail = async (email: string) => {
