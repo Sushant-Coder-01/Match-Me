@@ -5,9 +5,7 @@ A dating app where users can create profiles, match with others, and chat. This 
 ## Project Info
 
 - **Name**: MatchMe
-- **Version**: 1.0.0
 - **Description**: A dating app for connecting people.
-- **Main File**: `index.js` (entry point of the app)
 - **Tech Stack**:
   - **Next.js**: React framework for building fast web apps.
   - **Prisma ORM**: Object-Relational Mapping for database interaction.
@@ -24,7 +22,7 @@ Here are the npm scripts for building and running the app:
 - **`npm run dev`**: Starts the Next.js development server.
 - **`npm run build`**: Builds the app for production.
 - **`npm run start`**: Starts the production server.
-- **`npm run lint`**: Lints the code using Next.js linting.
+- **`npm run lint`**: Lint the code using Next.js linting.
 
 ## Steps Taken
 
@@ -58,3 +56,17 @@ Here's a checklist of what I've done so far:
 - [x] Get user session data using auth
 - [x] Add dropdown menu to the top Navbar using NextUI
 - [x] Use NextJS Middleware to add protected routes
+
+### Step - 4 : Add Member List & Member Details
+
+- [ ] Update Prisma Schema by add Member & Photo Tables
+- [ ] Seed data into DB
+- [ ] Fetch members data & Display members list
+- [ ] Use dynamic route in NextJS
+- [ ] Add server Action to get member details
+- [ ] Use NextJS Layout Page to add member sidebar
+- [ ] Add Member Details Profile Page
+- [ ] Add Member details profile page
+- [ ] Add member details chat page
+- [ ] Add loading indicators in member details page
+- [ ] Add custom error page
