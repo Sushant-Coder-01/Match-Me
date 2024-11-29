@@ -118,7 +118,7 @@ const MemberSidebar = ({ member }: Props) => {
             as={Link}
             href="/members"
             fullWidth
-            className="mt-4 py-2 px-6 text-lg font-semibold rounded-lg border-1 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition"
+            className="mt-4 py-2 px-6 mx-4 bg-white text-lg font-semibold rounded-lg border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition"
           >
             Go Back
           </Button>

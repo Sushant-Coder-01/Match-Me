@@ -69,4 +69,4 @@ Here's a checklist of what I've done so far:
 - [x] Add Member Photos to profile page
 - [x] Add member Chat page
 - [x] Add loading indicators in member details page
-- [ ] Add custom error page
+- [x] Add custom error page
