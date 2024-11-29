@@ -65,8 +65,8 @@ Here's a checklist of what I've done so far:
 - [x] Use dynamic route in NextJS
 - [x] Add server Action to get member details
 - [x] Use NextJS Layout Page to add member sidebar
-- [ ] Add Member Details Profile Page
-- [ ] Add Member details profile page
-- [ ] Add member details chat page
+- [x] Add Member Details to Profile Page
+- [x] Add Member Photos to profile page
+- [ ] Add member Chat page
 - [ ] Add loading indicators in member details page
 - [ ] Add custom error page
