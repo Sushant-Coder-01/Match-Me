@@ -59,7 +59,7 @@ Here's a checklist of what I've done so far:
 
 ### Step - 4 : Add Member List & Member Details
 
-- [ ] Update Prisma Schema by add Member & Photo Tables
+- [x] Update Prisma Schema by add Member & Photo Tables
 - [ ] Seed data into DB
 - [ ] Fetch members data & Display members list
 - [ ] Use dynamic route in NextJS
