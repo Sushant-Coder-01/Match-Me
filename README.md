@@ -67,6 +67,6 @@ Here's a checklist of what I've done so far:
 - [x] Use NextJS Layout Page to add member sidebar
 - [x] Add Member Details to Profile Page
 - [x] Add Member Photos to profile page
-- [ ] Add member Chat page
-- [ ] Add loading indicators in member details page
+- [x] Add member Chat page
+- [x] Add loading indicators in member details page
 - [ ] Add custom error page
