@@ -55,6 +55,8 @@ export const signInUser = async (
       redirect: false,
     });
 
+    if (!result) return { status: "error", error: "Invalid credentials" };
+
     return { status: "success", data: "Logged In" };
   } catch (error) {
     console.log(error);
@@ -76,5 +78,5 @@ export const signOutUser = async () => {
 };
 
 export const getUserByEmail = async (email: string) => {
-  return prisma.user.findUnique({ where: { email } });
+  return await prisma.user.findUnique({ where: { email } });
 };

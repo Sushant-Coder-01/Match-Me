@@ -41,7 +41,8 @@ const UserMenu = ({ user }: Props) => {
             className="h-12 flex flex-row"
             aria-label="username"
           >
-            Signed in as {user?.name}
+            <span className="font-semibold text-gray-600">Logged In As: </span>
+            <span className="text-orange-400 font-bold">"{user?.name}"</span>
           </DropdownItem>
         </DropdownSection>
         <DropdownItem as={Link} href="/members/edit">
@@ -55,7 +56,7 @@ const UserMenu = ({ user }: Props) => {
         <DropdownItem
           color="danger"
           onClick={async () => {
-            signOut({ callbackUrl: "/login"});
+            await signOut({ callbackUrl: "/login" });
             // signOutUser();
             // router.push("/");
             // router.refresh();

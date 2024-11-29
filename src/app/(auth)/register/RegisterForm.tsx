@@ -12,9 +12,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-
   const router = useRouter();
-
 
   const {
     register,
@@ -24,8 +22,6 @@ const RegisterForm = () => {
     resolver: zodResolver(registerSchema),
     mode: "onTouched",
   });
-
-
 
   const onSubmit = handleSubmit(async (data: RegisterSchema) => {
     const result = await registerUser(data);
