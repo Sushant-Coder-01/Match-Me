@@ -6,12 +6,12 @@ const prisma = new PrismaClient();
 
 const seedMembers = async () => {
   return membersData.map(async (member) =>
-    prisma.user.create({
+    await prisma.user.create({
       data: {
         email: member.email,
         emailVerified: new Date(),
         name: member.name,
-        passwordHash: await hash("password", 10),
+        passwordHash: await hash("Password@123", 10),
         image: member.image,
         member: {
           create: {
