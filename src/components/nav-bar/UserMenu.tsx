@@ -49,9 +49,15 @@ const UserMenu = ({ user }: Props) => {
           Edit Profile
         </DropdownItem>
         <DropdownSection className="sm:hidden">
-          <DropdownItem>Matches</DropdownItem>
-          <DropdownItem>Lists</DropdownItem>
-          <DropdownItem>Messages</DropdownItem>
+          <DropdownItem as={Link} href="/members">
+            Matches
+          </DropdownItem>
+          <DropdownItem as={Link} href="/lists">
+            Lists
+          </DropdownItem>
+          <DropdownItem as={Link} href="/messages">
+            Messages
+          </DropdownItem>
         </DropdownSection>
         <DropdownItem
           color="danger"

@@ -62,9 +62,9 @@ Here's a checklist of what I've done so far:
 - [x] Update Prisma Schema by add Member & Photo Tables
 - [x] Seed data into DB
 - [x] Fetch members data & Display members list
-- [ ] Use dynamic route in NextJS
-- [ ] Add server Action to get member details
-- [ ] Use NextJS Layout Page to add member sidebar
+- [x] Use dynamic route in NextJS
+- [x] Add server Action to get member details
+- [x] Use NextJS Layout Page to add member sidebar
 - [ ] Add Member Details Profile Page
 - [ ] Add Member details profile page
 - [ ] Add member details chat page

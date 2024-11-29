@@ -15,7 +15,7 @@ const MemberDetailedPage = async ({ params }: Props) => {
 
   return (
     <div>
-      <Card>
+      <Card className="h-[80vh]">
         <CardHeader className="text-2xl font-semibold text-default">
           Profile
         </CardHeader>
