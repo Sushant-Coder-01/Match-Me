@@ -1,7 +1,27 @@
-const list = () => {
-  return (
-    <div>list</div>
-  )
-}
+import {
+  fetchCurrentUserLikeIds,
+  fetchLikedMembers,
+} from "../actions/likeActions";
+import ListsTab from "./ListsTab";
 
-export default list
+type Props = {
+  searchParams: Promise<{ type: string }>;
+};
+
+const ListsPage = async ({ searchParams }: Props) => {
+  const { type } = await searchParams;
+
+  console.log(type);
+
+  const likeIds = await fetchCurrentUserLikeIds();
+
+  const members = await fetchLikedMembers(type);
+
+  return (
+    <div>
+      <ListsTab members={members} likeIds={likeIds} />
+    </div>
+  );
+};
+
+export default ListsPage;
