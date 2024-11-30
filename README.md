@@ -82,8 +82,7 @@ Here's a checklist of what I've done so far:
 ### Step - 5 : Add Like Feature
 
 - [x] Update Prisma Schema for a `many to many relationships`
-- [ ] Server Action - Add `likeAction.ts`
-- [ ] Add `Like` toggle feature.
-- [ ] Add View `likes` feature.
-- [ ] Use useTransition hook for tabs manual loading
-- [ ] `test` like feature
+- [x] Server Action - Add `likeAction.ts`
+- [x] Add `Like` toggle feature.
+- [x] Add View `likes` feature.
+- [x] Use useTransition hook for tabs manual loading
