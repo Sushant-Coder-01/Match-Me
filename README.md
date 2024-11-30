@@ -17,12 +17,20 @@ A dating app where users can create profiles, match with others, and chat. This 
 
 ## Scripts
 
-Here are the npm scripts for building and running the app:
+Here are the `npm` scripts for building and running the app:
 
 - **`npm run dev`**: Starts the Next.js development server.
 - **`npm run build`**: Builds the app for production.
 - **`npm run start`**: Starts the production server.
 - **`npm run lint`**: Lint the code using Next.js linting.
+
+## DB Commands
+
+- **`npx prisma generate`**: This command generates the Prisma client, which allows you to interact with your database using Prisma's API.
+
+- **`npx prisma db push`**: This command pushes your Prisma schema changes to your database without creating a migration (for development environments).
+
+- **`npx prisma studio`**: This command opens Prisma Studio, a web interface for browsing and editing your database content visually.
 
 ## Steps Taken
 
@@ -46,13 +54,13 @@ Here's a checklist of what I've done so far:
 
 ### Step - 3 : Add User Authentication
 
-- [x] Install NextAuth(Auth.js) & Prisma
+- [x] Install NextAuth(`Auth.js`) & Prisma
 - [x] Setup PostgreSQL DB
 - [x] Configure Prisma
 - [x] Add NextJS server action to register new user
 - [x] Add Error Handling for Register Form using Zod
 - [x] Add Sign In user features
-- [x] Add React-toastify Alert
+- [x] Add `React-toastify` Alert
 - [x] Get user session data using auth
 - [x] Add dropdown menu to the top Navbar using NextUI
 - [x] Use NextJS Middleware to add protected routes
@@ -70,3 +78,12 @@ Here's a checklist of what I've done so far:
 - [x] Add member Chat page
 - [x] Add loading indicators in member details page
 - [x] Add custom error page
+
+### Step - 5 : Add Like Feature
+
+- [x] Update Prisma Schema for a `many to many relationships`
+- [ ] Server Action - Add `likeAction.ts`
+- [ ] Add `Like` toggle feature.
+- [ ] Add View `likes` feature.
+- [ ] Use useTransition hook for tabs manual loading
+- [ ] `test` like feature
