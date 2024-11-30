@@ -24,9 +24,9 @@ const UserMenu = ({ user }: Props) => {
     <Dropdown>
       <DropdownTrigger>
         <Avatar
-          isBordered
+          
           as="button"
-          className="transition-transform"
+          className="transition-transform w-10 h-10"
           color="default"
           name={user?.name || "user avatar"}
           size="sm"

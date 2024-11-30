@@ -21,10 +21,10 @@ const MemberCard = ({ member }: Props) => {
       <CardFooter className="flex justify-start overflow-hidden absolute bottom-0 z-10 bg-gradient-to-t from-black">
         <div className="flex flex-col text-white">
           <div className="font-semibold flex gap-2">
-            <span>{member.name}, </span>
-            <span>{calculateAge(member.dateOfBirth)}</span>
+            <span className="text-sm md:text-xl line-clamp-1">{member.name}, </span>
+            <span className="text-sm md:text-xl">{calculateAge(member.dateOfBirth)}</span>
           </div>
-          <span className="text-sm">{member.city}</span>
+          <span className="text-xs md:text-sm">{member.city}</span>
         </div>
       </CardFooter>
     </Card>
