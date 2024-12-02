@@ -94,3 +94,13 @@ Here's a checklist of what I've done so far:
 - [x] Set up `Cloudinary` on Next.js app
 - [x] Add an image upload feature using `cloudinary`
 - [x] Add `set main image + delete image` feature
+
+### Step - 7 : Add Messaging Feature
+
+- [x] Set up Prisma for messages
+- [ ] Create a chat form
+- [ ] Create the send message action
+- [ ] Get the message thread
+- [ ] Create a message DTO
+- [ ] Display the messages with message box
+- [ ] Add inbox/outbox message table
