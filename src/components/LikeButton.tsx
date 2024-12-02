@@ -20,10 +20,7 @@ const LikeButton = ({ targetId, hasLiked }: Props) => {
       onClick={toggleLike}
       className="relative hover:opacity-80 transition cursor-pointer"
     >
-      <AiOutlineHeart
-        size={28}
-        className="fill-white absolute"
-      />
+      <AiOutlineHeart size={28} className="fill-white absolute" />
       <AiFillHeart
         size={28}
         className={hasLiked ? "fill-rose-500" : "fill-neutral-500"}

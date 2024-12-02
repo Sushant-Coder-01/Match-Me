@@ -8,7 +8,6 @@ import bcrypt from "bcryptjs";
 import { LoginSchema } from "@/lib/schemas/LoginSchema";
 import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
-import { error } from "console";
 
 export const registerUser = async (
   data: RegisterSchema
@@ -75,7 +74,7 @@ export const signInUser = async (
 };
 
 export const signOutUser = async () => {
-  await signOut();
+  await signOut({redirectTo: "/login"});
 };
 
 export const getUserByEmail = async (email: string) => {

@@ -1,4 +1,3 @@
-import { signOutUser } from "@/app/actions/authActions";
 import {
   Avatar,
   Dropdown,
@@ -8,7 +7,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { Session } from "next-auth";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -17,14 +16,11 @@ type Props = {
 };
 
 const UserMenu = ({ user }: Props) => {
-  const { data: session, status, update } = useSession();
-  const router = useRouter();
 
   return (
     <Dropdown>
       <DropdownTrigger>
         <Avatar
-          
           as="button"
           className="transition-transform w-10 h-10"
           color="default"

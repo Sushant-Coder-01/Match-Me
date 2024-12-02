@@ -27,7 +27,7 @@ const RegisterForm = () => {
     const result = await registerUser(data);
 
     if (result.status === "success") {
-      console.log("User Register Successfully.");
+      console.log("User Register Successfully."); 
       router.push("/members");
     } else {
       toast.error(result.error as string);

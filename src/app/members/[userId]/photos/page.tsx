@@ -17,15 +17,10 @@ const PhotosPage = async ({ params }: Props) => {
         </CardHeader>
         <Divider />
         <CardBody>
-          <div className="grid grid-col-5 gap-3">
+          <div className="grid grid-cols-5 gap-3">
             {photos &&
               photos.map((photo) => (
-                <Image
-                  key={photo.id}
-                  src={photo.url}
-                  alt="Image of Member"
-                  className="aspect-square object-cover"
-                />
+                <Image key={photo.id} src={photo.url} alt="Image of Member" />
               ))}
           </div>
         </CardBody>

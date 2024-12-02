@@ -7,20 +7,39 @@ import {
   NavbarContent,
   NavbarMenu,
   NavbarMenuItem,
-  NavbarMenuToggle,
 } from "@nextui-org/react";
 import Link from "next/link";
 import { GiSelfLove } from "react-icons/gi";
 import NavLink from "./NavLink";
-import { useSession, signOut } from "next-auth/react"; // Use next-auth's useSession hook
-import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import UserMenu from "./UserMenu";
 import { CgMenu } from "react-icons/cg";
 import { MdCancel } from "react-icons/md";
+import { getUserInfoForNav } from "@/app/actions/userActions";
+import { useRouter } from "next/navigation";
 
 const TopNav = () => {
-  const { data: session, status } = useSession(); // Get session status and session data from next-auth
+  const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
+  const router = useRouter();
+
+  const fetchUserInfo = async () => {
+    try {
+      const data = await getUserInfoForNav();
+      router.refresh();
+      setUserInfo(data);
+    } catch (error) {
+      console.error("Error fetching user info:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (session) {
+      fetchUserInfo();
+    }
+  }, [session]);
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);
@@ -72,10 +91,10 @@ const TopNav = () => {
           </NavbarContent>
           <NavbarContent justify="end" className="hidden md:flex">
             <span className="text-white">
-              Welcome, {session.user?.name || "User"}
+              Welcome, {!userInfo ? session.user?.name || "User" : userInfo.name}
             </span>
           </NavbarContent>
-          <UserMenu user={session.user} />
+          <UserMenu user={!userInfo ? session.user : userInfo} />
         </>
       ) : (
         <>

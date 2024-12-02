@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { prisma } from "@/lib/prisma";
 import {
@@ -6,8 +6,9 @@ import {
   MemberEditSchema,
 } from "@/lib/schemas/MemberEditSchema";
 import { ActionResult } from "@/types";
-import { Member } from "@prisma/client";
+import { Member, Photo } from "@prisma/client";
 import { getAuthUserId } from "./authActions";
+import { cloudinary } from "@/lib/cloudinary";
 
 export const updateMemberProfile = async (
   data: MemberEditSchema,
@@ -51,3 +52,84 @@ export const updateMemberProfile = async (
     };
   }
 };
+
+export const addImage = async (url: string, publicId: string) => {
+  try {
+    const userId = await getAuthUserId();
+
+    return await prisma.member.update({
+      where: { userId },
+      data: {
+        photos: {
+          create: [
+            {
+              url,
+              publicId,
+            },
+          ],
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const setMainImage = async (photo: Photo) => {
+  try {
+    const userId = await getAuthUserId();
+
+    await prisma.user.update({
+      where: { id: userId },
+      data: { image: photo.url },
+    });
+
+    await prisma.member.update({
+      where: { userId },
+      data: { image: photo.url },
+    });
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const deleteImage = async (photo: Photo) => {
+  try {
+    const userId = await getAuthUserId();
+
+    if (photo.publicId) {
+      await cloudinary.v2.uploader.destroy(photo.publicId);
+    }
+
+    return await prisma.member.update({
+      where: { userId },
+      data: {
+        photos: {
+          delete: { id: photo.id },
+        },
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUserInfoForNav = async() => {
+  try {
+    const userId = await getAuthUserId();
+
+    return await prisma.user.findUnique({
+      where: {id: userId},
+      select: {
+        name: true, image: true
+      }
+    })
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+
+}

@@ -15,21 +15,15 @@ import { usePathname } from "next/navigation";
 
 type Props = {
   member: Member;
+  navLinks: { name: string; href: string }[];
 };
 
-const MemberSidebar = ({ member }: Props) => {
+const MemberSidebar = ({ member, navLinks }: Props) => {
   const pathName = usePathname();
-  const basePath = `/members/${member.userId}`;
-
-  const navLinks = [
-    { name: "Profile", href: `${basePath}` },
-    { name: "Photos", href: `${basePath}/photos` },
-    { name: "Chat", href: `${basePath}/chat` },
-  ];
 
   return (
     <div>
-      <Card className="w-full mt-10 flex flex-col items-center justify-center h-[80vh] shadow-lg">
+      <Card className="w-full md:mt-10 flex flex-col items-center justify-center h-[90vh]  md:h-[80vh] ">
         <Image
           alt="User Profile Main Image"
           src={member.image || "/images/user.png"}
@@ -47,7 +41,7 @@ const MemberSidebar = ({ member }: Props) => {
             </div>
           </div>
           <Divider className="my-4" />
-          <nav className="flex flex-col p-4 text-lg gap-y-2">
+          <nav className="flex flex-col p-4 text-lg md:gap-y-2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -64,7 +58,7 @@ const MemberSidebar = ({ member }: Props) => {
           </nav>
         </CardBody>
 
-        <CardFooter className="w-full flex justify-center mt-6">
+        <CardFooter className="w-full flex justify-center md:mt-6">
           <Button
             as={Link}
             href="/members"

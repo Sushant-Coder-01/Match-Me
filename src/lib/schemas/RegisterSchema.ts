@@ -10,7 +10,7 @@ export const registerSchema = z.object({
     .regex(/[a-z]/, { message: "Password must contain at least one lowercase letter." })
     .regex(/[0-9]/, { message: "Password must contain at least one number." })
     .regex(/[@#$!%*?&;.]/, { message: "Password must contain at least one special character." }),
-  age: z.string().regex(/^(1[89]|[2-9]\d)$/, { message: "Age must be at least 18." }), // Ensures age is a number and at least 18.
+  age: z.string().regex(/^(1[89]|[2-9]\d)$/, { message: "Age must be at least 18." }),
 });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;

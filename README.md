@@ -86,3 +86,11 @@ Here's a checklist of what I've done so far:
 - [x] Add `Like` toggle feature.
 - [x] Add View `likes` feature.
 - [x] Use useTransition hook for tabs manual loading
+
+### Step - 6 : Add Upload Image Feature
+
+- [x] Add `edit member details` feature
+- [x] Add `edit photos` feature
+- [x] Set up `Cloudinary` on Next.js app
+- [x] Add an image upload feature using `cloudinary`
+- [x] Add `set main image + delete image` feature

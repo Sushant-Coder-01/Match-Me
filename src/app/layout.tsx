@@ -10,6 +10,9 @@ import { SessionProvider } from "next-auth/react";
 export const metadata: Metadata = {
   title: "MatchMe",
   description: "A Dating App",
+  icons: {
+    icon: "/images/app_logo.svg",
+  },
 };
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
