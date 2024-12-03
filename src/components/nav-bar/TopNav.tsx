@@ -60,7 +60,7 @@ const TopNav = () => {
       }}
     >
       {/* Navbar Logo */}
-      <NavbarBrand as={Link} href={"/"}>
+      <NavbarBrand as={Link} href={ session? "/members" : "/"}>
         <GiSelfLove size={40} className="text-gray-200" />
         <div className="font-bold text-3xl mx-2">
           <span className="text-gray-200">MatchMe</span>
@@ -91,7 +91,8 @@ const TopNav = () => {
           </NavbarContent>
           <NavbarContent justify="end" className="hidden md:flex">
             <span className="text-white">
-              Welcome, {!userInfo ? session.user?.name || "User" : userInfo.name}
+              Welcome,{" "}
+              {!userInfo ? session.user?.name || "User" : userInfo.name}
             </span>
           </NavbarContent>
           <UserMenu user={!userInfo ? session.user : userInfo} />

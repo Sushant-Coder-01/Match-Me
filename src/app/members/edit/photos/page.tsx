@@ -17,13 +17,19 @@ const PhotosPage = async () => {
       <Card className="h-[80vh]">
         <CardHeader className="flex flex-row justify-between items-center">
           <div className="text-2xl font-semibold text-default-foreground">
-            Edit Profile
+            Update Photos
+          </div>
+          <div>
+            <MemberPhotoUpload />
           </div>
         </CardHeader>
         <Divider />
-        <CardBody>
-          <MemberPhotoUpload />
-          <MemberPhotos photos={photos} mainImageURL={member.image} editing={true}/>
+        <CardBody className="mt-2">
+          <MemberPhotos
+            photos={photos}
+            mainImageURL={member.image}
+            editing={true}
+          />
         </CardBody>
       </Card>
     </div>

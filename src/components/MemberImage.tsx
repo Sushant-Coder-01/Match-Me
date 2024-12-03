@@ -10,9 +10,25 @@ const MemberImage = ({ photo }: Props) => {
   return (
     <div>
       {photo?.publicId ? (
-        <CldImage alt="Image of member" src={photo?.publicId} width={200} height={200} shadow radius={10}></CldImage>
+        <div>
+          <CldImage
+            alt="Image of member"
+            width={200}
+            height={200}
+            src={photo?.publicId}
+            radius={10}
+          ></CldImage>
+        </div>
       ) : (
-        <Image alt="Image of user" width={200} height={200} src={photo?.url || "/images/user.png"} shadow="md" radius="sm" />
+        <div>
+          <Image
+            alt="Image of user"
+            width={200}
+            height={200}
+            src={photo?.url || "/images/user.png"}
+            radius="sm"
+          />
+        </div>
       )}
     </div>
   );

@@ -13,9 +13,8 @@ type Props = {
 
 export default function ImageUploadButton({ onUploadImage }: Props) {
   return (
-    <div className="flex justify-center mt-1 mb-8">
+    <div className="flex justify-center">
       <CldUploadButton
-        
         options={{ maxFiles: 1 }}
         signatureEndpoint="/api/sign-image"
         uploadPreset="matchme"
