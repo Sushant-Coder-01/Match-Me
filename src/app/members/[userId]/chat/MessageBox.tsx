@@ -64,14 +64,14 @@ const MessageBox = ({ message, currentUserId }: Props) => {
     return (
       <div
         className={clsx(
-          "flex flex-col px-2 py-1 max-w-full sm:max-w-[70%]",
+          "flex flex-col px-2 py-1 w-6/12 sm:max-w-[70%]",
           isCurrentUserSender
             ? "rounded-l-xl rounded-tr-xl text-white bg-blue-100"
             : "rounded-r-xl rounded-tl-xl border-gray-200 bg-green-100"
         )}
       >
         {renderMessageHeader()}
-        <p className="text-sm text-gray-900 py-3">{message.text}</p>
+        <p className="text-sm text-gray-900 py-3 text-start mx-2">{message.text}</p>
       </div>
     );
   };

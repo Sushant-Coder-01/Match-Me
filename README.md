@@ -103,4 +103,4 @@ Here's a checklist of what I've done so far:
 - [x] Get the message thread
 - [x] Create a message DTO
 - [x] Display the messages with message box
-- [ ] Add inbox/outbox message table
+- [x] Add inbox/outbox message table
