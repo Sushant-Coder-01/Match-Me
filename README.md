@@ -104,3 +104,21 @@ Here's a checklist of what I've done so far:
 - [x] Create a message DTO
 - [x] Display the messages with message box
 - [x] Add inbox/outbox message table
+
+### Step - 8 : Pusher Realtime Communication + `Zustand` State Management
+
+![Pusher Realtime Communication](image.png)
+
+- [ ] Set up Pusher
+- [ ] Use pusher public channel to add live chat in server action
+- [ ] Subscribe live messages in public channel
+- [ ] Add messages dateRead subscriptions in public channels
+- [ ] Set up presence channel in pusher
+- [ ] Set up `Zustand` for state management
+- [ ] Add member presence store using `Zustand`
+- [ ] Add presence channel hook to subscribe members presence
+- [ ] Add member presence indicator
+- [ ] Set up private channel in pusher to notify `realtime` messages
+- [ ] Refactor Messages Table
+- [ ] Get real time unread message count
+- [ ] Add custom toast for notifications for new likes and messages
