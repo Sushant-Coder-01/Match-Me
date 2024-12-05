@@ -52,6 +52,8 @@ Here's a checklist of what I've done so far:
 - [x] Add Zod Form Validation
 - [x] Add Register Form
 
+![login & register](public/daigrams/loginAndRegister.png)
+
 ### Step - 3 : Add User Authentication
 
 - [x] Install NextAuth(`Auth.js`) & Prisma
@@ -109,7 +111,7 @@ Here's a checklist of what I've done so far:
 
 ![Pusher Realtime Communication](image.png)
 
-- [ ] Set up Pusher
+- [x] Set up Pusher
 - [ ] Use pusher public channel to add live chat in server action
 - [ ] Subscribe live messages in public channel
 - [ ] Add messages dateRead subscriptions in public channels
