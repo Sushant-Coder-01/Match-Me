@@ -10,6 +10,7 @@ type MessageDto = {
   text: string;
   created: string;
   dateRead: string | null;
+  messageState: string;
   senderId?: string;
   senderName?: string;
   senderImage?: string | null;
@@ -24,6 +25,7 @@ type MessageWithSenderRecipient = Prisma.MessageGetPayload<{
     text: true;
     created: true;
     dateRead: true;
+    messageState: true;
     sender: {
       select: { userId; name; image };
     };

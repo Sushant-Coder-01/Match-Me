@@ -112,9 +112,9 @@ Here's a checklist of what I've done so far:
 ![Pusher Realtime Communication](image.png)
 
 - [x] Set up Pusher
-- [ ] Use pusher public channel to add live chat in server action
-- [ ] Subscribe live messages in public channel
-- [ ] Add messages dateRead subscriptions in public channels
+- [x] Use pusher public channel to add live chat in server action
+- [x] Subscribe live messages in public channel
+- [x] Add messages dateRead subscriptions in public channels
 - [ ] Set up presence channel in pusher
 - [ ] Set up `Zustand` for state management
 - [ ] Add member presence store using `Zustand`

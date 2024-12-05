@@ -35,6 +35,7 @@ const MemberCard = ({ member, likeIds }: Props) => {
           width={300}
           height={300}
           className="aspect-square object-cover scale-100 hover:scale-105 transition-transform"
+          priority
         ></Image>
       </CardBody>
 

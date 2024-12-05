@@ -1,10 +1,12 @@
 "use client";
 
+import { timeAgo } from "@/lib/util";
 import { MessageDto } from "@/types";
 import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
-import { format } from "date-fns";
 import { useEffect, useRef } from "react";
+import { IoCheckmarkDoneSharp } from "react-icons/io5";
+import { IoCheckmarkSharp } from "react-icons/io5";
 
 type Props = {
   message: MessageDto;
@@ -21,7 +23,6 @@ const MessageBox = ({ message, currentUserId }: Props) => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messageEndRef]);
 
-
   const renderAvatar = () => {
     return (
       <Avatar
@@ -33,9 +34,6 @@ const MessageBox = ({ message, currentUserId }: Props) => {
   };
 
   const renderMessageHeader = () => {
-    const shouldShowReadStatus =
-      message.dateRead && message.recipientId !== currentUserId;
-
     return (
       <div
         className={clsx(
@@ -43,35 +41,53 @@ const MessageBox = ({ message, currentUserId }: Props) => {
           isCurrentUserSender ? "justify-end" : "justify-start"
         )}
       >
-        {shouldShowReadStatus && (
-          <span className="text-xs text-black italic mx-1">
-            (Read x mins ago)
-          </span>
-        )}
         <div className="flex flex-row">
           <span className="text-sm font-semibold text-gray-900">
             {message.senderName}
           </span>
-          <span className="text-sm text-gray-500 ml-2">
-            {format(new Date(message.created), "MMM dd, yyyy | HH:mm a")}
-          </span>
+          <span className="text-sm text-gray-500 ml-2">{message.created}</span>
         </div>
       </div>
     );
   };
 
+  const renderMessageFooter = () => {
+    return (
+      <div>
+        {message.dateRead ? (
+          <span className="flex justify-end items-end gap-2 text-xs text-black italic mx-1">
+            ({timeAgo(message.dateRead)} ago){" "}
+            <IoCheckmarkDoneSharp size={15} className="text-pink-500" />
+          </span>
+        ) : (
+          <span className="flex justify-end items-end gap-2 text-xs text-black italic mx-1">
+            {message.messageState === "sent" ? (
+              <IoCheckmarkSharp size={15} />
+            ) : (
+              <IoCheckmarkDoneSharp size={15} />
+            )}
+          </span>
+        )}
+      </div>
+    );
+  };
+
   const renderMessageContent = () => {
+    const shouldShowReadStatus = message.recipientId !== currentUserId;
     return (
       <div
         className={clsx(
           "flex flex-col px-2 py-1 w-6/12 sm:max-w-[70%]",
           isCurrentUserSender
-            ? "rounded-l-xl rounded-tr-xl text-white bg-blue-100"
-            : "rounded-r-xl rounded-tl-xl border-gray-200 bg-green-100"
+            ? "rounded-l-xl rounded-tr-xl text-white bg-gradient-to-r from-pink-400/50 to-orange-300/50"
+            : "rounded-r-xl rounded-tl-xl text-gray-800 bg-pink-100 border border-pink-200"
         )}
       >
         {renderMessageHeader()}
-        <p className="text-sm text-gray-900 py-3 text-start mx-2">{message.text}</p>
+        <p className="text-sm text-gray-900 py-3 text-start mx-2">
+          {message.text}
+        </p>
+        {shouldShowReadStatus && renderMessageFooter()}
       </div>
     );
   };

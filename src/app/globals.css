@@ -2,19 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-
 ::-webkit-scrollbar {
   width: 10px; /* Width of the scrollbar */
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a; /* Track color */
+  background: #adadad; /* Track color */
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(to top, #ff7f50, #ff1493); /* Thumb color */
   border-radius: 10px; /* Rounded corners */
-  border: 2px solid #1a1a1a; /* Space between track and thumb */
+  border: 1px solid #1a1a1a; /* Space between track and thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {
