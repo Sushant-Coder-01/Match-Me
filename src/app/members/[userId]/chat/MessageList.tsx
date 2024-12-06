@@ -54,7 +54,7 @@ const MessageList = ({ initialMessages, currentUserId, chatId }: Props) => {
       chatChannel.unbind("message:delivered", handleDeliveredMessages);
       chatChannel.unbind("message:read", handleReadMessages);
     };
-  }, [chatId]);
+  }, [chatId, handleNewMessages, handleDeliveredMessages, handleReadMessages]);
 
   return (
     <div>

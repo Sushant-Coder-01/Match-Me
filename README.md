@@ -115,11 +115,11 @@ Here's a checklist of what I've done so far:
 - [x] Use pusher public channel to add live chat in server action
 - [x] Subscribe live messages in public channel
 - [x] Add messages dateRead subscriptions in public channels
-- [ ] Set up presence channel in pusher
-- [ ] Set up `Zustand` for state management
-- [ ] Add member presence store using `Zustand`
-- [ ] Add presence channel hook to subscribe members presence
-- [ ] Add member presence indicator
+- [x] Set up presence channel in pusher
+- [x] Set up `Zustand` for state management
+- [x] Add member presence store using `Zustand`
+- [x] Add presence channel hook to subscribe members presence
+- [x] Add member presence indicator
 - [ ] Set up private channel in pusher to notify `realtime` messages
 - [ ] Refactor Messages Table
 - [ ] Get real time unread message count

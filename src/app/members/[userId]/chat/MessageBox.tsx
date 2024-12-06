@@ -1,9 +1,11 @@
 "use client";
 
+import PresenceAvatar from "@/components/PresenceAvatar";
 import { timeAgo } from "@/lib/util";
 import { MessageDto } from "@/types";
 import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { IoCheckmarkSharp } from "react-icons/io5";
@@ -25,10 +27,9 @@ const MessageBox = ({ message, currentUserId }: Props) => {
 
   const renderAvatar = () => {
     return (
-      <Avatar
-        className="self-end"
-        name={message.senderName}
-        src={message.senderImage || "/images/user.png"}
+      <PresenceAvatar
+        userId={message.senderId}
+        src={message.senderImage}
       />
     );
   };
@@ -56,14 +57,13 @@ const MessageBox = ({ message, currentUserId }: Props) => {
       <div>
         {message.dateRead ? (
           <span className="flex justify-end items-end gap-2 text-xs text-black italic mx-1">
-            ({timeAgo(message.dateRead)} ago){" "}
+            (Read {timeAgo(message.dateRead)} ago){" "}
             <IoCheckmarkDoneSharp size={15} className="text-pink-500" />
           </span>
         ) : (
           <span className="flex justify-end items-end gap-2 text-xs text-black italic mx-1">
-            {message.messageState === "sent" ? (
-              <IoCheckmarkSharp size={15} />
-            ) : (
+            {message.messageState === "sent" && <IoCheckmarkSharp size={15} />}
+            {message.messageState === "delivered" && (
               <IoCheckmarkDoneSharp size={15} />
             )}
           </span>

@@ -1,5 +1,6 @@
 "use client";
 
+import PresenceDot from "@/components/PresenceDot";
 import { calculateAge } from "@/lib/util";
 import {
   Button,
@@ -24,13 +25,21 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
   return (
     <div>
       <Card className="w-full md:mt-10 flex flex-col items-center justify-center h-[90vh]  md:h-[80vh] ">
-        <Image
-          alt="User Profile Main Image"
-          src={member.image || "/images/user.png"}
-          width={200}
-          height={200}
-          className="rounded-full mt-6"
-        />
+        <div className="relative rounded-full mt-6">
+          <div>
+            <Image
+              alt="User Profile Main Image"
+              src={member.image || "/images/user.png"}
+              width={200}
+              height={200}
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <div className="absolute top-6 right-5 z-50">
+            <PresenceDot member={member} />
+          </div>
+        </div>
+
         <CardBody>
           <div className="flex flex-col items-center">
             <div className="text-2xl font-bold text-default-foreground mb-2">
@@ -41,19 +50,20 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
             </div>
           </div>
           <Divider className="my-4" />
-          <nav className="flex flex-col p-4 text-lg md:gap-y-2">
+          <nav className="flex flex-col justify-center p-4 text-lg md:gap-y-3">
             {navLinks.map((link) => (
-              <Link
+              <Button
+                as={Link}
                 key={link.name}
                 href={link.href}
-                className={`block rounded-lg px-4 py-2 transition-all ${
+                className={`flex justify-start rounded-lg px-4 py-2 text-lg  transition-all ${
                   pathName === link.href
                     ? "bg-pink-500 text-white"
-                    : "hover:bg-neutral-100 hover:text-pink-500"
+                    : "bg-white hover:bg-neutral-200 hover:text-pink-500"
                 }`}
               >
                 {link.name}
-              </Link>
+              </Button>
             ))}
           </nav>
         </CardBody>

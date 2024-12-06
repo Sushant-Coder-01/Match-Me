@@ -1,6 +1,7 @@
 "use client";
 
 import LikeButton from "@/components/LikeButton";
+import PresenceDot from "@/components/PresenceDot";
 import { calculateAge } from "@/lib/util";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { Member } from "@prisma/client";
@@ -24,8 +25,11 @@ const MemberCard = ({ member, likeIds }: Props) => {
   return (
     <Card fullWidth as={Link} href={`/members/${member.userId}`} isPressable>
       <div onClick={preventLinkAction}>
-        <div className="absolute top-3 right-3 z-50">
+        <div className="absolute top-3 right-3 z-40">
           <LikeButton targetId={member.userId} hasLiked={hasLiked} />
+        </div>
+        <div className="absolute top-3 left-3 z-40">
+          <PresenceDot member={member} />
         </div>
       </div>
       <CardBody>

@@ -49,7 +49,7 @@ const TopNav = () => {
     <Navbar
       isMenuOpen={isMenuOpen}
       maxWidth="full"
-      className="bg-gradient-to-r from-pink-400 via-red-400 to-pink-400"
+      className="bg-gradient-to-r from-pink-400 via-red-400 to-pink-400 z-50"
       classNames={{
         item: [
           "text-xl",
