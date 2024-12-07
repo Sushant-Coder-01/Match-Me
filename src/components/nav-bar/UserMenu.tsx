@@ -16,7 +16,6 @@ type Props = {
 };
 
 const UserMenu = ({ user }: Props) => {
-
   return (
     <Dropdown>
       <DropdownTrigger>
@@ -51,7 +50,7 @@ const UserMenu = ({ user }: Props) => {
           <DropdownItem as={Link} href="/lists">
             Lists
           </DropdownItem>
-          <DropdownItem as={Link} href="/messages">
+          <DropdownItem as={Link} href="/messages" className="relative">
             Messages
           </DropdownItem>
         </DropdownSection>

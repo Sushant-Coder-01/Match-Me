@@ -2,7 +2,6 @@
 
 import { MessageDto } from "@/types";
 import {
-  Button,
   Card,
   Table,
   TableBody,
@@ -11,120 +10,23 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Key, useCallback, useState } from "react";
-import { AiFillDelete } from "react-icons/ai";
-import { deleteMessage } from "../actions/messageActions";
-import { toast } from "react-toastify";
-import PresenceAvatar from "@/components/PresenceAvatar";
-import { FaChevronDown } from "react-icons/fa";
-import useMessageStore from "@/hooks/useMessageStore";
+import { Key } from "react";
+import useMessages from "@/hooks/useMessages";
+import MessageTableCell from "./MessageTableCell";
 
 type Props = {
   messages: MessageDto[];
 };
 
-const outboxColumns = [
-  { key: "recipientName", label: "Recipient" },
-  { key: "text", label: "Message" },
-  { key: "created", label: "Date Sent" },
-  { key: "actions", label: "" },
-];
-
-const inboxColumns = [
-  { key: "senderName", label: "Sender" },
-  { key: "text", label: "Message" },
-  { key: "created", label: "Date Received" },
-  { key: "actions", label: "" },
-];
-
 const MessageTable = ({ messages }: Props) => {
-  const searchParams = useSearchParams();
-  const [isDeleting, setDeleting] = useState({ id: "", loading: false });
-  const router = useRouter();
-
-  const isOutbox = searchParams.get("container") === "outbox";
-
-  const columns = isOutbox ? outboxColumns : inboxColumns;
-
-
-  const latestMessages = messages.reduce((result, message) => {
-    const key = isOutbox ? message.recipientId : message.senderId;
-    if (
-      !result[key] ||
-      new Date(message.created) > new Date(result[key].created)
-    ) {
-      result[key] = message;
-    }
-    return result;
-  }, {} as Record<string, MessageDto>);
-
-  const conversations = Object.values(latestMessages);
-
-  const handleDeleteMessage = async (message: MessageDto) => {
-    setDeleting({ id: message.id, loading: true });
-
-    try {
-      await deleteMessage(message.id, isOutbox);
-      router.refresh();
-      toast.success("Message deleted successfully!");
-    } catch (error) {
-      toast.error("Failed to delete message");
-    } finally {
-      setDeleting({ id: "", loading: false });
-    }
-  };
-
-  const handleRowSelect = (key: Key) => {
-    const message = messages.find((m) => m.id === key);
-    const url = isOutbox
-      ? `/members/${message?.recipientId}`
-      : `/members/${message?.senderId}`;
-    router.push(url + "/chat");
-  };
-
-  const renderCell = useCallback(
-    (item: MessageDto, columnKey: keyof MessageDto) => {
-      const cellValue = item[columnKey];
-      switch (columnKey) {
-        case "recipientName":
-        case "senderName":
-          return (
-            <div className="flex items-center gap-2 cursor-pointer">
-              <PresenceAvatar
-                userId={isOutbox ? item.recipientId : item.senderId}
-                src={isOutbox ? item.recipientImage : item.senderImage}
-              />
-              <span>{cellValue}</span>
-            </div>
-          );
-        case "text":
-          return (
-            <div>
-              <p className="line-clamp-1">{item.text}</p>
-            </div>
-          );
-        case "created":
-          return cellValue;
-        default:
-          return (
-            <div>
-              {/* <Button
-                onClick={() => handleDeleteMessage(item)}
-                isIconOnly
-                variant="light"
-                color="danger"
-                isLoading={isDeleting.id === item.id && isDeleting.loading}
-              >
-                <AiFillDelete size={24} className="text-danger" />
-              </Button> */}
-              <FaChevronDown size={15} />
-            </div>
-          );
-      }
-    },
-    [isOutbox]
-  );
+  const {
+    columns,
+    isOutbox,
+    isDeleting,
+    deleteMessage,
+    selectRow,
+    conversations,
+  } = useMessages(messages);
 
   return (
     <Card>
@@ -132,7 +34,7 @@ const MessageTable = ({ messages }: Props) => {
         aria-label="Table with messages"
         selectionMode="single"
         shadow="none"
-        onRowAction={(key: Key) => handleRowSelect(key)}
+        onRowAction={(key: Key) => selectRow(key)}
       >
         <TableHeader columns={columns}>
           {(column) => (
@@ -159,7 +61,13 @@ const MessageTable = ({ messages }: Props) => {
                     !item.dateRead && !isOutbox ? "font-semibold" : ""
                   }`}
                 >
-                  {renderCell(item, columnKey as keyof MessageDto)}
+                  <MessageTableCell
+                    item={item}
+                    columnKey={columnKey as string}
+                    isOutbox={isOutbox}
+                    deleteMessage={deleteMessage}
+                    isDeleting={isDeleting.loading && isDeleting.id === item.id}
+                  />
                 </TableCell>
               )}
             </TableRow>

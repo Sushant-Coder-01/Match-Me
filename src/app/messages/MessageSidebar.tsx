@@ -5,6 +5,8 @@ import { useState } from "react";
 import { MdOutlineOutbox } from "react-icons/md";
 import { GoInbox } from "react-icons/go";
 import { Button, Chip } from "@nextui-org/react";
+import useMessageStore from "@/hooks/useMessageStore";
+import { useShallow } from "zustand/react/shallow";
 
 const MessageSidebar = () => {
   const searchParams = useSearchParams();
@@ -26,6 +28,10 @@ const MessageSidebar = () => {
     router.replace(`${pathName}?${params}`);
   };
 
+  const { unreadCout } = useMessageStore(
+    useShallow((state) => ({ unreadCout: state.unreadCount }))
+  );
+
   return (
     <div className="flex flex-col space-y-2">
       {items.map(({ key, label, icon: Icon, chip }) => (
@@ -41,7 +47,7 @@ const MessageSidebar = () => {
           <Icon size={24} />
           <div className="flex justify-between flex-grow">
             <span>{label}</span>
-            {chip && <Chip color="danger">2</Chip>}
+            {chip && <Chip color="danger">{unreadCout}</Chip>}
           </div>
         </Button>
       ))}

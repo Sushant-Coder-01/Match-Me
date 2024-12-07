@@ -128,10 +128,10 @@ export const getMessageThread = async (recipientId: string) => {
       );
     }
 
-    return messages.map(
-      (message) => mapMessageToMessageDto(message),
-      readCount
-    );
+    return {
+      messages: messages.map((message) => mapMessageToMessageDto(message)),
+      readCount,
+    };
   } catch (error) {
     console.error(error);
     throw error;
@@ -202,6 +202,23 @@ export const deleteMessage = async (messageId: string, isOutbox: boolean) => {
         },
       });
     }
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const getUnreadMessageCount = async () => {
+  try {
+    const userId = await getAuthUserId();
+
+    return await prisma.message.count({
+      where: {
+        recipientId: userId,
+        dateRead: null,
+        recipientDeleted: false,
+      },
+    });
   } catch (error) {
     console.error(error);
     throw error;

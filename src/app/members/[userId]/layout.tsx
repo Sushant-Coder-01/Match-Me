@@ -13,7 +13,7 @@ const Layout = async ({ children, params }: Props) => {
   const { userId } = await params;
   const member = await getMemberByUserId(userId);
 
-  const basePath = `/members/${member.userId}`;
+  const basePath = `/members/${member?.userId}`;
 
   if (!member) return notFound();
 

@@ -26,8 +26,6 @@ const ChatForm = () => {
   const onSubmit = async (data: MessageSchema) => {
     const result = await createMessage(params.userId, data);
 
-    console.log(result);
-
     if (result.status === "error") {
       toast.error(
         "An error occurred while sending your message. Please try again."

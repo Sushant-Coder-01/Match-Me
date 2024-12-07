@@ -117,19 +117,21 @@ export const deleteImage = async (photo: Photo) => {
   }
 };
 
-export const getUserInfoForNav = async() => {
+export const getUserInfoForNav = async () => {
   try {
     const userId = await getAuthUserId();
 
+    if (!userId) return null;
+
     return await prisma.user.findUnique({
-      where: {id: userId},
+      where: { id: userId },
       select: {
-        name: true, image: true
-      }
-    })
+        name: true,
+        image: true,
+      },
+    });
   } catch (error) {
     console.error(error);
     throw error;
   }
-
-}
+};

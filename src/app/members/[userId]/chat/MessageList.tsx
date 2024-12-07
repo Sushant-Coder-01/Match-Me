@@ -2,15 +2,17 @@
 
 import { MessageDto } from "@/types";
 import MessageBox from "./MessageBox";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { formatShortDateTime } from "@/lib/util";
 import { useSession } from "next-auth/react";
 import { Member } from "@prisma/client";
 import { BsChatLeftHeart } from "react-icons/bs";
+import useMessageStore from "@/hooks/useMessageStore";
+import { useShallow } from "zustand/react/shallow";
 
 type Props = {
-  initialMessages: MessageDto[];
+  initialMessages: { messages: MessageDto[]; readCount: number };
   currentUserId: string;
   chatId: string;
   threadUser: Member;
@@ -23,7 +25,22 @@ const MessageList = ({
   threadUser,
 }: Props) => {
   const { data: session } = useSession();
-  const [messages, setMessages] = useState(initialMessages);
+  const [messages, setMessages] = useState(initialMessages.messages);
+
+  const setReadCount = useRef(false);
+
+  const { updateUnreadCount } = useMessageStore(
+    useShallow((state) => ({
+      updateUnreadCount: state.updateUnreadCount,
+    }))
+  );
+
+  useEffect(() => {
+    if (!setReadCount.current) {
+      updateUnreadCount(-initialMessages.readCount);
+      setReadCount.current = true;
+    }
+  }, [initialMessages.readCount, updateUnreadCount]);
 
   const handleNewMessages = useCallback((newMessages: MessageDto) => {
     setMessages((prevState) => [...prevState, newMessages]);
@@ -78,7 +95,9 @@ const MessageList = ({
           </h2>
           <p className="text-md text-gray-500">
             Start a conversation with{" "}
-            <span className="text-orange-500 font-bold">"{threadUser.name}"</span>{" "}
+            <span className="text-orange-500 font-bold">
+              "{threadUser.name}"
+            </span>{" "}
             and create a meaningful connection!
           </p>
         </div>
