@@ -11,6 +11,7 @@ import { getMessageThread } from "@/app/actions/messageActions";
 import { getAuthUserId } from "@/app/actions/authActions";
 import MessageList from "./MessageList";
 import { createChatId } from "@/lib/util";
+import { getMemberByUserId } from "@/app/actions/memberActions";
 
 type Props = {
   params: Promise<{ userId: string }>;
@@ -20,9 +21,8 @@ const ChatPage = async ({ params }: Props) => {
   const { userId: threadUserId } = await params;
   const messages = await getMessageThread(threadUserId);
   const currentUserId = await getAuthUserId();
-
+  const threaduser = await getMemberByUserId(threadUserId);
   const chatId = createChatId(currentUserId, threadUserId);
-
 
   return (
     <div>
@@ -36,6 +36,7 @@ const ChatPage = async ({ params }: Props) => {
             initialMessages={messages}
             currentUserId={currentUserId}
             chatId={chatId}
+            threadUser={threaduser}
           />
         </CardBody>
         <div className="p-5">

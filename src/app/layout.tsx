@@ -6,6 +6,7 @@ import TopNav from "@/components/nav-bar/TopNav";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: "MatchMe",
@@ -15,13 +16,15 @@ export const metadata: Metadata = {
   },
 };
 
-const RootLayout = ({ children }: { children: ReactNode }) => {
-  
+const RootLayout = async ({ children }: { children: ReactNode }) => {
+  const session = await auth();
+  const userId = session?.user?.id || null;
+
   return (
     <html lang="en">
       <body>
         <SessionProvider>
-          <Providers>
+          <Providers userId={userId}>
             <TopNav />
             <main className="container mx-auto">{children}</main>
             <ToastContainer

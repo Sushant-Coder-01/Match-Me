@@ -11,8 +11,6 @@ type Props = {
 const ListsPage = async ({ searchParams }: Props) => {
   const { type } = await searchParams;
 
-  console.log(type);
-
   const likeIds = await fetchCurrentUserLikeIds();
 
   const members = await fetchLikedMembers(type);

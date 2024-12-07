@@ -2,7 +2,6 @@
 
 import { MessageDto } from "@/types";
 import {
-  Avatar,
   Button,
   Card,
   Table,
@@ -17,8 +16,9 @@ import { Key, useCallback, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { deleteMessage } from "../actions/messageActions";
 import { toast } from "react-toastify";
-import { PiSpinnerGap } from "react-icons/pi";
 import PresenceAvatar from "@/components/PresenceAvatar";
+import { FaChevronDown } from "react-icons/fa";
+import useMessageStore from "@/hooks/useMessageStore";
 
 type Props = {
   messages: MessageDto[];
@@ -28,14 +28,14 @@ const outboxColumns = [
   { key: "recipientName", label: "Recipient" },
   { key: "text", label: "Message" },
   { key: "created", label: "Date Sent" },
-  { key: "actions", label: "Actions" },
+  { key: "actions", label: "" },
 ];
 
 const inboxColumns = [
   { key: "senderName", label: "Sender" },
   { key: "text", label: "Message" },
   { key: "created", label: "Date Received" },
-  { key: "actions", label: "Actions" },
+  { key: "actions", label: "" },
 ];
 
 const MessageTable = ({ messages }: Props) => {
@@ -46,6 +46,20 @@ const MessageTable = ({ messages }: Props) => {
   const isOutbox = searchParams.get("container") === "outbox";
 
   const columns = isOutbox ? outboxColumns : inboxColumns;
+
+
+  const latestMessages = messages.reduce((result, message) => {
+    const key = isOutbox ? message.recipientId : message.senderId;
+    if (
+      !result[key] ||
+      new Date(message.created) > new Date(result[key].created)
+    ) {
+      result[key] = message;
+    }
+    return result;
+  }, {} as Record<string, MessageDto>);
+
+  const conversations = Object.values(latestMessages);
 
   const handleDeleteMessage = async (message: MessageDto) => {
     setDeleting({ id: message.id, loading: true });
@@ -95,7 +109,7 @@ const MessageTable = ({ messages }: Props) => {
         default:
           return (
             <div>
-              <Button
+              {/* <Button
                 onClick={() => handleDeleteMessage(item)}
                 isIconOnly
                 variant="light"
@@ -103,7 +117,8 @@ const MessageTable = ({ messages }: Props) => {
                 isLoading={isDeleting.id === item.id && isDeleting.loading}
               >
                 <AiFillDelete size={24} className="text-danger" />
-              </Button>
+              </Button> */}
+              <FaChevronDown size={15} />
             </div>
           );
       }
@@ -130,17 +145,19 @@ const MessageTable = ({ messages }: Props) => {
           )}
         </TableHeader>
         <TableBody
-          items={messages}
+          items={conversations}
           emptyContent="No messages for this container"
         >
           {(item) => (
             <TableRow
               key={item.id}
-              className="cursor-pointer rounded-lg focus:ring-1 focus:ring-pink-300 active:bg-pink-500 transition duration-800 ease-in-out"
+              className="cursor-pointer rounded-lg space focus:ring-1 focus:ring-pink-300 active:bg-pink-500 transition duration-800 ease-in-out"
             >
               {(columnKey) => (
                 <TableCell
-                  className={!item.dateRead && !isOutbox ? "font-semibold" : ""}
+                  className={`${
+                    !item.dateRead && !isOutbox ? "font-semibold" : ""
+                  }`}
                 >
                   {renderCell(item, columnKey as keyof MessageDto)}
                 </TableCell>

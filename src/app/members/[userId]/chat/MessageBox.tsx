@@ -5,7 +5,6 @@ import { timeAgo } from "@/lib/util";
 import { MessageDto } from "@/types";
 import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
-import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { IoCheckmarkSharp } from "react-icons/io5";
@@ -27,10 +26,9 @@ const MessageBox = ({ message, currentUserId }: Props) => {
 
   const renderAvatar = () => {
     return (
-      <PresenceAvatar
-        userId={message.senderId}
-        src={message.senderImage}
-      />
+      <div className="flex flex-col items-end justify-end">
+        <PresenceAvatar userId={message.senderId} src={message.senderImage} />
+      </div>
     );
   };
 

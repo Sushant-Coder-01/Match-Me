@@ -120,7 +120,7 @@ Here's a checklist of what I've done so far:
 - [x] Add member presence store using `Zustand`
 - [x] Add presence channel hook to subscribe members presence
 - [x] Add member presence indicator
-- [ ] Set up private channel in pusher to notify `realtime` messages
+- [x] Set up private channel in pusher to notify `realtime` messages
 - [ ] Refactor Messages Table
 - [ ] Get real time unread message count
 - [ ] Add custom toast for notifications for new likes and messages

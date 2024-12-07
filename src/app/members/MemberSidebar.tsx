@@ -35,7 +35,7 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
               className="object-cover w-full h-full"
             />
           </div>
-          <div className="absolute top-6 right-5 z-50">
+          <div className="absolute top-5 right-5 z-50">
             <PresenceDot member={member} />
           </div>
         </div>

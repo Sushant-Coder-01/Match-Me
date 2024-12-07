@@ -5,14 +5,24 @@ import MessageBox from "./MessageBox";
 import { useCallback, useEffect, useState } from "react";
 import { pusherClient } from "@/lib/pusher";
 import { formatShortDateTime } from "@/lib/util";
+import { useSession } from "next-auth/react";
+import { Member } from "@prisma/client";
+import { BsChatLeftHeart } from "react-icons/bs";
 
 type Props = {
   initialMessages: MessageDto[];
   currentUserId: string;
   chatId: string;
+  threadUser: Member;
 };
 
-const MessageList = ({ initialMessages, currentUserId, chatId }: Props) => {
+const MessageList = ({
+  initialMessages,
+  currentUserId,
+  chatId,
+  threadUser,
+}: Props) => {
+  const { data: session } = useSession();
   const [messages, setMessages] = useState(initialMessages);
 
   const handleNewMessages = useCallback((newMessages: MessageDto) => {
@@ -59,7 +69,19 @@ const MessageList = ({ initialMessages, currentUserId, chatId }: Props) => {
   return (
     <div>
       {messages.length === 0 ? (
-        <div>No messages to display</div>
+        <div className="flex flex-col mt-32 space-y-2 items-center justify-center text-center text-gray-500">
+          <div>
+            <BsChatLeftHeart size={50} className="text-red-500" />
+          </div>
+          <h2 className="text-xl font-semibold text-gray-700">
+            Hi, {session?.user?.name}! <span className="text-2xl">👋</span>
+          </h2>
+          <p className="text-md text-gray-500">
+            Start a conversation with{" "}
+            <span className="text-orange-500 font-bold">"{threadUser.name}"</span>{" "}
+            and create a meaningful connection!
+          </p>
+        </div>
       ) : (
         <div>
           {messages.map((message) => (
