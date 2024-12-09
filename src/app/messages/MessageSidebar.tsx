@@ -45,7 +45,7 @@ const MessageSidebar = () => {
           onClick={() => handleSelect(key)}
         >
           <Icon size={24} />
-          <div className="flex justify-between flex-grow">
+          <div className="flex justify-between items-center flex-grow">
             <span>{label}</span>
             {chip && <Chip color="danger">{unreadCout}</Chip>}
           </div>

@@ -12,7 +12,11 @@ import useMessageStore from "@/hooks/useMessageStore";
 import { useShallow } from "zustand/react/shallow";
 
 type Props = {
-  initialMessages: { messages: MessageDto[]; readCount: number };
+  initialMessages: {
+    messages: MessageDto[];
+    readCount: number;
+    unreadMessageIds: any[];
+  };
   currentUserId: string;
   chatId: string;
   threadUser: Member;
@@ -29,11 +33,12 @@ const MessageList = ({
 
   const setReadCount = useRef(false);
 
-  const { updateUnreadCount } = useMessageStore(
-    useShallow((state) => ({
-      updateUnreadCount: state.updateUnreadCount,
-    }))
-  );
+  const { updateUnreadCount } =
+    useMessageStore(
+      useShallow((state) => ({
+        updateUnreadCount: state.updateUnreadCount,
+      }))
+    );
 
   useEffect(() => {
     if (!setReadCount.current) {
@@ -81,7 +86,7 @@ const MessageList = ({
       chatChannel.unbind("message:delivered", handleDeliveredMessages);
       chatChannel.unbind("message:read", handleReadMessages);
     };
-  }, [chatId, handleNewMessages, handleDeliveredMessages, handleReadMessages]);
+  }, [chatId]);
 
   return (
     <div>

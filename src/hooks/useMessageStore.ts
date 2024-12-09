@@ -7,7 +7,7 @@ type MessagesState = {
   unreadCount: number;
   add: (message: MessageDto) => void;
   remove: (id: string) => void;
-  set: (messages: MessageDto[]) => void;
+  setMessages: (messages: MessageDto[]) => void;
   updateUnreadCount: (amount: number) => void;
 };
 
@@ -16,13 +16,14 @@ const useMessageStore = create<MessagesState>()(
     (set) => ({
       messages: [],
       unreadCount: 0,
+      unreadSenderIds: {},
       add: (message) =>
         set((state) => ({ messages: [...state.messages, message] })),
       remove: (id) =>
         set((state) => ({
           messages: state.messages.filter((message) => message.id !== id),
         })),
-      set: (messages) => ({ messages: messages }),
+      setMessages: (messages) => set({ messages: messages }),
       updateUnreadCount: (amount) =>
         set((state) => ({ unreadCount: state.unreadCount + amount })),
     }),

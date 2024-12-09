@@ -39,7 +39,7 @@ const EditForm = ({ member }: Props) => {
         country: member.country,
       });
     }
-  }, [member, reset]);
+  }, []);
 
   const onSubmit = async (data: MemberEditSchema) => {
     const updatedName: boolean = data.name !== member.name;

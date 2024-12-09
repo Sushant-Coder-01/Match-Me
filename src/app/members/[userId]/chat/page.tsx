@@ -6,7 +6,6 @@ import {
   Divider,
 } from "@nextui-org/react";
 import ChatForm from "./ChatForm";
-import MessageBox from "./MessageBox";
 import { getMessageThread } from "@/app/actions/messageActions";
 import { getAuthUserId } from "@/app/actions/authActions";
 import MessageList from "./MessageList";
@@ -19,7 +18,7 @@ type Props = {
 
 const ChatPage = async ({ params }: Props) => {
   const { userId: threadUserId } = await params;
-  const messages = await getMessageThread(threadUserId);
+  const messageThreads = await getMessageThread(threadUserId);
   const currentUserId = await getAuthUserId();
   const threaduser = await getMemberByUserId(threadUserId);
   const chatId = createChatId(currentUserId, threadUserId);
@@ -33,7 +32,7 @@ const ChatPage = async ({ params }: Props) => {
         <Divider />
         <CardBody>
           <MessageList
-            initialMessages={messages}
+            initialMessages={messageThreads}
             currentUserId={currentUserId}
             chatId={chatId}
             threadUser={threaduser}

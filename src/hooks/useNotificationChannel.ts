@@ -14,12 +14,14 @@ export const useNotificationChannel = (userId: string | null) => {
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
-  const { add, updateUnreadCount } = useMessageStore(
-    useShallow((state) => ({
-      add: state.add,
-      updateUnreadCount: state.updateUnreadCount,
-    }))
-  );
+  const { add, updateUnreadCount, addUnreadSenderId } =
+    useMessageStore(
+      useShallow((state) => ({
+        add: state.add,
+        updateUnreadCount: state.updateUnreadCount,
+        addUnreadSenderId: state.addUnreadSenderId,
+      }))
+    );
 
   const handleNewMessage = useCallback(
     (message: MessageDto) => {
@@ -29,12 +31,14 @@ export const useNotificationChannel = (userId: string | null) => {
       ) {
         add(message);
         updateUnreadCount(1);
-      } else if (pathName !== `/messages/${message.senderId}/chat`) {
+        addUnreadSenderId(message?.senderId);
+      } else if (pathName !== `/members/${message.senderId}/chat`) {
         updateUnreadCount(1);
+        addUnreadSenderId(message.senderId);
         newMessageToast(message);
       }
     },
-    [add, updateUnreadCount, pathName, searchParams]
+    [add, updateUnreadCount, addUnreadSenderId, pathName, searchParams]
   );
 
   const handleNewLike = useCallback(
@@ -50,16 +54,16 @@ export const useNotificationChannel = (userId: string | null) => {
       channelRef.current = pusherClient.subscribe(`private-${userId}`);
 
       channelRef.current.bind("message:new", handleNewMessage);
-      channelRef.current.bind("like:new", handleNewLike)
+      channelRef.current.bind("like:new", handleNewLike);
     }
 
     return () => {
       if (channelRef.current) {
         channelRef.current.unsubscribe();
         channelRef.current.unbind("message:new", handleNewMessage);
-        channelRef.current.unbind("like:new", handleNewLike)
+        channelRef.current.unbind("like:new", handleNewLike);
         channelRef.current = null;
       }
     };
-  }, [userId, handleNewMessage]);
+  }, [userId]);
 };

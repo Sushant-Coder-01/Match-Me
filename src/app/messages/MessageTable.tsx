@@ -26,6 +26,7 @@ const MessageTable = ({ messages }: Props) => {
     deleteMessage,
     selectRow,
     conversations,
+    unreadUserCounts,
   } = useMessages(messages);
 
   return (
@@ -66,6 +67,7 @@ const MessageTable = ({ messages }: Props) => {
                     columnKey={columnKey as string}
                     isOutbox={isOutbox}
                     deleteMessage={deleteMessage}
+                    unreadUserCounts={unreadUserCounts}
                     isDeleting={isDeleting.loading && isDeleting.id === item.id}
                   />
                 </TableCell>

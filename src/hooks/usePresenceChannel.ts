@@ -75,5 +75,5 @@ export const usePresenceChannel = () => {
         channelRef.current.unbind("pusher:member_removed", handleRemoveMember);
       }
     };
-  }, [handleSetMembers, handleAddMember, handleRemoveMember]);
+  }, []);
 };

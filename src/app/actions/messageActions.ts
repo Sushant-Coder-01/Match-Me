@@ -7,6 +7,8 @@ import { prisma } from "@/lib/prisma";
 import { mapMessageToMessageDto } from "@/lib/mappings";
 import { pusherServer } from "@/lib/pusher";
 import { createChatId } from "@/lib/util";
+import useMessageStore from "@/hooks/useMessageStore";
+import { useShallow } from "zustand/react/shallow";
 
 export const createMessage = async (
   recipientUserId: string,
@@ -99,9 +101,10 @@ export const getMessageThread = async (recipientId: string) => {
     }
 
     let readCount = 0;
+    let unreadMessageIds = [];
 
     if (messages.length > 0) {
-      const unreadMessageIds = messages
+      const dbUnreadMessageIds = messages
         .filter(
           (m) =>
             m.dateRead === null &&
@@ -119,7 +122,8 @@ export const getMessageThread = async (recipientId: string) => {
         data: { dateRead: new Date() },
       });
 
-      readCount = unreadMessageIds.length;
+      readCount = dbUnreadMessageIds.length;
+      unreadMessageIds = dbUnreadMessageIds;
 
       await pusherServer.trigger(
         createChatId(userId, recipientId),
@@ -131,6 +135,7 @@ export const getMessageThread = async (recipientId: string) => {
     return {
       messages: messages.map((message) => mapMessageToMessageDto(message)),
       readCount,
+      unreadMessageIds,
     };
   } catch (error) {
     console.error(error);

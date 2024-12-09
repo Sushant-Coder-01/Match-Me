@@ -22,11 +22,14 @@ const inboxColumns = [
 ];
 
 const useMessages = (initialMessages: MessageDto[]) => {
-  const { set, remove, messages, updateUnreadCount } = useMessageStore(
+  const { setMessages, remove, updateUnreadCount } = useMessageStore(
     useShallow((state) => ({
-      set: state.set,
+      setMessages: state.setMessages,
       remove: state.remove,
       messages: state.messages,
+      unreadSenderIds: state.unreadSenderIds,
+      setUnreadSenderIds: state.setUnreadSenderIds,
+      addUnreadSenderId: state.addUnreadSenderId,
       updateUnreadCount: state.updateUnreadCount,
     }))
   );
@@ -38,26 +41,35 @@ const useMessages = (initialMessages: MessageDto[]) => {
   const isOutbox = searchParams.get("container") === "outbox";
 
   useEffect(() => {
-    set(initialMessages);
-
-    return () => set([]);
-  }, [initialMessages, set]);
+    setMessages(initialMessages);
+    return () => setMessages([]);
+  }, []);
 
   const columns = isOutbox ? outboxColumns : inboxColumns;
 
   const latestMessages = initialMessages.reduce((result, message) => {
     const key = isOutbox ? message.recipientId : message.senderId;
+
     if (
       !result[key] ||
       new Date(message.created) > new Date(result[key].created)
     ) {
       result[key] = message;
     }
+
     return result;
   }, {} as Record<string, MessageDto>);
 
   const conversations = Object.values(latestMessages);
 
+  const unreadUserCounts = initialMessages.reduce((result, message) => {
+    if (!message.dateRead) {
+      const key = isOutbox ? message.recipientId : message.senderId;
+      result[key] = (result[key] || 0) + 1;
+    }
+    return result;
+  }, {} as Record<string, number>);
+  
   const handleDeleteMessage = useCallback(
     async (message: MessageDto) => {
       setDeleting({ id: message.id, loading: true });
@@ -78,7 +90,10 @@ const useMessages = (initialMessages: MessageDto[]) => {
   );
 
   const handleRowSelect = (key: Key) => {
-    const message = messages.find((m) => m.id === key);
+    const message = conversations.find((m) => m.id === key);
+
+    if (!message) return;
+
     const url = isOutbox
       ? `/members/${message?.recipientId}`
       : `/members/${message?.senderId}`;
@@ -90,6 +105,7 @@ const useMessages = (initialMessages: MessageDto[]) => {
     columns,
     isDeleting,
     conversations,
+    unreadUserCounts,
     deleteMessage: handleDeleteMessage,
     selectRow: handleRowSelect,
   };

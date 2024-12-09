@@ -27,8 +27,6 @@ const LoginForm = () => {
   const onSubmit = handleSubmit(async (data: LoginSchema) => {
     const result = await signInUser(data);
 
-    console.log("result::: ", result);
-
     if (result.status === "success") {
       await update();
       router.push("/members");
