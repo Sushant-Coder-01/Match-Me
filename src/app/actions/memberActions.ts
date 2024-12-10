@@ -2,21 +2,69 @@
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
-import { Photo } from "@prisma/client";
+import { GetMemberParams, PaginatedResponse } from "@/types";
+import { Member, Photo } from "@prisma/client";
+import { getAuthUserId } from "./authActions";
+import { addYears } from "date-fns";
 
-export const getMembers = async () => {
-  const session = await auth();
+const getAgeRange = (ageRange: string): Date[] => {
+  const [minAge, maxAge] = ageRange.split(",");
 
-  if (!session.user) return null;
+  const currentDate = new Date();
+
+  const minDob = addYears(currentDate, -maxAge - 1);
+  const maxDob = addYears(currentDate, -minAge);
+
+  return [minDob, maxDob];
+};
+
+export const getMembers = async ({
+  ageRange = "18,100",
+  gender = "male,female",
+  orderBy = "updated",
+  pageNumber = "1",
+  pageSize = "12",
+  withPhoto = "true",
+}: GetMemberParams): Promise<PaginatedResponse<Member>> => {
+  const userId = await getAuthUserId();
+
+  const [minDob, maxDob] = getAgeRange(ageRange);
+
+  const selectedGender = gender.split(",");
+
+  const page = parseInt(pageNumber);
+  const limit = parseInt(pageSize);
+
+  const skip = (page - 1) * limit;
 
   try {
-    return await prisma.member.findMany({
+    const membersSelect = {
       where: {
+        AND: [
+          { dateOfBirth: { gte: minDob } },
+          { dateOfBirth: { lte: maxDob } },
+          { gender: { in: selectedGender } },
+          ...(withPhoto === "true" ? [{ image: { not: null } }] : []),
+        ],
         NOT: {
-          userId: session.user.id,
+          userId,
         },
       },
+    };
+
+    const count = await prisma.member.count(membersSelect);
+
+    const members = await prisma.member.findMany({
+      ...membersSelect,
+      orderBy: { [orderBy]: "desc" },
+      skip,
+      take: limit,
     });
+
+    return {
+      items: members,
+      totalCount: count,
+    };
   } catch (error) {
     console.error(error);
     throw error;
@@ -42,9 +90,9 @@ export const getMemberPhotosByUserId = async (userId: string) => {
       select: { photos: true },
     });
 
-    if(!member) return null;
+    if (!member) return null;
 
-    return member.photos.map(photo => photo) as Photo[];
+    return member.photos.map((photo) => photo) as Photo[];
   } catch (error) {
     console.error("Error fetching Member's Photos:", error);
     throw new Error("Unable to fetch Member's Photos");

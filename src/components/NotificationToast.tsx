@@ -20,11 +20,12 @@ const NotificationToast = ({ image, href, title, subtitle }: Props) => {
             height={50}
             width={50}
             alt="sender image"
+            className="border-1 border-pink-500 shadow-2xl rounded-full"
           />
         </div>
         <div className="flex flex-grow flex-col justify-center">
           <div className="font-semibold">{title}</div>
-          <div className="text-sm">{subtitle || "Click to view"}</div>
+          <div className="text-sm text-pink-500">"Click to view"</div>
         </div>
       </Link>
     </div>
@@ -36,7 +37,7 @@ export const newMessageToast = (message: MessageDto) => {
     <NotificationToast
       image={message.senderImage}
       href={`/members/${message.senderId}/chat`}
-      title={`${message.senderName} has sent you a new message`}
+      title={`${message.senderName} messaged you!`}
     />
   );
 };
@@ -50,8 +51,7 @@ export const newLikeToast = (
     <NotificationToast
       image={image}
       href={`/members/${userId}`}
-      title={`You have been liked by ${name}`}
-      subtitle="Click here to view their profile"
+      title={`${name} likes you!`}
     />
   );
 };

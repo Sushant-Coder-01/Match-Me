@@ -34,3 +34,17 @@ type MessageWithSenderRecipient = Prisma.MessageGetPayload<{
     };
   };
 }>;
+
+type GetMemberParams = {
+  ageRange?: string;
+  gender?: string;
+  orderBy?: string;
+  withPhoto?: string;
+  pageNumber?: string;
+  pageSize?: string;
+};
+
+type PaginatedResponse<T> = {
+  items: T[];
+  totalCount: number;
+};

@@ -14,14 +14,12 @@ export const useNotificationChannel = (userId: string | null) => {
   const pathName = usePathname();
   const searchParams = useSearchParams();
 
-  const { add, updateUnreadCount, addUnreadSenderId } =
-    useMessageStore(
-      useShallow((state) => ({
-        add: state.add,
-        updateUnreadCount: state.updateUnreadCount,
-        addUnreadSenderId: state.addUnreadSenderId,
-      }))
-    );
+  const { add, updateUnreadCount } = useMessageStore(
+    useShallow((state) => ({
+      add: state.add,
+      updateUnreadCount: state.updateUnreadCount,
+    }))
+  );
 
   const handleNewMessage = useCallback(
     (message: MessageDto) => {
@@ -31,14 +29,12 @@ export const useNotificationChannel = (userId: string | null) => {
       ) {
         add(message);
         updateUnreadCount(1);
-        addUnreadSenderId(message?.senderId);
       } else if (pathName !== `/members/${message.senderId}/chat`) {
         updateUnreadCount(1);
-        addUnreadSenderId(message.senderId);
         newMessageToast(message);
       }
     },
-    [add, updateUnreadCount, addUnreadSenderId, pathName, searchParams]
+    [add, updateUnreadCount, pathName, searchParams]
   );
 
   const handleNewLike = useCallback(
