@@ -130,7 +130,7 @@ Here's a checklist of what I've done so far:
 - [x] Add Sorting + Filters Component
 - [x] Add Pagination Component
 - [x] Add Member Filter Functionality
-- [ ] Member Filter Refactoring
+- [x] Member Filter Refactoring
 - [ ] Add Members offset paging functionality
 - [ ] Members offset paging refactoring + Clean ups
 - [ ] Cursor paging vs Offset paging

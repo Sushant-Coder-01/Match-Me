@@ -48,3 +48,10 @@ type PaginatedResponse<T> = {
   items: T[];
   totalCount: number;
 };
+
+type UserFilters = {
+  ageRange: number[];
+  gender: string[];
+  orderBy: string;
+  withPhoto: boolean;
+};

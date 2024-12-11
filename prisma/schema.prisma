@@ -55,7 +55,7 @@ model Member {
   targetLikes Like[] @relation("target")
   senderMessages Message[] @relation("sender")
   recipientMessages Message[] @relation("recipient")
-}
+} 
 
 model Photo {
   id       String  @id @default(cuid())

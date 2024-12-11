@@ -12,7 +12,7 @@ type Props = {
 const MembersPage = async ({ searchParams }: Props) => {
   const params = await searchParams;
   const { items: members, totalCount } = await getMembers(params);
-
+  
   const likeIds = await fetchCurrentUserLikeIds();
 
   if (members.length === 0) return <EmptyState />;

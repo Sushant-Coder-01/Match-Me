@@ -5,6 +5,7 @@ import usePresenceStore from "./usePresenceStore";
 import { Channel, Members } from "pusher-js";
 import { pusherClient } from "@/lib/pusher";
 import { useShallow } from "zustand/react/shallow";
+import { updateLastActive } from "@/app/actions/memberActions";
 
 export const usePresenceChannel = () => {
   const { set, add, remove } = usePresenceStore(
@@ -44,8 +45,9 @@ export const usePresenceChannel = () => {
 
       channelRef.current.bind(
         "pusher:subscription_succeeded",
-        (members: Members) => {
+        async (members: Members) => {
           handleSetMembers(Object.keys(members.members));
+          await updateLastActive();
         }
       );
 

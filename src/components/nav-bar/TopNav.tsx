@@ -95,7 +95,7 @@ const TopNav = () => {
             <NavbarContent justify="end" className="hidden md:flex">
               <span className="text-white">
                 Welcome,{" "}
-                {!userInfo ? session.user?.name || "User" : userInfo.name}
+                {!userInfo ? session.user?.name || "User" : userInfo?.name}
               </span>
             </NavbarContent>
             <UserMenu user={!userInfo ? session.user : userInfo} />
