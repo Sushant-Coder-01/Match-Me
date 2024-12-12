@@ -7,8 +7,6 @@ import { prisma } from "@/lib/prisma";
 import { mapMessageToMessageDto } from "@/lib/mappings";
 import { pusherServer } from "@/lib/pusher";
 import { createChatId } from "@/lib/util";
-import useMessageStore from "@/hooks/useMessageStore";
-import { useShallow } from "zustand/react/shallow";
 
 export const createMessage = async (
   recipientUserId: string,

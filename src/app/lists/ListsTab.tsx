@@ -63,10 +63,11 @@ const ListsTab = ({ members, likeIds }: Props) => {
                   <div className="flex flex-col items-center justify-center py-10">
                     <FaUserAltSlash className="text-gray-400 text-8xl" />
                     <p className="mt-4 text-xl font-semibold text-gray-700">
-                      Whoops, nobody's here!
+                      Whoops, nobody&apos;s here!
                     </p>
                     <p className="text-md text-gray-500 mt-1 flex items-center gap-2">
-                      Let's find someone cool! <BiSmile color="orange" size={25} />
+                      Let&apos;s find someone cool!{" "}
+                      <BiSmile color="orange" size={25} />
                     </p>
                     <Button
                       as={Link}

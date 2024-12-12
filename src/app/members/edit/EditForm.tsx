@@ -39,7 +39,7 @@ const EditForm = ({ member }: Props) => {
         country: member.country,
       });
     }
-  }, []);
+  }, [member, reset]);
 
   const onSubmit = async (data: MemberEditSchema) => {
     const updatedName: boolean = data.name !== member.name;
@@ -56,8 +56,6 @@ const EditForm = ({ member }: Props) => {
       toast.error("Error while updating Profile");
     }
   };
-
-
 
   return (
     <div>
@@ -109,7 +107,7 @@ const EditForm = ({ member }: Props) => {
           variant="solid"
           color="warning"
           className="flex self-end"
-          isDisabled={!isValid  || !isDirty}
+          isDisabled={!isValid || !isDirty}
           isLoading={isSubmitting}
         >
           Update profile

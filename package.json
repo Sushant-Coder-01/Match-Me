@@ -2,7 +2,8 @@
   "name": "match-me",
   "version": "1.0.0",
   "description": "I am making dating app.",
-  "main": "index.js",
+  "main": "layout.tsx",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -29,7 +30,6 @@
     "@hookform/resolvers": "^3.9.1",
     "@nextui-org/react": "^2.4.8",
     "@prisma/client": "^6.0.0",
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.1",
     "date-fns": "^4.1.0",

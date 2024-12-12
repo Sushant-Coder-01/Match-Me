@@ -26,6 +26,8 @@ const MemberLayout = ({ members, likeIds, totalCount }: Props) => {
     }))
   );
 
+  const { pageNumber, pageSize } = pagination;
+
   useEffect(() => {
     startTransition(() => {
       const searchParams = new URLSearchParams(window.location.search);
@@ -33,19 +35,20 @@ const MemberLayout = ({ members, likeIds, totalCount }: Props) => {
       console.log(searchParams);
       router.replace(`${pathname}?${searchParams}`);
     });
-  }, [router, pathname]);
+  }, [router, pathname, pageNumber]);
 
-  const handlePageChange = useCallback((page: number) => {
-    setPage(page);
-  }, []);
+  const handlePageChange = useCallback(
+    (page: number) => {
+      setPage(page);
+    },
+    [setPage]
+  );
 
   useEffect(() => {
     setPagination(totalCount);
   }, [totalCount, setPagination]);
 
   if (!members) return <MemberCardShimmer />;
-
-  const { pageNumber, pageSize } = pagination;
 
   const startIndex = (pageNumber - 1) * pageSize;
   const paginatedMembers = members.slice(startIndex, startIndex + pageSize);

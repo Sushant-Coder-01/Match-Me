@@ -9,7 +9,6 @@ import {
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 type Props = {
   user: Session["user"];
@@ -31,30 +30,37 @@ const UserMenu = ({ user }: Props) => {
       <DropdownMenu>
         <DropdownSection showDivider>
           <DropdownItem
+            key={user?.name}
             isReadOnly
             as="span"
             className="h-12 flex flex-row"
             aria-label="username"
           >
             <span className="font-semibold text-gray-600">Logged In As: </span>
-            <span className="text-orange-400 font-bold">"{user?.name}"</span>
+            <span className="text-orange-400 font-bold">&quot{user?.name}&quot</span>
           </DropdownItem>
         </DropdownSection>
-        <DropdownItem as={Link} href="/members/edit">
+        <DropdownItem key="editProfile" as={Link} href="/members/edit">
           Edit Profile
         </DropdownItem>
         <DropdownSection className="sm:hidden">
-          <DropdownItem as={Link} href="/members">
+          <DropdownItem key="matches" as={Link} href="/members">
             Matches
           </DropdownItem>
-          <DropdownItem as={Link} href="/lists">
+          <DropdownItem key="lists" as={Link} href="/lists">
             Lists
           </DropdownItem>
-          <DropdownItem as={Link} href="/messages" className="relative">
+          <DropdownItem
+            key="messages"
+            as={Link}
+            href="/messages"
+            className="relative"
+          >
             Messages
           </DropdownItem>
         </DropdownSection>
         <DropdownItem
+          key="login"
           color="danger"
           onClick={async () => {
             await signOut({ callbackUrl: "/login" });

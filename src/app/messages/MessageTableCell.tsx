@@ -1,9 +1,6 @@
 import PresenceAvatar from "@/components/PresenceAvatar";
-import useMessageStore from "@/hooks/useMessageStore";
 import { MessageDto } from "@/types";
-import { Badge } from "@nextui-org/react";
 import { FaChevronDown } from "react-icons/fa";
-import { useShallow } from "zustand/react/shallow";
 
 type Props = {
   item: MessageDto;
@@ -19,8 +16,6 @@ const MessageTableCell = ({
   columnKey,
   isOutbox,
   unreadUserCounts,
-  deleteMessage,
-  isDeleting,
 }: Props) => {
   const cellValue = item[columnKey as keyof MessageDto];
 

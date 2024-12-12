@@ -10,7 +10,7 @@ type Props = {
   onPageChange: (pageNumber: number) => void;
 };
 
-const PaginationComponent = ({ totalCount, onPageChange }: Props) => {
+const PaginationComponent = ({ totalCount }: Props) => {
   const { setPage, setPageSize, setPagination, pagination } =
     usePaginationStore(
       useShallow((state) => ({
@@ -25,7 +25,7 @@ const PaginationComponent = ({ totalCount, onPageChange }: Props) => {
 
   useEffect(() => {
     setPagination(totalCount);
-  }, [totalCount]);
+  }, [totalCount, setPagination]);
 
   const start = (pageNumber - 1) * pageSize + 1;
   const end = Math.min(pageNumber * pageSize, totalCount);

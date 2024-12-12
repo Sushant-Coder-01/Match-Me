@@ -1,7 +1,5 @@
-import PaginationComponent from "@/components/PaginationComponent";
 import { fetchCurrentUserLikeIds } from "../actions/likeActions";
 import { getMembers } from "../actions/memberActions";
-import MemberCard from "./MemberCard";
 import { GetMemberParams } from "@/types";
 import EmptyState from "@/components/EmptyState";
 import MemberLayout from "./MemberLayout";

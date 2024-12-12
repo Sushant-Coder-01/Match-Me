@@ -15,7 +15,7 @@ type Props = {
   initialMessages: {
     messages: MessageDto[];
     readCount: number;
-    unreadMessageIds: any[];
+    unreadMessageIds: unknown[];
   };
   currentUserId: string;
   chatId: string;
@@ -33,12 +33,11 @@ const MessageList = ({
 
   const setReadCount = useRef(false);
 
-  const { updateUnreadCount } =
-    useMessageStore(
-      useShallow((state) => ({
-        updateUnreadCount: state.updateUnreadCount,
-      }))
-    );
+  const { updateUnreadCount } = useMessageStore(
+    useShallow((state) => ({
+      updateUnreadCount: state.updateUnreadCount,
+    }))
+  );
 
   useEffect(() => {
     if (!setReadCount.current) {
@@ -86,7 +85,7 @@ const MessageList = ({
       chatChannel.unbind("message:delivered", handleDeliveredMessages);
       chatChannel.unbind("message:read", handleReadMessages);
     };
-  }, [chatId]);
+  }, [chatId, handleDeliveredMessages, handleNewMessages, handleReadMessages]);
 
   return (
     <div>
@@ -101,7 +100,7 @@ const MessageList = ({
           <p className="text-md text-gray-500">
             Start a conversation with{" "}
             <span className="text-orange-500 font-bold">
-              "{threadUser.name}"
+              &quot{threadUser.name}&quot
             </span>{" "}
             and create a meaningful connection!
           </p>

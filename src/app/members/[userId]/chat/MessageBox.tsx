@@ -3,7 +3,6 @@
 import PresenceAvatar from "@/components/PresenceAvatar";
 import { timeAgo } from "@/lib/util";
 import { MessageDto } from "@/types";
-import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
 import { useEffect, useRef } from "react";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";

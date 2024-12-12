@@ -35,7 +35,7 @@ const Providers = ({
       getUnreadMessageCount().then((count) => setUnreadCount(count));
       isUnreadCountSet.current = true;
     }
-  }, [userId]);
+  }, [userId, setUnreadCount]);
 
   usePresenceChannel();
   useNotificationChannel(userId);

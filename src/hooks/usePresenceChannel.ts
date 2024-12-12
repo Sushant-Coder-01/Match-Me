@@ -53,14 +53,14 @@ export const usePresenceChannel = () => {
 
       channelRef.current.bind(
         "pusher:member_added",
-        (member: Record<string, any>) => {
+        (member: Record<string, string>) => {
           handleAddMember(member.id);
         }
       );
 
       channelRef.current.bind(
         "pusher:member_removed",
-        (member: Record<string, any>) => {
+        (member: Record<string, string>) => {
           handleRemoveMember(member.id);
         }
       );
@@ -77,5 +77,5 @@ export const usePresenceChannel = () => {
         channelRef.current.unbind("pusher:member_removed", handleRemoveMember);
       }
     };
-  }, []);
+  }, [handleAddMember, handleRemoveMember, handleSetMembers]);
 };

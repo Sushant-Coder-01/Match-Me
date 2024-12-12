@@ -12,7 +12,7 @@ import Link from "next/link";
 import { GiSelfLove } from "react-icons/gi";
 import NavLink from "./NavLink";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import UserMenu from "./UserMenu";
 import { CgMenu } from "react-icons/cg";
 import { MdCancel } from "react-icons/md";
@@ -26,7 +26,7 @@ const TopNav = () => {
   const [userInfo, setUserInfo] = useState(null);
   const router = useRouter();
 
-  const fetchUserInfo = async () => {
+  const fetchUserInfo = useCallback(async () => {
     try {
       const data = await getUserInfoForNav();
       router.refresh();
@@ -34,13 +34,13 @@ const TopNav = () => {
     } catch (error) {
       console.error("Error fetching user info:", error);
     }
-  };
-
+  }, [router]);
+  
   useEffect(() => {
     if (session) {
       fetchUserInfo();
     }
-  }, [session]);
+  }, [session, fetchUserInfo]);
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);

@@ -1,10 +1,10 @@
 import "./globals.css";
+import "react-toastify/dist/ReactToastify.css";
 import { Metadata } from "next";
 import { ReactNode } from "react";
 import Providers from "@/components/Providers";
 import TopNav from "@/components/nav-bar/TopNav";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 

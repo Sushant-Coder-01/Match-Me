@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useTransition } from "react";
 import { FaFemale, FaMale } from "react-icons/fa";
 import usePaginationStore from "./usePaginationStore";
 import { useShallow } from "zustand/react/shallow";
+import { SharedSelection } from "@nextui-org/react";
 
 export const useFilters = () => {
   const pathname = usePathname();
@@ -11,7 +12,7 @@ export const useFilters = () => {
 
   const { filters, setFilters } = useFilterStore();
 
-  const { pageNumber, pageSize, setPage, totalCount } = usePaginationStore(
+  const { setPage, totalCount } = usePaginationStore(
     useShallow((state) => ({
       pageNumber: state.pagination.pageNumber,
       pageSize: state.pagination.pageSize,
@@ -28,7 +29,7 @@ export const useFilters = () => {
     if (gender || ageRange || orderBy || withPhoto) {
       setPage(1);
     }
-  }, [gender, ageRange, orderBy, withPhoto]);
+  }, [gender, ageRange, orderBy, withPhoto, setPage, pathname, router]);
 
   useEffect(() => {
     startTransition(() => {
@@ -48,9 +49,8 @@ export const useFilters = () => {
     ageRange,
     orderBy,
     withPhoto,
-    // router,
-    // pathname,
-    // pageNumber,
+    router,
+    pathname,
   ]);
 
   const orderByList = [
@@ -67,9 +67,10 @@ export const useFilters = () => {
     setFilters("ageRange", values);
   };
 
-  const handleOrderSelect = (value: Selection) => {
-    if (value instanceof Set) {
-      setFilters("orderBy", value.values().next().value);
+  const handleOrderSelect = (keys: SharedSelection) => {
+    if (keys instanceof Set) {
+      const value = keys.values().next().value;
+      setFilters("orderBy", value);
     }
   };
 

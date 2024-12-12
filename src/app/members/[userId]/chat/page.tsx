@@ -1,7 +1,6 @@
 import {
   Card,
   CardBody,
-  CardFooter,
   CardHeader,
   Divider,
 } from "@nextui-org/react";

@@ -27,9 +27,6 @@ const useMessages = (initialMessages: MessageDto[]) => {
       setMessages: state.setMessages,
       remove: state.remove,
       messages: state.messages,
-      unreadSenderIds: state.unreadSenderIds,
-      setUnreadSenderIds: state.setUnreadSenderIds,
-      addUnreadSenderId: state.addUnreadSenderId,
       updateUnreadCount: state.updateUnreadCount,
     }))
   );
@@ -43,7 +40,7 @@ const useMessages = (initialMessages: MessageDto[]) => {
   useEffect(() => {
     setMessages(initialMessages);
     return () => setMessages([]);
-  }, []);
+  }, [initialMessages, setMessages]);
 
   const columns = isOutbox ? outboxColumns : inboxColumns;
 
@@ -69,7 +66,7 @@ const useMessages = (initialMessages: MessageDto[]) => {
     }
     return result;
   }, {} as Record<string, number>);
-  
+
   const handleDeleteMessage = useCallback(
     async (message: MessageDto) => {
       setDeleting({ id: message.id, loading: true });
@@ -82,11 +79,12 @@ const useMessages = (initialMessages: MessageDto[]) => {
         toast.success("Message deleted successfully!");
       } catch (error) {
         toast.error("Failed to delete message");
+        console.error(error);
       } finally {
         setDeleting({ id: "", loading: false });
       }
     },
-    [isOutbox, remove, updateUnreadCount]
+    [isOutbox, remove, updateUnreadCount, router]
   );
 
   const handleRowSelect = (key: Key) => {

@@ -4,7 +4,6 @@ import {
   Select,
   SelectItem,
   Slider,
-  Spinner,
   Switch,
 } from "@nextui-org/react";
 
@@ -18,7 +17,6 @@ const Filters = () => {
     selectPhoto,
     filters,
     totalCount,
-    isPending,
   } = useFilters();
 
   const { ageRange, gender, orderBy, withPhoto } = filters;

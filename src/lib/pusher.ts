@@ -3,9 +3,12 @@ import PusherClient from "pusher-js";
 
 const CLUSTER = "ap2";
 
-declare global {
-  var pusherServerInstance: PusherServer | undefined;
-  var pusherClientInstance: PusherClient | undefined;
+if (typeof globalThis.pusherServerInstance === "undefined") {
+  globalThis.pusherServerInstance = undefined;
+}
+
+if (typeof globalThis.pusherClientInstance === "undefined") {
+  globalThis.pusherClientInstance = undefined;
 }
 
 if (!global.pusherServerInstance) {
@@ -33,3 +36,5 @@ if (!global.pusherClientInstance) {
 
 export const pusherServer = global.pusherServerInstance;
 export const pusherClient = global.pusherClientInstance;
+
+export {};

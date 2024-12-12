@@ -23,7 +23,7 @@ const LoginForm = () => {
   });
 
   const router = useRouter();
-  const { data: session, status, update } = useSession();
+  const { update } = useSession();
   const onSubmit = handleSubmit(async (data: LoginSchema) => {
     const result = await signInUser(data);
 

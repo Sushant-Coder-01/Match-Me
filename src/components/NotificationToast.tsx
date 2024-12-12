@@ -10,7 +10,7 @@ type Props = {
   subtitle?: string;
 };
 
-const NotificationToast = ({ image, href, title, subtitle }: Props) => {
+const NotificationToast = ({ image, href, title }: Props) => {
   return (
     <div>
       <Link href={href} className="flex items-center gap-2">
@@ -25,7 +25,7 @@ const NotificationToast = ({ image, href, title, subtitle }: Props) => {
         </div>
         <div className="flex flex-grow flex-col justify-center">
           <div className="font-semibold">{title}</div>
-          <div className="text-sm text-pink-500">"Click to view"</div>
+          <div className="text-sm text-pink-500">&quot;Click to view&quot;</div>
         </div>
       </Link>
     </div>

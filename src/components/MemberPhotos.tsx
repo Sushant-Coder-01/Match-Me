@@ -17,7 +17,7 @@ type Props = {
 };
 
 const MemberPhotos = ({ photos, mainImageURL, editing }: Props) => {
-  const { data: session, update } = useSession();
+  const { update } = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState({
     id: "",
