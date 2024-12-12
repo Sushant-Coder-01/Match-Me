@@ -131,7 +131,7 @@ Here's a checklist of what I've done so far:
 - [x] Add Pagination Component
 - [x] Add Member Filter Functionality
 - [x] Member Filter Refactoring
-- [ ] Add Members offset paging functionality
-- [ ] Members offset paging refactoring + Clean ups
+- [x] Add Members offset paging functionality
+- [x] Members offset paging refactoring + Clean ups
 - [ ] Cursor paging vs Offset paging
 - [ ] Add messages cursor paging functionality

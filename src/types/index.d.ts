@@ -55,3 +55,13 @@ type UserFilters = {
   orderBy: string;
   withPhoto: boolean;
 };
+
+type PagingParams = {
+  pageNumber: number;
+  pageSize: number;
+};
+
+type PagingResult = {
+  totalPages: number;
+  totalCount: number;
+} & PagingParams;

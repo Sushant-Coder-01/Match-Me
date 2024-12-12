@@ -1,5 +1,12 @@
 import { useFilters } from "@/hooks/useFilters";
-import { Button, Select, SelectItem, Slider, Switch } from "@nextui-org/react";
+import {
+  Button,
+  Select,
+  SelectItem,
+  Slider,
+  Spinner,
+  Switch,
+} from "@nextui-org/react";
 
 const Filters = () => {
   const {
@@ -10,6 +17,8 @@ const Filters = () => {
     selectOrder,
     selectPhoto,
     filters,
+    totalCount,
+    isPending,
   } = useFilters();
 
   const { ageRange, gender, orderBy, withPhoto } = filters;
@@ -19,8 +28,8 @@ const Filters = () => {
       <div className="shadow-md py-2">
         <div className="flex flex-row justify-around items-center">
           <div className="flex gap-2 items-center">
-            <div className="text-default font-semibold text-xl">
-              Results: totalCount
+            <div className="text-foreground font-semibold text-xl">
+              Results: {totalCount}
             </div>
           </div>
 
@@ -63,7 +72,7 @@ const Filters = () => {
               onChange={(checked) => {
                 selectPhoto(checked);
               }}
-              color="warning"
+              color="danger"
               defaultSelected={withPhoto}
               size="md"
             />
