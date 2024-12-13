@@ -28,7 +28,7 @@ const MessageList = ({
   chatId,
   threadUser,
 }: Props) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [messages, setMessages] = useState(initialMessages.messages);
 
   const setReadCount = useRef(false);
@@ -79,6 +79,13 @@ const MessageList = ({
     chatChannel.bind("message:delivered", handleDeliveredMessages);
     chatChannel.bind("message:read", handleReadMessages);
 
+    chatChannel.bind("pusher:connection_error", (err: Error) => {
+      console.error("Pusher connection error:", err);
+    });
+    chatChannel.bind("pusher:connection_disconnected", () => {
+      console.warn("Pusher connection lost");
+    });
+
     return () => {
       chatChannel.unsubscribe();
       chatChannel.unbind("message:new", handleNewMessages);
@@ -86,6 +93,10 @@ const MessageList = ({
       chatChannel.unbind("message:read", handleReadMessages);
     };
   }, [chatId, handleDeliveredMessages, handleNewMessages, handleReadMessages]);
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -100,7 +111,7 @@ const MessageList = ({
           <p className="text-md text-gray-500">
             Start a conversation with{" "}
             <span className="text-orange-500 font-bold">
-              &quot{threadUser.name}&quot
+              &quot;{threadUser.name}&quot;
             </span>{" "}
             and create a meaningful connection!
           </p>
