@@ -6,8 +6,6 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
 
-    console.log("Session:", session);
-
     if (!session?.user?.id) {
       return new Response("Unauthorised", { status: 401 });
     }

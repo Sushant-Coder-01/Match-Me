@@ -3,38 +3,36 @@ import PusherClient from "pusher-js";
 
 const CLUSTER = "ap2";
 
-if (typeof globalThis.pusherServerInstance === "undefined") {
-  globalThis.pusherServerInstance = undefined;
-}
-
-if (typeof globalThis.pusherClientInstance === "undefined") {
-  globalThis.pusherClientInstance = undefined;
-}
-
-if (!global.pusherServerInstance) {
-  global.pusherServerInstance = new PusherServer({
-    appId: process.env.PUSHER_APP_ID,
-    key: process.env.NEXT_PUBLIC_PUSHER_API_KEY,
-    secret: process.env.PUSHER_SECRET,
-    cluster: CLUSTER,
-    useTLS: true,
-  });
-}
-
-if (!global.pusherClientInstance) {
-  global.pusherClientInstance = new PusherClient(
-    process.env.NEXT_PUBLIC_PUSHER_API_KEY,
-    {
+let pusherServerInstance: PusherServer | undefined;
+if (typeof window === "undefined") {
+  if (!globalThis.pusherServerInstance) {
+    globalThis.pusherServerInstance = new PusherServer({
+      appId: process.env.PUSHER_APP_ID!,
+      key: process.env.NEXT_PUBLIC_PUSHER_API_KEY!,
+      secret: process.env.PUSHER_SECRET!,
       cluster: CLUSTER,
-      channelAuthorization: {
-        endpoint: "/api/pusher-auth",
-        transport: "ajax",
-      },
-    }
-  );
+      useTLS: true,
+    });
+  }
+  pusherServerInstance = globalThis.pusherServerInstance;
 }
 
-export const pusherServer = global.pusherServerInstance;
-export const pusherClient = global.pusherClientInstance;
+let pusherClientInstance: PusherClient | undefined;
+if (typeof window !== "undefined") {
+  if (!globalThis.pusherClientInstance) {
+    globalThis.pusherClientInstance = new PusherClient(
+      process.env.NEXT_PUBLIC_PUSHER_API_KEY!,
+      {
+        cluster: CLUSTER,
+        channelAuthorization: {
+          endpoint: "/api/pusher-auth",
+          transport: "ajax",
+        },
+      }
+    );
+  }
+  pusherClientInstance = globalThis.pusherClientInstance;
+}
 
-export {};
+export const pusherServer = pusherServerInstance;
+export const pusherClient = pusherClientInstance;
