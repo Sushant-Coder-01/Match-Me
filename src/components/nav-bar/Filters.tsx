@@ -43,7 +43,7 @@ const Filters = () => {
                 className={`${
                   gender.includes(value) ? "bg-pink-500" : "bg-gray-500"
                 }`}
-                onClick={() => selectGender(value)}
+                onPress={() => selectGender(value)}
               >
                 <Icon size={24} />
               </Button>

@@ -1,3 +1,6 @@
+"use client";
+
+import { signOutUser } from "@/app/actions/authActions";
 import {
   Avatar,
   Dropdown,
@@ -7,7 +10,6 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 
 type Props = {
@@ -37,7 +39,9 @@ const UserMenu = ({ user }: Props) => {
             aria-label="username"
           >
             <span className="font-semibold text-gray-600">Logged In As: </span>
-            <span className="text-orange-400 font-bold">&quot{user?.name}&quot</span>
+            <span className="text-orange-400 font-bold">
+              &quot;{user?.name}&quot;
+            </span>
           </DropdownItem>
         </DropdownSection>
         <DropdownItem key="editProfile" as={Link} href="/members/edit">
@@ -63,10 +67,7 @@ const UserMenu = ({ user }: Props) => {
           key="login"
           color="danger"
           onClick={async () => {
-            await signOut({ callbackUrl: "/login" });
-            // signOutUser();
-            // router.push("/");
-            // router.refresh();
+            await signOutUser();
           }}
         >
           Log out

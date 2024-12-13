@@ -1,3 +1,5 @@
+"use client";
+
 import useMessageStore from "@/hooks/useMessageStore";
 import { Badge, NavbarItem } from "@nextui-org/react";
 import Link from "next/link";

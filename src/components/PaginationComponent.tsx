@@ -7,7 +7,6 @@ import { useShallow } from "zustand/react/shallow";
 
 type Props = {
   totalCount: number;
-  onPageChange: (pageNumber: number) => void;
 };
 
 const PaginationComponent = ({ totalCount }: Props) => {

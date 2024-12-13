@@ -27,27 +27,20 @@ const RegisterForm = () => {
     const result = await registerUser(data);
 
     if (result.status === "success") {
-      console.log("User Register Successfully."); 
+      console.log("User Register Successfully.");
       router.push("/members");
     } else {
       toast.error(result.error as string);
     }
   });
   const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const [isSSR, setIsSSR] = useState(true);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsSSR(false);
+    setIsClient(true);
   }, []);
 
-  if (isSSR) {
-    return (
-      <div className="w-11/12 md:w-1/3 h-5/6 mx-auto bg-gray-300 rounded-3xl bg-gradient-to-tl from-gray-300 via-gray-200 to-gray-300 shimmer">
-        {/* design placeholder */}
-      </div>
-    );
-  }
+  if (!isClient) return null;
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);

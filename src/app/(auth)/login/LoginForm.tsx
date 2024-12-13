@@ -36,24 +36,18 @@ const LoginForm = () => {
     }
   });
 
-  const [isSSR, setIsSSR] = useState(true);
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsSSR(false);
+    setIsClient(true);
   }, []);
+
+  if (!isClient) return null;
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-
-  if (isSSR) {
-    return (
-      <div className="w-11/12 md:w-1/3 h-4/6 mx-auto bg-gray-300 rounded-3xl bg-gradient-to-tl from-gray-300 via-gray-200 to-gray-300 shimmer">
-        {/* design placeholder */}
-      </div>
-    );
-  }
 
   return (
     <Card className="w-11/12 md:w-1/3 mx-auto px-1 py-5">

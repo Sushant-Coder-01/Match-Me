@@ -42,7 +42,7 @@ const MessageSidebar = () => {
               ? "text-default-foreground font-semibold bg-pink-400"
               : "text-black hover:text-pink-500"
           } `}
-          onClick={() => handleSelect(key)}
+          onPress={() => handleSelect(key)}
         >
           <Icon size={24} />
           <div className="flex justify-between items-center flex-grow">

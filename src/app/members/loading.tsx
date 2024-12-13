@@ -1,9 +1,13 @@
-import LoadingComponent from "@/components/Loading"
+"use client";
+
+import LoadingComponent from "@/components/Loading";
 
 const Loading = () => {
   return (
-    <div><LoadingComponent/></div>
-  )
-}
+    <div>
+      <LoadingComponent />
+    </div>
+  );
+};
 
-export default Loading
+export default Loading;

@@ -12,7 +12,7 @@ export const useFilters = () => {
 
   const { filters, setFilters } = useFilterStore();
 
-  const { setPage, totalCount } = usePaginationStore(
+  const { setPage, totalCount, pageNumber, pageSize } = usePaginationStore(
     useShallow((state) => ({
       pageNumber: state.pagination.pageNumber,
       pageSize: state.pagination.pageSize,
@@ -39,18 +39,21 @@ export const useFilters = () => {
       if (ageRange) searchParams.set("ageRange", ageRange.toString());
       if (orderBy) searchParams.set("orderBy", orderBy);
       if (withPhoto) searchParams.set("withPhoto", withPhoto.toString());
-      // if (pageNumber) searchParams.set("pageNumber", pageNumber.toString());
+      if (pageSize) searchParams.set("pageSize", pageSize.toString());
+      if (pageNumber) searchParams.set("pageNumber", pageNumber.toString());
       searchParams.set("withPhoto", withPhoto.toString());
 
       router.replace(`${pathname}?${searchParams}`);
     });
   }, [
-    gender,
     ageRange,
     orderBy,
-    withPhoto,
+    gender,
     router,
     pathname,
+    withPhoto,
+    pageNumber,
+    pageSize,
   ]);
 
   const orderByList = [

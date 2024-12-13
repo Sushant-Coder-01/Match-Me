@@ -1,9 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardHeader,
-  Divider,
-} from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Divider } from "@nextui-org/react";
 import ChatForm from "./ChatForm";
 import { getMessageThread } from "@/app/actions/messageActions";
 import { getAuthUserId } from "@/app/actions/authActions";

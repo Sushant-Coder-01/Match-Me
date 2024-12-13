@@ -6,6 +6,8 @@ export async function POST(request: Request) {
   try {
     const session = await auth();
 
+    console.log("Session:", session);
+
     if (!session?.user?.id) {
       return new Response("Unauthorised", { status: 401 });
     }
@@ -13,6 +15,13 @@ export async function POST(request: Request) {
     const body = await request.formData();
     const socketId = body.get("socket_id") as string;
     const channel = body.get("channel_name") as string;
+
+    if (!socketId || !channel) {
+      return new Response("Bad Request: Missing socket_id or channel_name", {
+        status: 400,
+      });
+    }
+
     const data = {
       user_id: session.user.id,
     };
@@ -20,6 +29,7 @@ export async function POST(request: Request) {
     const authResponse = pusherServer.authorizeChannel(socketId, channel, data);
     return NextResponse.json(authResponse);
   } catch (error) {
-    console.error(error);
+    console.error("Error in pusher auth route:", error);
+    return new Response("Internal Server Error", { status: 500 });
   }
 }

@@ -65,3 +65,13 @@ type PagingResult = {
   totalPages: number;
   totalCount: number;
 } & PagingParams;
+
+type Session = {
+  user: {
+    name: string;
+    email: string;
+    image: string;
+    id: string;
+  };
+  expires: string;
+}

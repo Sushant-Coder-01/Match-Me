@@ -28,7 +28,12 @@ const Error = ({ error, reset }: Props) => {
           <div className="text-2xl">{error.message}</div>
         </CardBody>
         <CardFooter className="flex justify-center">
-          <Button onClick={() => reset()} color="secondary" variant="bordered" className="w-32" >
+          <Button
+            onPress={() => reset()}
+            color="secondary"
+            variant="bordered"
+            className="w-32"
+          >
             <span className="text-lg font-semibold">Try Again</span>
           </Button>
         </CardFooter>
