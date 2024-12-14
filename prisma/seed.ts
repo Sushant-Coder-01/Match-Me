@@ -1,23 +1,27 @@
 import { PrismaClient } from "@prisma/client";
-import { membersData } from "./membersData";
-import { hash } from "bcryptjs";
+import { membersData } from "./membersData.ts";
+import bcrypt from "bcryptjs";
+const { hash } = bcrypt;
 
 const prisma = new PrismaClient();
 
-const seedMembers = async () => {
-  return membersData.map(async (member) =>
-    await prisma.user.create({
+async function seedMembers() {
+  for (const member of membersData) {
+    const passwordHash = await hash("password", 10);
+
+    const createdUser = await prisma.user.create({
       data: {
         email: member.email,
         emailVerified: new Date(),
         name: member.name,
-        passwordHash: await hash("Password@123", 10),
+        passwordHash,
         image: member.image,
+        profileComplete: true,
         member: {
           create: {
-            dateOfBirth: new Date(member.dateOfBirth),
-            gender: member.gender,
             name: member.name,
+            gender: member.gender,
+            dateOfBirth: new Date(member.dateOfBirth),
             created: new Date(member.created),
             updated: new Date(member.lastActive),
             description: member.description,
@@ -32,13 +36,13 @@ const seedMembers = async () => {
           },
         },
       },
-    })
-  );
-};
+    });
+  }
+}
 
-const main = async () => {
+async function main() {
   await seedMembers();
-};
+}
 
 main()
   .catch((e) => {
