@@ -35,7 +35,7 @@ const TopNav = () => {
       console.error("Error fetching user info:", error);
     }
   }, [router]);
-  
+
   useEffect(() => {
     if (session) {
       fetchUserInfo();
@@ -80,8 +80,7 @@ const TopNav = () => {
               <span className="w-10 h-5 bg-gray-700"></span>
             </div>
           </div>
-        ) : // Shimmer effect for loading state
-        session ? (
+        ) : session ? (
           <>
             {/* When Logged In */}
             <NavbarContent

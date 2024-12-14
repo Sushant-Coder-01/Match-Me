@@ -1,39 +1,64 @@
 "use client";
 
 import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
-import { GiPadlock } from "react-icons/gi";
+import { RiRotateLockFill } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { registerSchema, RegisterSchema } from "@/lib/schemas/RegisterSchema";
+import { FormProvider, useForm } from "react-hook-form";
+import {
+  profileSchema,
+  registerSchema,
+  RegisterSchema,
+} from "@/lib/schemas/RegisterSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { BiSolidHide, BiSolidShow } from "react-icons/bi";
 import { registerUser } from "@/app/actions/authActions";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import UserDetailsForm from "./UserDetailsForm";
+import ProfileDetailsForm from "./ProfileDetailsForm";
+
+const stepSchemas = [registerSchema, profileSchema];
 
 const RegisterForm = () => {
   const router = useRouter();
+  const { update } = useSession();
+  const [activeStep, setActiveStep] = useState(0);
+  const currentValidationSchema = stepSchemas[activeStep];
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid, isSubmitting },
-  } = useForm<RegisterSchema>({
-    resolver: zodResolver(registerSchema),
+  const registerFormMethods = useForm<RegisterSchema>({
+    resolver: zodResolver(currentValidationSchema),
     mode: "onTouched",
   });
 
-  const onSubmit = handleSubmit(async (data: RegisterSchema) => {
-    const result = await registerUser(data);
+  const {
+    handleSubmit,
+    getValues,
+    formState: { isValid, isSubmitting },
+  } = registerFormMethods;
+
+  const onSubmit = async () => {
+    const result = await registerUser(getValues());
 
     if (result.status === "success") {
-      console.log("User Register Successfully.");
-      router.push("/members");
+      toast.success("User Register Successfully.");
+      await update();
+      router.push("/register/success");
+      router.refresh();
     } else {
       toast.error(result.error as string);
     }
-  });
-  const [passwordVisible, setPasswordVisible] = useState(false);
+  };
+
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return <UserDetailsForm />;
+      case 1:
+        return <ProfileDetailsForm />;
+      default:
+        return "Unknown step";
+    }
+  };
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -42,121 +67,54 @@ const RegisterForm = () => {
 
   if (!isClient) return null;
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+  const onNext = async () => {
+    if (activeStep === stepSchemas.length - 1) {
+      await onSubmit();
+    } else {
+      setActiveStep((prev) => prev + 1);
+    }
+  };
+
+  const onBack = async () => {
+    setActiveStep((prev) => prev - 1);
   };
 
   return (
     <div className="flex items-center justify-center mt-20 w-11/12 md:1/3">
       <Card className="w-11/12 md:w-1/3 mx-auto px-1 py-5">
-        <CardHeader className="flex flex-col items-center gap-2">
+        <CardHeader className="flex flex-col justify-center items-center gap-2">
           <div className="flex flex-row items-center gap-3">
-            <GiPadlock size={30} className="text-gray-500" />
-            <div className="text-3xl font-bold text-gray-500">Register</div>
+            <RiRotateLockFill size={32} className="text-pink-500" />
+            <div className="text-3xl font-bold text-pink-500">Register</div>
           </div>
-          <p className="text-neutral-500 font-semibold">Welcome To MatchMe!</p>
+          <p className="text-pink-400 font-semibold">Welcome To MatchMe!</p>
         </CardHeader>
         <CardBody>
-          <form onSubmit={onSubmit} autoComplete="off">
-            <div className="space-y-4 flex flex-col">
-              <div className="flex flex-col space-y-2">
-                <Input
-                  type="name"
-                  autoComplete="off"
-                  label="Full Name"
-                  name="name"
-                  variant="bordered"
-                  {...register("name", {
-                    required: "Full Name is required.",
-                    pattern: /^[A-Za-z]+ [A-Za-z]+$/i,
-                  })}
-                  isInvalid={!!errors?.name}
-                  errorMessage={errors?.name?.message as string}
-                />
-                {!errors.name && (
-                  <p className="pl-3 text-xs font-semibold text-gray-700">
-                    Start with a capital letter. (E.g. - John Doe)
-                  </p>
+          <FormProvider {...registerFormMethods}>
+            <form onSubmit={handleSubmit(onNext)} autoComplete="off">
+              <div className="space-y-6">
+                <div className="space-y-4">{getStepContent(activeStep)}</div>
+                {activeStep !== 0 && (
+                  <Button onPress={onBack} fullWidth className="font-semibold">
+                    Back
+                  </Button>
                 )}
+                <div className="space-y-6 flex flex-col">
+                  <Button
+                    type="submit"
+                    fullWidth
+                    isDisabled={!isValid}
+                    isLoading={isSubmitting}
+                    className="bg-pink-500 font-semibold"
+                  >
+                    {activeStep === stepSchemas.length - 1
+                      ? "Submit"
+                      : "Continue"}
+                  </Button>
+                </div>
               </div>
-
-              <div className="flex flex-col space-y-2">
-                <Input
-                  type="new-email"
-                  autoComplete="off"
-                  label="E-mail"
-                  name="email"
-                  variant="bordered"
-                  {...register("email")}
-                  isInvalid={!!errors?.email}
-                  errorMessage={errors?.email?.message as string}
-                />
-                {!errors.email && (
-                  <p className="pl-3 text-xs font-semibold text-gray-700">
-                    Enter a valid email. (E.g. user123@gmail.com)
-                  </p>
-                )}
-              </div>
-
-              <div className="flex flex-col space-y-2 relative">
-                <Input
-                  type={passwordVisible ? "text" : "password"}
-                  autoComplete="new-password"
-                  label="Password"
-                  name="password"
-                  variant="bordered"
-                  {...register("password")}
-                  isInvalid={!!errors?.password}
-                  errorMessage={errors?.password?.message as string}
-                />
-                {!errors.password && (
-                  <p className="pl-3 text-xs font-semibold text-gray-700">
-                    Min. 8 characters. (E.g. - Password@123)
-                  </p>
-                )}
-                <button
-                  onClick={togglePasswordVisibility}
-                  className="absolute right-5 top-3 text-gray-500"
-                  aria-label="Toggle Password Visibility"
-                >
-                  {passwordVisible ? (
-                    <span>
-                      <BiSolidShow size={20} />
-                    </span>
-                  ) : (
-                    <span>
-                      <BiSolidHide size={20} />
-                    </span>
-                  )}
-                </button>
-              </div>
-
-              <div className="flex flex-col space-y-2">
-                <Input
-                  type="number"
-                  label="Age"
-                  name="age"
-                  variant="bordered"
-                  {...register("age")}
-                  isInvalid={!!errors?.age}
-                  errorMessage={errors?.age?.message as string}
-                />
-                {!errors.age && (
-                  <p className="pl-3 text-xs font-semibold text-gray-700 w-full">
-                    Age should be above 18.
-                  </p>
-                )}
-              </div>
-
-              <Button
-                type="submit"
-                isDisabled={!isValid}
-                isLoading={isSubmitting}
-              >
-                Register
-              </Button>
-            </div>
-          </form>
+            </form>
+          </FormProvider>
         </CardBody>
       </Card>
     </div>

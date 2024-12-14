@@ -37,7 +37,7 @@ const Providers = ({
     }
   }, [userId, setUnreadCount]);
 
-  usePresenceChannel();
+  usePresenceChannel(userId);
   useNotificationChannel(userId);
   return <NextUIProvider>{children}</NextUIProvider>;
 };

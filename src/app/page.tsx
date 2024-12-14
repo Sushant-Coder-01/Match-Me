@@ -4,14 +4,14 @@ import { FcLike } from "react-icons/fc";
 import { MdChat } from "react-icons/md";
 import { TiGroup } from "react-icons/ti";
 
-const Home = () => {
-  const session = auth();
+const Home = async() => {
+  const session = await auth();
 
   if (session) redirect("/members");
 
   return (
     <div>
-      {!session ? (
+      {!session?.user ? (
         <div className="space-y-10 m-3 md:m-10">
           <section className="text-center bg-gradient-to-r from-pink-400 via-red-400 to-pink-400 text-white px-1 md:px-0 py-10 md:py-16 rounded-lg shadow-lg">
             <h1 className="text-3xl md:text-6xl font-bold mb-5">
@@ -80,7 +80,7 @@ const Home = () => {
           </section>
         </div>
       ) : (
-        <></>
+        <div></div>
       )}
     </div>
   );

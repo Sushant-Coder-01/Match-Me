@@ -1,7 +1,7 @@
 import { differenceInYears, format, formatDistance } from "date-fns";
 
 export function calculateAge(dob: Date) {
-  if (!(dob instanceof Date) || isNaN(dob.getTime())) {
+  if (!(dob instanceof Date)) {
     throw new Error("Invalid date provided.");
   }
   return differenceInYears(new Date(), dob);

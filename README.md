@@ -135,3 +135,12 @@ Here's a checklist of what I've done so far:
 - [x] Members offset paging refactoring + Clean ups
 - [ ] Cursor paging vs Offset paging
 - [ ] Add messages cursor paging functionality
+
+### Step - 10 : Add Registration Wizard, Account Verification, Password Reset
+
+- [x] Add a Register Wizard Form
+- [ ] Set up token table & reset the database
+- [ ] Add token generation function
+- [ ] Set up resend email provider
+- [ ] Add the verify email function
+- [ ] Add the forgot password functionality

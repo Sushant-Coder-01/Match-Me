@@ -23,8 +23,6 @@ const MessageTableCell = ({
 
   const count = unreadUserCounts[senderId];
 
-  console.log("unreadSenderIds: ", unreadUserCounts);
-
   switch (columnKey) {
     case "recipientName":
     case "senderName":
