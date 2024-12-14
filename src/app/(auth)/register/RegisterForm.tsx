@@ -94,23 +94,29 @@ const RegisterForm = () => {
             <form onSubmit={handleSubmit(onNext)} autoComplete="off">
               <div className="space-y-6">
                 <div className="space-y-4">{getStepContent(activeStep)}</div>
-                {activeStep !== 0 && (
-                  <Button onPress={onBack} fullWidth className="font-semibold">
-                    Back
-                  </Button>
-                )}
-                <div className="space-y-6 flex flex-col">
-                  <Button
-                    type="submit"
-                    fullWidth
-                    isDisabled={!isValid}
-                    isLoading={isSubmitting}
-                    className="bg-pink-500 font-semibold"
-                  >
-                    {activeStep === stepSchemas.length - 1
-                      ? "Submit"
-                      : "Continue"}
-                  </Button>
+                <div className="flex flex-row gap-2 items-center justify-center w-full">
+                  {activeStep !== 0 && (
+                    <Button
+                      onPress={onBack}
+                      fullWidth
+                      className="font-semibold"
+                    >
+                      Back
+                    </Button>
+                  )}
+                  <div className="w-full">
+                    <Button
+                      type="submit"
+                      fullWidth
+                      isDisabled={!isValid}
+                      isLoading={isSubmitting}
+                      className="bg-pink-500 font-semibold"
+                    >
+                      {activeStep === stepSchemas.length - 1
+                        ? "Submit"
+                        : "Continue"}
+                    </Button>
+                  </div>
                 </div>
               </div>
             </form>

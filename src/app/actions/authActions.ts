@@ -1,6 +1,10 @@
 "use server";
 
-import { registerSchema, RegisterSchema } from "@/lib/schemas/RegisterSchema";
+import {
+  combinedRegisterSchema,
+  registerSchema,
+  RegisterSchema,
+} from "@/lib/schemas/RegisterSchema";
 import { ActionResult } from "@/types";
 import { prisma } from "@/lib/prisma";
 import { User } from "@prisma/client";
@@ -13,13 +17,22 @@ export const registerUser = async (
   data: RegisterSchema
 ): Promise<ActionResult<User>> => {
   try {
-    const validated = registerSchema.safeParse(data);
+    const validated = combinedRegisterSchema.safeParse(data);
 
     if (!validated.success) {
       return { status: "error", error: validated.error.errors };
     }
 
-    const { name, email, password, age } = validated.data;
+    const {
+      name,
+      email,
+      password,
+      gender,
+      description,
+      city,
+      country,
+      dateOfBirth,
+    } = validated.data;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -34,7 +47,16 @@ export const registerUser = async (
         name: name,
         email: email,
         passwordHash: hashedPassword,
-        age: age,
+        member: {
+          create: {
+            name,
+            description,
+            city,
+            country,
+            dateOfBirth: new Date(dateOfBirth),
+            gender,
+          },
+        },
       },
     });
 
@@ -74,7 +96,7 @@ export const signInUser = async (
 };
 
 export const signOutUser = async () => {
-  await signOut({redirectTo: "/login"});
+  await signOut({ redirectTo: "/login" });
 };
 
 export const getUserByEmail = async (email: string) => {
