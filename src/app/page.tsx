@@ -11,7 +11,7 @@ const Home = async() => {
 
   return (
     <div>
-      {!session?.user ? (
+      {!session ? (
         <div className="space-y-10 m-3 md:m-10">
           <section className="text-center bg-gradient-to-r from-pink-400 via-red-400 to-pink-400 text-white px-1 md:px-0 py-10 md:py-16 rounded-lg shadow-lg">
             <h1 className="text-3xl md:text-6xl font-bold mb-5">

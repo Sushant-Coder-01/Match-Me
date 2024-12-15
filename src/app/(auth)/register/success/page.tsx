@@ -3,6 +3,7 @@
 import CardWrapper from "@/components/CardWrapper";
 import { useRouter } from "next/navigation";
 import { FaCheckCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const RegisterSuccessPage = () => {
   const router = useRouter();
@@ -10,8 +11,11 @@ const RegisterSuccessPage = () => {
     <>
       <CardWrapper
         headerText="You have successfully registered !"
-        subHeaderText="You can now login to the app"
-        action={() => router.push("/login")}
+        subHeaderText="Check your email, verify your account, and log in to get started."
+        action={() => {
+          router.push("/login");
+          toast("Verify Your E-mail Before Login");
+        }}
         actionLabel="Go to login"
         headerIcon={FaCheckCircle}
       />

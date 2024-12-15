@@ -144,8 +144,8 @@ Here's a checklist of what I've done so far:
 ### Step - 10 : Add Registration Wizard, Account Verification, Password Reset
 
 - [x] Add a Register Wizard Form
-- [ ] Set up token table & reset the database
-- [ ] Add token generation function
-- [ ] Set up resend email provider
-- [ ] Add the verify email function
-- [ ] Add the forgot password functionality
+- [x] Set up token table & reset the database
+- [x] Add token generation function
+- [x] Set up resend email provider
+- [x] Add the verify email function
+- [x] Add the forgot password functionality

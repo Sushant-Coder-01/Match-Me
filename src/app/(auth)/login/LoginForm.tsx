@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useSession } from "next-auth/react";
 import Loading from "@/app/members/loading";
+import Link from "next/link";
 
 const LoginForm = () => {
   const {
@@ -75,7 +76,6 @@ const LoginForm = () => {
                   type="email"
                   autoComplete="new-email"
                   label="E-mail"
-                  name="email"
                   variant="bordered"
                   {...register("email")}
                   isInvalid={!!errors?.email}
@@ -93,7 +93,6 @@ const LoginForm = () => {
                   type={passwordVisible ? "text" : "password"}
                   autoComplete="new-password"
                   label="Password"
-                  name="password"
                   variant="bordered"
                   {...register("password")}
                   isInvalid={!!errors?.password}
@@ -132,6 +131,16 @@ const LoginForm = () => {
             >
               Sign In
             </Button>
+
+            <div className="flex justify-center">
+              <Link
+                href="/forgot-password"
+                className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 
+                focus:px-2 focus:py-1 focus:bg-blue-200 focus:rounded-sm focus:ring-blue-500 underline transition duration-300"
+              >
+                Forgot Password?
+              </Link>
+            </div>
           </div>
         </form>
       </CardBody>
