@@ -10,7 +10,7 @@ type MessageDto = {
   text: string;
   created: string;
   dateRead: string | null;
-  messageState: string;
+  messageState: string | null;
   senderId?: string;
   senderName?: string;
   senderImage?: string | null;

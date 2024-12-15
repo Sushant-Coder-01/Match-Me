@@ -1,6 +1,6 @@
 import { deleteMessage } from "@/app/actions/messageActions";
 import { MessageDto } from "@/types";
-import { useSearchParams } from "next/navigation";
+import { notFound, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Key, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";

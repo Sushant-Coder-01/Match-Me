@@ -24,10 +24,8 @@ const UserDetailsForm = () => {
         <div className="flex flex-col space-y-2">
           <Input
             defaultValue={getValues("name")}
-            type="name"
             autoComplete="off"
             label="Full Name"
-            name="name"
             variant="bordered"
             {...register("name")}
             isInvalid={!!errors?.name}
@@ -46,7 +44,6 @@ const UserDetailsForm = () => {
             type="new-email"
             autoComplete="off"
             label="E-mail"
-            name="email"
             variant="bordered"
             {...register("email")}
             isInvalid={!!errors?.email}
@@ -65,7 +62,6 @@ const UserDetailsForm = () => {
             type={passwordVisible ? "text" : "password"}
             autoComplete="new-password"
             label="Password"
-            name="password"
             variant="bordered"
             {...register("password")}
             isInvalid={!!errors?.password}

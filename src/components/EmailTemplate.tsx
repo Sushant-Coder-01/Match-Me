@@ -40,7 +40,7 @@ export const EmailVerificationTemplate = ({
               Welcome, {userName || "New Match"}!
             </h1>
             <Text className="text-lg text-gray-600 mb-6">
-              Thank you for joining us! You're just one step away from unlocking
+              Thank you for joining us! You&apos;re just one step away from unlocking
               a world of connections. Verify your email by clicking the button
               below.
             </Text>
@@ -51,7 +51,7 @@ export const EmailVerificationTemplate = ({
               Verify Email
             </Button>
             <Text className="mt-6 text-sm text-gray-500">
-              If you didn't request this, please ignore this email. For help,
+              If you didn&apos;t request this, please ignore this email. For help,
               contact our support team.
             </Text>
           </Container>
@@ -99,7 +99,7 @@ export const EmailResetTemplate = ({ userName, resetLink }: PasswordResetProps) 
               Reset Password
             </Button>
             <Text className="mt-6 text-sm text-gray-500">
-              If you didn't request a password reset, please ignore this email.
+              If you didn&apos;t request a password reset, please ignore this email.
               For help, contact our support team.
             </Text>
           </Container>

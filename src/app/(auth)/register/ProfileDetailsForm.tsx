@@ -21,7 +21,6 @@ const ProfileDetailsForm = () => {
         // defaultSelectedKeys={"gender"}
         aria-label="Select Gender"
         variant="bordered"
-        name="gender"
         {...register("gender")}
         isInvalid={!!errors.gender}
         errorMessage={errors.gender?.message as string}
@@ -39,7 +38,6 @@ const ProfileDetailsForm = () => {
         max={format(subYears(new Date(), 18), "yyyy-MM-dd")}
         type="date"
         variant="bordered"
-        name="dateOfBirth"
         {...register("dateOfBirth")}
         isInvalid={!!errors.dateOfBirth}
         errorMessage={errors.dateOfBirth?.message as string}

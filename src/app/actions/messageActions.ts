@@ -99,7 +99,7 @@ export const getMessageThread = async (recipientId: string) => {
     }
 
     let readCount = 0;
-    let unreadMessageIds = [];
+    let unreadMessageIds: string[] = [];
 
     if (messages.length > 0) {
       const dbUnreadMessageIds = messages

@@ -66,7 +66,6 @@ const EditForm = ({ member }: Props) => {
         <Input
           label="Name"
           variant="bordered"
-          name="name"
           defaultValue={member.name}
           {...register("name")}
           isInvalid={!!errors?.name}
@@ -75,7 +74,6 @@ const EditForm = ({ member }: Props) => {
         <Textarea
           label="Description"
           variant="bordered"
-          name="description"
           {...register("description")}
           defaultValue={member.description}
           minRows={6}
@@ -87,7 +85,6 @@ const EditForm = ({ member }: Props) => {
             label="City"
             variant="bordered"
             defaultValue={member.city}
-            name="city"
             {...register("city")}
             isInvalid={!!errors?.city}
             errorMessage={errors.city?.message}
@@ -96,7 +93,6 @@ const EditForm = ({ member }: Props) => {
             label="Country"
             variant="bordered"
             defaultValue={member.country}
-            name="country"
             {...register("country")}
             isInvalid={!!errors?.country}
             errorMessage={errors.country?.message}

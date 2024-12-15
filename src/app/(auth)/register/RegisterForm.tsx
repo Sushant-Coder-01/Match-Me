@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
 import { RiRotateLockFill } from "react-icons/ri";
 import React, { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";

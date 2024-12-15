@@ -15,7 +15,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 type Props = {
-  member: Member;
+  member: Member | null | undefined;
   navLinks: { name: string; href: string }[];
 };
 
@@ -29,26 +29,26 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
           <div>
             <Image
               alt="User Profile Main Image"
-              src={member.image || "/images/user.png"}
+              src={member?.image || "/images/user.png"}
               width={200}
               height={200}
               className="object-cover w-full h-full"
             />
           </div>
-          <div className="absolute top-5 right-5 z-50">
+          {member && <div className="absolute top-5 right-5 z-50">
             <PresenceDot member={member} />
-          </div>
+          </div>}
         </div>
 
         <CardBody>
-          <div className="flex flex-col items-center">
+          {member && <div className="flex flex-col items-center">
             <div className="text-2xl font-bold text-default-foreground mb-2">
-              {member.name}, {calculateAge(member.dateOfBirth)}
+              {member?.name}, {calculateAge(member.dateOfBirth)}
             </div>
             <div className="text-sm text-neutral-600">
-              {member.city}, {member.country}
+              {member?.city}, {member?.country}
             </div>
-          </div>
+          </div>}
           <Divider className="my-4" />
           <nav className="flex flex-col justify-center p-4 text-lg md:gap-y-3">
             {navLinks.map((link) => (

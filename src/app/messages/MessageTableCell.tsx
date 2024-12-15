@@ -1,5 +1,6 @@
 import PresenceAvatar from "@/components/PresenceAvatar";
 import { MessageDto } from "@/types";
+import { notFound } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
 
 type Props = {

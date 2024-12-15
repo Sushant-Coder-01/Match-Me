@@ -19,7 +19,7 @@ type Props = {
   };
   currentUserId: string;
   chatId: string;
-  threadUser: Member;
+  threadUser: Member | null | undefined;
 };
 
 const MessageList = ({
@@ -111,7 +111,7 @@ const MessageList = ({
           <p className="text-md text-gray-500">
             Start a conversation with{" "}
             <span className="text-orange-500 font-bold">
-              &quot;{threadUser.name}&quot;
+              &quot;{threadUser?.name}&quot;
             </span>{" "}
             and create a meaningful connection!
           </p>

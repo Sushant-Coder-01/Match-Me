@@ -6,11 +6,14 @@ import {
   getMemberByUserId,
   getMemberPhotosByUserId,
 } from "@/app/actions/memberActions";
+import { notFound } from "next/navigation";
 
 const PhotosPage = async () => {
   const userId = await getAuthUserId();
   const member = await getMemberByUserId(userId);
   const photos = await getMemberPhotosByUserId(userId);
+
+  if (!member) return notFound();
 
   return (
     <div>

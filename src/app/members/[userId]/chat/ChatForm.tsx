@@ -44,7 +44,6 @@ const ChatForm = () => {
             fullWidth
             placeholder="Type a message..."
             variant="faded"
-            name="text"
             {...register("text")}
             isInvalid={!!errors.text}
             errorMessage={errors.text?.message}
