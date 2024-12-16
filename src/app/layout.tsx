@@ -19,12 +19,12 @@ export const metadata: Metadata = {
 const RootLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
   const userId = session?.user?.id || null;
-
+  const profileComplete = session?.user?.profileComplete as boolean;
   return (
     <html lang="en">
       <body>
         <SessionProvider>
-          <Providers userId={userId}>
+          <Providers userId={userId} profileComplete={profileComplete}>
             <TopNav />
             <main className="container mx-auto">{children}</main>
             <ToastContainer

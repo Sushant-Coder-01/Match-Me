@@ -149,3 +149,12 @@ Here's a checklist of what I've done so far:
 - [x] Set up resend email provider
 - [x] Add the verify email function
 - [x] Add the forgot password functionality
+
+### Step = 11 : Add OAuth Google
+
+- [x] Add OAuth social login provider in `nextjs`
+- [x] Add GitHub social login
+- [x] Get profile complete from JWT callback
+- [x] Use Typescript Module Augmentation to fix type error
+- [x] Add complete profile from for social login
+- [x] Add google provider

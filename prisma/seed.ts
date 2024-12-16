@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 async function seedMembers() {
   for (const member of membersData) {
-    const passwordHash = await hash("password", 10);
+    const passwordHash = await hash("Password@123", 10);
 
     const createdUser = await prisma.user.create({
       data: {

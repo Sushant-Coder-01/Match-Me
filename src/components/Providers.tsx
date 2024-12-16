@@ -11,9 +11,11 @@ import { useShallow } from "zustand/react/shallow";
 const Providers = ({
   children,
   userId,
+  profileComplete,
 }: {
   children: ReactNode;
   userId: string | null;
+  profileComplete: boolean;
 }) => {
   const isUnreadCountSet = useRef(false);
 
@@ -37,8 +39,8 @@ const Providers = ({
     }
   }, [userId, setUnreadCount]);
 
-  usePresenceChannel(userId);
-  useNotificationChannel(userId);
+  usePresenceChannel(userId, profileComplete);
+  useNotificationChannel(userId, profileComplete);
   return <NextUIProvider>{children}</NextUIProvider>;
 };
 

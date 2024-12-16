@@ -7,7 +7,10 @@ import { pusherClient } from "@/lib/pusher";
 import { useShallow } from "zustand/react/shallow";
 import { updateLastActive } from "@/app/actions/memberActions";
 
-export const usePresenceChannel = (userId?: string) => {
+export const usePresenceChannel = (
+  userId: string | null,
+  profileComplete: boolean
+) => {
   const { set, add, remove } = usePresenceStore(
     useShallow((state) => ({
       set: state.set,
@@ -40,7 +43,7 @@ export const usePresenceChannel = (userId?: string) => {
   );
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId || !profileComplete) return;
     if (!channelRef.current) {
       channelRef.current = pusherClient.subscribe("presence-match-me");
 

@@ -32,10 +32,10 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
               src={member?.image || "/images/user.png"}
               width={200}
               height={200}
-              className="object-cover w-full h-full"
+              className="aspect-square object-cover rounded-full"
             />
           </div>
-          {member && <div className="absolute top-5 right-5 z-50">
+          {member && <div className="absolute top-4 right-3 z-50">
             <PresenceDot member={member} />
           </div>}
         </div>
