@@ -66,7 +66,7 @@ export const useFilters = () => {
     { value: "female", icon: FaFemale },
   ];
 
-  const handleAgeSelect = (values: number[]) => {
+  const handleAgeSelect = (values: number[] | number) => {
     setFilters("ageRange", values);
   };
 

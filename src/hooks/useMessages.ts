@@ -1,6 +1,6 @@
 import { deleteMessage } from "@/app/actions/messageActions";
 import { MessageDto } from "@/types";
-import { notFound, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { Key, useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -44,28 +44,43 @@ const useMessages = (initialMessages: MessageDto[]) => {
 
   const columns = isOutbox ? outboxColumns : inboxColumns;
 
-  const latestMessages = initialMessages.reduce((result, message) => {
-    const key = isOutbox ? message.recipientId : message.senderId;
+  const latestMessages = initialMessages.reduce(
+    (result, message) => {
+      const key = isOutbox ? message.recipientId : message.senderId;
 
-    if (
-      !result[key] ||
-      new Date(message.created) > new Date(result[key].created)
-    ) {
-      result[key] = message;
-    }
+      if (!key) {
+        throw new Error("Key is undefined!");
+      }
 
-    return result;
-  }, {} as Record<string, MessageDto>);
+      if (
+        !result[key] ||
+        new Date(message.created) > new Date(result[key].created)
+      ) {
+        result[key] = message;
+      }
+
+      return result;
+    },
+    {} as Record<string, MessageDto>
+  );
 
   const conversations = Object.values(latestMessages);
 
-  const unreadUserCounts = initialMessages.reduce((result, message) => {
-    if (!message.dateRead) {
-      const key = isOutbox ? message.recipientId : message.senderId;
-      result[key] = (result[key] || 0) + 1;
-    }
-    return result;
-  }, {} as Record<string, number>);
+  const unreadUserCounts = initialMessages.reduce(
+    (result, message) => {
+      if (!message.dateRead) {
+        const key = isOutbox ? message.recipientId : message.senderId;
+        if (!key) {
+          throw new Error("Key is undefined!");
+        }
+        result[key] = (result[key] || 0) + 1;
+      }
+      return result;
+    },
+    {} as Record<string, number>
+  );
+
+  console.log("unreadUserCounts: ", unreadUserCounts);
 
   const handleDeleteMessage = useCallback(
     async (message: MessageDto) => {

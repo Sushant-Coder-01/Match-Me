@@ -8,13 +8,16 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 type Props = {
-  user: Session["user"];
+  user: {
+    name?: string | null;
+    image?: string | null;
+    profileComplete?: boolean;
+  };
 };
 
 const UserMenu = ({ user }: Props) => {
@@ -34,7 +37,7 @@ const UserMenu = ({ user }: Props) => {
       <DropdownMenu>
         <DropdownSection showDivider>
           <DropdownItem
-            key={user?.name}
+            key="name"
             isReadOnly
             as="span"
             className="h-12 flex flex-row"

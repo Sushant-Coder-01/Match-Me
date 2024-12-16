@@ -81,5 +81,5 @@ export const usePresenceChannel = (
         channelRef.current.unbind("pusher:member_removed", handleRemoveMember);
       }
     };
-  }, [handleAddMember, handleRemoveMember, handleSetMembers, userId]);
+  }, [handleAddMember, handleRemoveMember, handleSetMembers, userId, profileComplete]);
 };

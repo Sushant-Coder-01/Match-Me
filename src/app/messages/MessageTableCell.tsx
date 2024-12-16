@@ -1,13 +1,12 @@
 import PresenceAvatar from "@/components/PresenceAvatar";
 import { MessageDto } from "@/types";
-import { notFound } from "next/navigation";
 import { FaChevronDown } from "react-icons/fa";
 
 type Props = {
   item: MessageDto;
   columnKey: string;
   isOutbox: boolean;
-  unreadUserCounts: object;
+  unreadUserCounts: Record<string, number>;
   deleteMessage: (message: MessageDto) => void;
   isDeleting: boolean;
 };
@@ -21,6 +20,10 @@ const MessageTableCell = ({
   const cellValue = item[columnKey as keyof MessageDto];
 
   const senderId = isOutbox ? item.recipientId : item.senderId;
+
+  if (!senderId) {
+    throw new Error("Sender ID is undefined");
+  }
 
   const count = unreadUserCounts[senderId];
 

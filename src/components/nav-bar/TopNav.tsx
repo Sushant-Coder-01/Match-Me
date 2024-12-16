@@ -20,10 +20,15 @@ import { getUserInfoForNav } from "@/app/actions/userActions";
 import { useRouter } from "next/navigation";
 import FiltersWrapper from "./FiltersWrapper";
 
+type Data = {
+  image: string | null;
+  name: string | null;
+} | null;
+
 const TopNav = () => {
   const { data: session, status } = useSession();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState<Data>(null);
   const router = useRouter();
 
   const fetchUserInfo = useCallback(async () => {
