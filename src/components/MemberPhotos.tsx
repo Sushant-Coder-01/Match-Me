@@ -12,8 +12,8 @@ import { useSession } from "next-auth/react";
 
 type Props = {
   photos: Photo[] | null;
-  mainImageURL: string | null;
-  editing: boolean;
+  mainImageURL?: string | null;
+  editing?: boolean;
 };
 
 const MemberPhotos = ({ photos, mainImageURL, editing }: Props) => {
@@ -30,11 +30,16 @@ const MemberPhotos = ({ photos, mainImageURL, editing }: Props) => {
 
     setLoading({ id: photo.id, type: "main", isLoading: true });
 
-    await setMainImage(photo);
-    router.refresh();
-    await update();
-    toast.success("Profile picture updated successfully!");
-    setLoading({ id: "", type: "", isLoading: false });
+    try {
+      await setMainImage(photo);
+      router.refresh();
+      await update();
+      toast.success("Profile picture updated successfully!");
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading({ id: "", type: "", isLoading: false });
+    }
   };
 
   const onDelete = async (photo: Photo) => {

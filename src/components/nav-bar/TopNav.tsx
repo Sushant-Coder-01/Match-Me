@@ -92,9 +92,15 @@ const TopNav = () => {
               justify="center"
               className="hidden md:flex md:space-x-10"
             >
-              <NavLink href="/members" label="Matches" />
-              <NavLink href="/lists" label="Lists" />
-              <NavLink href="/messages" label="Messages" />
+              {session.user.role === "ADMIN" ? (
+                <NavLink href="/admin/moderation" label="Photo Moderation" />
+              ) : (
+                <>
+                  <NavLink href="/members" label="Matches" />
+                  <NavLink href="/lists" label="Lists" />
+                  <NavLink href="/messages" label="Messages" />
+                </>
+              )}
             </NavbarContent>
             <NavbarContent justify="end" className="hidden md:flex">
               <span className="text-white">

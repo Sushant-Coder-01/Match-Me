@@ -114,7 +114,7 @@ Here's a checklist of what I've done so far:
 
 ### Step - 8 : Pusher Realtime Communication + `Zustand` State Management
 
-![Pusher Realtime Communication](image.png)
+![Pusher Realtime Communication](\public\daigrams\pusherRealtimeCommunication.png)
 
 - [x] Set up Pusher
 - [x] Use pusher public channel to add live chat in server action
@@ -161,7 +161,8 @@ Here's a checklist of what I've done so far:
 
 ### Step - 12 : Add Role Access Feature
 
-- [ ] Add user role in database
-- [ ] Add user role to the session data
-- [ ] Render admin content
-- [ ] Add the photo moderation functionality
+- [x] Add user role in database
+- [x] Add user role to the session data
+- [x] Render admin content
+- [x] Add the photo moderation functionality
+- [ ] Add real-time update in photo moderation functionality
