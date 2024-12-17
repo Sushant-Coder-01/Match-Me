@@ -35,8 +35,12 @@ const MemberPhotos = ({ photos, mainImageURL, editing }: Props) => {
       router.refresh();
       await update();
       toast.success("Profile picture updated successfully!");
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     } finally {
       setLoading({ id: "", type: "", isLoading: false });
     }

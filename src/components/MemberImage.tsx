@@ -22,8 +22,12 @@ const MemberImage = ({ photo }: Props) => {
     try {
       await approvePhoto(photoId);
       router.refresh();
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
@@ -31,8 +35,12 @@ const MemberImage = ({ photo }: Props) => {
     try {
       await rejectPhoto(photo);
       router.refresh();
-    } catch (error: any) {
-      toast.error(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unknown error occurred");
+      }
     }
   };
 
