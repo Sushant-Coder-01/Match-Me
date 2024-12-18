@@ -23,6 +23,8 @@ export const useFilters = () => {
 
   const { gender, ageRange, orderBy, withPhoto } = filters;
 
+  if (!ageRange) throw new Error("Missing ageRange");
+
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {

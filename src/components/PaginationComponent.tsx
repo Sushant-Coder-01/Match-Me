@@ -31,7 +31,7 @@ const PaginationComponent = ({ totalCount }: Props) => {
   const resultText = `Showing ${start}-${end} of ${totalCount} results`;
 
   return (
-    <div className="border-t-2 w-full mt-5">
+    <div className="hidden md:block md:border-t-2 md:w-full md:mt-5">
       <div className="flex flex-row justify-between items-center py-5">
         <div>{resultText}</div>
         <Pagination

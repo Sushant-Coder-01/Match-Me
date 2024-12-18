@@ -40,10 +40,10 @@ const MessageBox = ({ message, currentUserId }: Props) => {
         )}
       >
         <div className="flex flex-row">
-          <span className="text-sm font-semibold text-gray-900">
+          <span className="text-xs md:text-sm font-semibold text-gray-900">
             {message.senderName}
           </span>
-          <span className="text-sm text-gray-500 ml-2">{message.created}</span>
+          <span className="text-xs md:text-sm text-gray-500 ml-2">{message.created}</span>
         </div>
       </div>
     );
@@ -74,7 +74,7 @@ const MessageBox = ({ message, currentUserId }: Props) => {
     return (
       <div
         className={clsx(
-          "flex flex-col px-2 py-1 w-6/12 sm:max-w-[70%]",
+          "flex flex-col px-2 py-1 w-9/12 md:w-6/12",
           isCurrentUserSender
             ? "rounded-l-xl rounded-tr-xl text-white bg-gradient-to-r from-pink-400/50 to-orange-300/50"
             : "rounded-r-xl rounded-tl-xl text-gray-800 bg-pink-100 border border-pink-200"

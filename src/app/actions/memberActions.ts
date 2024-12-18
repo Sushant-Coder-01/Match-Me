@@ -7,7 +7,7 @@ import { getAuthUserId } from "./authActions";
 import { addYears } from "date-fns";
 
 const getAgeRange = (ageRange: string): Date[] => {
-  const [minAge, maxAge] = ageRange.split(",");
+  const [minAge, maxAge] = ageRange.split(",").map(Number);
 
   const currentDate = new Date();
 

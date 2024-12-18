@@ -54,6 +54,7 @@ type UserFilters = {
   gender: string[];
   orderBy: string;
   withPhoto: boolean;
+  isOpen: boolean;
 };
 
 type PagingParams = {
@@ -74,4 +75,4 @@ type Session = {
     id: string;
   };
   expires: string;
-}
+};
