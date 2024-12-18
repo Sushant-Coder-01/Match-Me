@@ -36,7 +36,7 @@ const LoginForm = () => {
 
     if (result.status === "success") {
       await update();
-      router.push("/members");
+      router.push("/");
       router.refresh();
     } else {
       setLoading(false);

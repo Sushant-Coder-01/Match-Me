@@ -68,7 +68,7 @@ const TopNav = () => {
         }}
       >
         {/* Navbar Logo */}
-        <NavbarBrand as={Link} href={session ? "/members" : "/"}>
+        <NavbarBrand as={Link} href={"/"}>
           <GiSelfLove size={40} className="text-gray-200" />
           <div className="font-bold text-3xl mx-2">
             <span className="text-gray-200">MatchMe</span>
