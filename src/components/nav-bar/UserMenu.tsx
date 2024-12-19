@@ -32,7 +32,7 @@ const UserMenu = ({ user }: Props) => {
           color="default"
           name={user?.name || "user avatar"}
           size="sm"
-          src={USER_DEFAULT_IMAGE}
+          src={user?.image || USER_DEFAULT_IMAGE}
         />
       </DropdownTrigger>
       <DropdownMenu>
