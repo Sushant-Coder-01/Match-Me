@@ -71,7 +71,7 @@ const MemberImage = ({ photo }: Props) => {
         </div>
       )}
       {!photo?.isApproved && !isAdmin && (
-        <div className="absolute rounded-b-2xl bottom-3 w-full bg-gray-200/80 p-2">
+        <div className="absolute top-2/3 w-full bg-gray-200/80 p-2">
           <div className="flex justify-center text-danger font-semibold">
             Awaiting approval
           </div>

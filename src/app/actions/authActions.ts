@@ -49,6 +49,7 @@ export const registerUser = async (
         name: name,
         email: email,
         passwordHash: hashedPassword,
+        profileComplete: true,
         member: {
           create: {
             name,
