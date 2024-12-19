@@ -1,3 +1,4 @@
+import { APP_LOGO } from "@/lib/constant";
 import {
   Html,
   Head,
@@ -26,10 +27,7 @@ export const EmailVerificationTemplate = ({
           <Container className="max-w-lg mx-auto bg-pink-100 bg-gra p-8 rounded-lg shadow-lg text-center">
             <div className="mb-6">
               <Img
-                src={
-                  process.env.APP_LOGO_CLOUDINARY_IMAGE_URL +
-                  "w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734249191/Screenshot_2024-12-01_000515_na8zpv.png"
-                }
+                src={APP_LOGO}
                 alt="App Logo"
                 width={100}
                 height={100}
@@ -40,9 +38,9 @@ export const EmailVerificationTemplate = ({
               Welcome, {userName || "New Match"}!
             </h1>
             <Text className="text-lg text-gray-600 mb-6">
-              Thank you for joining us! You&apos;re just one step away from unlocking
-              a world of connections. Verify your email by clicking the button
-              below.
+              Thank you for joining us! You&apos;re just one step away from
+              unlocking a world of connections. Verify your email by clicking
+              the button below.
             </Text>
             <Button
               href={verificationLink}
@@ -51,8 +49,8 @@ export const EmailVerificationTemplate = ({
               Verify Email
             </Button>
             <Text className="mt-6 text-sm text-gray-500">
-              If you didn&apos;t request this, please ignore this email. For help,
-              contact our support team.
+              If you didn&apos;t request this, please ignore this email. For
+              help, contact our support team.
             </Text>
           </Container>
         </Body>
@@ -63,10 +61,13 @@ export const EmailVerificationTemplate = ({
 
 type PasswordResetProps = {
   userName: string | null | undefined;
-  resetLink: string
-}
+  resetLink: string;
+};
 
-export const EmailResetTemplate = ({ userName, resetLink }: PasswordResetProps) => {
+export const EmailResetTemplate = ({
+  userName,
+  resetLink,
+}: PasswordResetProps) => {
   return (
     <Html>
       <Head />
@@ -75,10 +76,7 @@ export const EmailResetTemplate = ({ userName, resetLink }: PasswordResetProps) 
           <Container className="max-w-lg mx-auto bg-pink-100 p-8 rounded-lg shadow-lg text-center">
             <div className="mb-6">
               <Img
-                src={
-                  process.env.APP_LOGO_CLOUDINARY_IMAGE_URL +
-                  "w_1000,c_fill,ar_1:1,g_auto,r_max,bo_5px_solid_red,b_rgb:262c35/v1734249191/Screenshot_2024-12-01_000515_na8zpv.png"
-                }
+                src={APP_LOGO}
                 alt="App Logo"
                 width={100}
                 height={100}
@@ -99,8 +97,8 @@ export const EmailResetTemplate = ({ userName, resetLink }: PasswordResetProps) 
               Reset Password
             </Button>
             <Text className="mt-6 text-sm text-gray-500">
-              If you didn&apos;t request a password reset, please ignore this email.
-              For help, contact our support team.
+              If you didn&apos;t request a password reset, please ignore this
+              email. For help, contact our support team.
             </Text>
           </Container>
         </Body>

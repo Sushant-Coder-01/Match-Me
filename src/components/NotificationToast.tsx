@@ -1,3 +1,4 @@
+import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import { MessageDto } from "@/types";
 import { Image } from "@nextui-org/react";
 import Link from "next/link";
@@ -16,7 +17,7 @@ const NotificationToast = ({ image, href, title }: Props) => {
       <Link href={href} className="flex items-center gap-2">
         <div className="mr-2">
           <Image
-            src={image || "images/user.png"}
+            src={image || USER_DEFAULT_IMAGE}
             height={50}
             width={50}
             alt="sender image"

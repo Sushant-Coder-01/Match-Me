@@ -28,7 +28,7 @@ const CardWrapper = ({
   footer,
 }: Props) => {
   return (
-    <div className="flex items-center justify-center mt-5 w-full h-[80vh] mx-auto">
+    <div className="flex items-center justify-center my-5 w-full h-auto mx-auto">
       <Card className="w-11/12 md:w-2/5 mx-auto p-5">
         <CardHeader className="flex flex-col items-center justify-center z-20">
           <div className="flex flex-col gap-3 items-center text-center">

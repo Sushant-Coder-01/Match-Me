@@ -2,6 +2,7 @@
 
 import LikeButton from "@/components/LikeButton";
 import PresenceDot from "@/components/PresenceDot";
+import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import { calculateAge } from "@/lib/util";
 import { Card, CardBody, CardFooter } from "@nextui-org/react";
 import { Member } from "@prisma/client";
@@ -35,7 +36,7 @@ const MemberCard = ({ member, likeIds }: Props) => {
       <CardBody>
         <Image
           alt={member.name}
-          src={member.image || "/images/user.png"}
+          src={member.image || USER_DEFAULT_IMAGE}
           width={300}
           height={300}
           className="aspect-square object-cover scale-100 hover:scale-105 transition-transform rounded-full p-2"

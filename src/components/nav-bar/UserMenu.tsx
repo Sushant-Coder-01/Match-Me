@@ -1,5 +1,6 @@
 "use client";
 
+import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import {
   Avatar,
   Dropdown,
@@ -31,7 +32,7 @@ const UserMenu = ({ user }: Props) => {
           color="default"
           name={user?.name || "user avatar"}
           size="sm"
-          src={user?.image || "/images/user.png"}
+          src={USER_DEFAULT_IMAGE}
         />
       </DropdownTrigger>
       <DropdownMenu>

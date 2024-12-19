@@ -1,6 +1,7 @@
 "use client";
 
 import usePresenceStore from "@/hooks/usePresenceStore";
+import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import { Avatar, Badge } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
 import { useShallow } from "zustand/react/shallow";
@@ -31,10 +32,10 @@ const PresenceAvatar = ({ userId, src }: Props) => {
           size="sm"
           className="animate-pulse"
         >
-          <Avatar src={src || "/images/user.png"} alt="user avatar" />
+          <Avatar src={src || USER_DEFAULT_IMAGE} alt="user avatar" />
         </Badge>
       ) : (
-        <Avatar src={src || "/images/user.png"} alt="user avatar" />
+        <Avatar src={src || USER_DEFAULT_IMAGE} alt="user avatar" />
       )}
     </div>
   );

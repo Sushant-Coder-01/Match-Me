@@ -1,6 +1,7 @@
 "use client";
 
 import PresenceDot from "@/components/PresenceDot";
+import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import { calculateAge } from "@/lib/util";
 import {
   Button,
@@ -37,7 +38,7 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
             <div>
               <Image
                 alt="User Profile Main Image"
-                src={member?.image || "/images/user.png"}
+                src={member?.image || USER_DEFAULT_IMAGE}
                 width={200}
                 height={200}
                 className="aspect-square object-cover rounded-full"
@@ -118,7 +119,7 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
               <div>
                 <Image
                   alt="User Profile Main Image"
-                  src={member?.image || "/images/user.png"}
+                  src={member?.image || USER_DEFAULT_IMAGE}
                   width={200}
                   height={200}
                   className="aspect-square object-cover rounded-full"

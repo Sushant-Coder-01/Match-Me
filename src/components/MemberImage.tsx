@@ -1,5 +1,6 @@
 import { approvePhoto, rejectPhoto } from "@/app/actions/adminActions";
 import { useRole } from "@/hooks/useRole";
+import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import { Button, Image } from "@nextui-org/react";
 import { Photo } from "@prisma/client";
 import { CldImage } from "next-cloudinary";
@@ -64,7 +65,7 @@ const MemberImage = ({ photo }: Props) => {
             alt="Image of user"
             width={200}
             height={200}
-            src={photo?.url || "/images/user.png"}
+            src={photo?.url || USER_DEFAULT_IMAGE}
             radius="sm"
           />
         </div>
