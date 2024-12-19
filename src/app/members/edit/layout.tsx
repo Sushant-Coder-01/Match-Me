@@ -24,12 +24,12 @@ const layout = async ({ children }: Props) => {
   ];
 
   return (
-    <div className="grid grid-cols-12 gap-5">
-      <div className="col-span-3">
+    <div className="md:grid md:grid-cols-12 md:gap-5">
+      <div className="md:col-span-3">
         <MemberSidebar member={member} navLinks={navLinks} />
       </div>
-      <div className="col-span-9">
-        <Card className="w-full mt-10">{children}</Card>
+      <div className="md:col-span-9">
+        <Card className="md:w-full md:mt-10">{children}</Card>
       </div>
     </div>
   );

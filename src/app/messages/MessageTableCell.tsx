@@ -36,7 +36,7 @@ const MessageTableCell = ({
             userId={isOutbox ? item.recipientId : item.senderId}
             src={isOutbox ? item.recipientImage : item.senderImage}
           />
-          <span>{cellValue}</span>
+          <span className="line-clamp-1">{cellValue}</span>
         </div>
       );
     case "text":
@@ -44,14 +44,14 @@ const MessageTableCell = ({
         <div className="flex flex-row">
           <p className="line-clamp-1">{item.text}</p>
           {count !== 0 && !isOutbox && (
-            <div className="bg-danger rounded-full w-5 absolute right-0 text-center">
+            <div className="bg-danger rounded-full w-5 absolute -right-28 md:right-0 text-center">
               <span className="text-white">{count}</span>
             </div>
           )}
         </div>
       );
     case "created":
-      return cellValue;
+      return <div className="line-clamp-1">{cellValue}</div>;
     default:
       return (
         <div>

@@ -1,3 +1,5 @@
+"use client";
+
 import usePresenceStore from "@/hooks/usePresenceStore";
 import { Avatar, Badge } from "@nextui-org/react";
 import { useSession } from "next-auth/react";
@@ -27,6 +29,7 @@ const PresenceAvatar = ({ userId, src }: Props) => {
           color="success"
           content=""
           size="sm"
+          className="animate-pulse"
         >
           <Avatar src={src || "/images/user.png"} alt="user avatar" />
         </Badge>

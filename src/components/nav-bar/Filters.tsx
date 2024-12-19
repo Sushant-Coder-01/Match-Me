@@ -9,7 +9,7 @@ import {
   Switch,
 } from "@nextui-org/react";
 import { useState } from "react";
-import { FiFilter } from "react-icons/fi"; // React Icons
+import { FiFilter } from "react-icons/fi";
 
 const Filters = () => {
   const {

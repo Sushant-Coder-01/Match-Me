@@ -1,3 +1,5 @@
+"use client"
+
 import usePresenceStore from "@/hooks/usePresenceStore";
 import { Member } from "@prisma/client";
 import { GoDot, GoDotFill } from "react-icons/go";
@@ -18,7 +20,7 @@ const PresenceDot = ({ member }: Props) => {
 
   return (
     <div>
-      <GoDot size={28} className="fill-white absolute"/>
+      <GoDot size={28} className="fill-white absolute" />
       <GoDotFill size={28} className="fill-green-500 animate-pulse" />
     </div>
   );

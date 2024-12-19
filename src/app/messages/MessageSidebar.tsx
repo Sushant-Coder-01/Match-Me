@@ -33,7 +33,7 @@ const MessageSidebar = () => {
   );
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="mx-2 space-x-5 md:space-x-0 md:mx-0 flex flex-row md:flex md:flex-col md:space-y-2">
       {items.map(({ key, label, icon: Icon, chip }) => (
         <Button
           key={key}
@@ -45,7 +45,7 @@ const MessageSidebar = () => {
           onPress={() => handleSelect(key)}
         >
           <Icon size={24} />
-          <div className="flex justify-between items-center flex-grow">
+          <div className="flex justify-between items-center flex-grow gap-2">
             <span>{label}</span>
             {chip && <Chip color="danger">{unreadCout}</Chip>}
           </div>

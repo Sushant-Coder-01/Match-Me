@@ -13,7 +13,7 @@ const page = async () => {
 
   return (
     <div>
-      <Card className="h-[80vh]">
+      <Card className="md:h-[80vh]">
         <CardHeader className="text-2xl font-semibold text-default-foreground">
           Edit Profile
         </CardHeader>

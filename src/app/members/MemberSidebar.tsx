@@ -32,7 +32,7 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
   return (
     <div className="relative">
       <div className="hidden relative md:block">
-        <Card className="w-full md:mt-10 flex flex-col items-center justify-center h-[90vh]  md:h-[80vh] ">
+        <Card className="w-full h-full md:mt-10 flex flex-col items-center justify-center  md:h-[80vh] ">
           <div className="relative rounded-full mt-6">
             <div>
               <Image
@@ -112,8 +112,8 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
       </div>
 
       {openMenu && (
-        <div className="block absolute z-30 w-full md:hidden">
-          <Card className="w-full md:mt-10 flex flex-col items-center justify-center h-[90vh]  md:h-[80vh] ">
+        <div className="block absolute z-50 w-full md:hidden">
+          <Card className="w-full h-full md:mt-10 flex flex-col items-center justify-center md:h-[80vh] ">
             <div className="relative rounded-full mt-6">
               <div>
                 <Image
@@ -161,12 +161,12 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
               </nav>
             </CardBody>
 
-            <CardFooter className="w-full flex justify-center md:mt-6">
+            <CardFooter className="w-full flex justify-center mb-10">
               <Button
                 as={Link}
                 href="/members"
                 fullWidth
-                className="mt-4 py-2 px-6 mx-4 bg-white text-lg font-semibold rounded-lg border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition"
+                className="py-2 px-6 mx-4 bg-white text-lg font-semibold rounded-lg border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition"
               >
                 Go Back
               </Button>

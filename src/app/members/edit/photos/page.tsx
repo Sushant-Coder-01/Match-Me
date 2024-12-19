@@ -17,7 +17,7 @@ const PhotosPage = async () => {
 
   return (
     <div>
-      <Card className="h-[80vh]">
+      <Card className="md:h-[80vh]">
         <CardHeader className="flex flex-row justify-between items-center">
           <div className="text-2xl font-semibold text-default-foreground">
             Update Photos

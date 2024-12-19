@@ -58,7 +58,7 @@ const MemberPhotos = ({ photos, mainImageURL, editing }: Props) => {
   };
 
   return (
-    <div className="grid grid-cols-5 gap-8">
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-8">
       {photos &&
         photos.map((photo) => (
           <div key={photo?.id} className="relative">
@@ -67,7 +67,7 @@ const MemberPhotos = ({ photos, mainImageURL, editing }: Props) => {
               <>
                 <div
                   onClick={() => onSetMain(photo)}
-                  className="absolute top-0 left-0 z-50"
+                  className="absolute top-0 left-0 z-40"
                 >
                   <StarButton
                     selected={photo.url === mainImageURL}
@@ -80,7 +80,7 @@ const MemberPhotos = ({ photos, mainImageURL, editing }: Props) => {
                 </div>
                 <div
                   onClick={() => onDelete(photo)}
-                  className="absolute top-0 right-0 z-50"
+                  className="absolute top-0 right-0 z-40"
                 >
                   <DeleteButton
                     isLoading={

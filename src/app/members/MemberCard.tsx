@@ -28,7 +28,7 @@ const MemberCard = ({ member, likeIds }: Props) => {
         <div className="absolute top-3 right-3 z-30">
           <LikeButton targetId={member.userId} hasLiked={hasLiked} />
         </div>
-        <div className="absolute top-3 left-3 z-30">
+        <div className="absolute top-3 left-3 z-40">
           <PresenceDot member={member} />
         </div>
       </div>

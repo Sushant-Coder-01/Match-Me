@@ -58,57 +58,59 @@ const EditForm = ({ member }: Props) => {
   };
 
   return (
-    <div>
-      <form
-        className="flex flex-col space-y-4"
-        onSubmit={handleSubmit(onSubmit)}
-      >
-        <Input
-          label="Name"
-          variant="bordered"
-          defaultValue={member.name}
-          {...register("name")}
-          isInvalid={!!errors?.name}
-          errorMessage={errors.name?.message}
-        />
-        <Textarea
-          label="Description"
-          variant="bordered"
-          {...register("description")}
-          defaultValue={member.description}
-          minRows={6}
-          isInvalid={!!errors?.description}
-          errorMessage={errors.description?.message}
-        />
-        <div className="flex flex-row gap-3">
-          <Input
-            label="City"
-            variant="bordered"
-            defaultValue={member.city}
-            {...register("city")}
-            isInvalid={!!errors?.city}
-            errorMessage={errors.city?.message}
-          />
-          <Input
-            label="Country"
-            variant="bordered"
-            defaultValue={member.country}
-            {...register("country")}
-            isInvalid={!!errors?.country}
-            errorMessage={errors.country?.message}
-          />
-        </div>
-        <Button
-          type="submit"
-          variant="solid"
-          color="warning"
-          className="flex self-end"
-          isDisabled={!isValid || !isDirty}
-          isLoading={isSubmitting}
+    <div className="relative">
+      <div>
+        <form
+          className="flex flex-col space-y-4"
+          onSubmit={handleSubmit(onSubmit)}
         >
-          Update profile
-        </Button>
-      </form>
+          <Input
+            label="Name"
+            variant="bordered"
+            defaultValue={member.name}
+            {...register("name")}
+            isInvalid={!!errors?.name}
+            errorMessage={errors.name?.message}
+          />
+          <Textarea
+            label="Description"
+            variant="bordered"
+            {...register("description")}
+            defaultValue={member.description}
+            minRows={6}
+            isInvalid={!!errors?.description}
+            errorMessage={errors.description?.message}
+          />
+          <div className="flex flex-row gap-3">
+            <Input
+              label="City"
+              variant="bordered"
+              defaultValue={member.city}
+              {...register("city")}
+              isInvalid={!!errors?.city}
+              errorMessage={errors.city?.message}
+            />
+            <Input
+              label="Country"
+              variant="bordered"
+              defaultValue={member.country}
+              {...register("country")}
+              isInvalid={!!errors?.country}
+              errorMessage={errors.country?.message}
+            />
+          </div>
+          <Button
+            type="submit"
+            variant="solid"
+            color="warning"
+            className="flex self-end"
+            isDisabled={!isValid || !isDirty}
+            isLoading={isSubmitting}
+          >
+            Update profile
+          </Button>
+        </form>
+      </div>
     </div>
   );
 };

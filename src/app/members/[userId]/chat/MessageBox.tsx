@@ -25,7 +25,7 @@ const MessageBox = ({ message, currentUserId }: Props) => {
 
   const renderAvatar = () => {
     return (
-      <div className="flex flex-col items-end justify-end">
+      <div className="hidden md:flex flex-col items-end justify-end">
         <PresenceAvatar userId={message.senderId} src={message.senderImage} />
       </div>
     );
@@ -40,7 +40,7 @@ const MessageBox = ({ message, currentUserId }: Props) => {
         )}
       >
         <div className="flex flex-row">
-          <span className="text-xs md:text-sm font-semibold text-gray-900">
+          <span className="hidden md:block text-xs md:text-sm font-semibold text-gray-900">
             {message.senderName}
           </span>
           <span className="text-xs md:text-sm text-gray-500 ml-2">{message.created}</span>
@@ -74,10 +74,10 @@ const MessageBox = ({ message, currentUserId }: Props) => {
     return (
       <div
         className={clsx(
-          "flex flex-col px-2 py-1 w-9/12 md:w-6/12",
+          "flex flex-col px-2 py-1 w-10/12 md:w-6/12",
           isCurrentUserSender
-            ? "rounded-l-xl rounded-tr-xl text-white bg-gradient-to-r from-pink-400/50 to-orange-300/50"
-            : "rounded-r-xl rounded-tl-xl text-gray-800 bg-pink-100 border border-pink-200"
+            ? "rounded-l-xl rounded-tr-2xl text-white bg-gradient-to-r from-pink-400/50 to-orange-300/50"
+            : "rounded-r-xl rounded-tl-2xl text-gray-800 bg-pink-100 border border-pink-200"
         )}
       >
         {renderMessageHeader()}
