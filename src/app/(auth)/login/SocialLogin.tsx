@@ -24,7 +24,7 @@ const SocialLogin = () => {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col md:flex-row items-center gap-2">
       {providers.map((provider) => (
         <Button
           onPress={() => onClick(provider.name as "google" | "github")}
@@ -36,7 +36,7 @@ const SocialLogin = () => {
           className={`flex items-center justify-center gap-4 py-3 rounded-lg shadow-md hover:bg-opacity-50 hover:bg-pink-100`}
         >
           {provider.icon}
-          <span className="text-sm font-semibold">{provider.text}</span>
+          <span className="text-xs md:text-sm font-semibold">{provider.text}</span>
         </Button>
       ))}
     </div>

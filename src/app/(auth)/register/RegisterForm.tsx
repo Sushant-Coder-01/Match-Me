@@ -80,7 +80,7 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-11/12 md:1/3">
+    <div className="flex items-center justify-center w-11/12 md:1/3 mt-12">
       <Card className="w-11/12 md:w-1/3 mx-auto px-1 py-5">
         <CardHeader className="flex flex-col justify-center items-center gap-2">
           <div className="flex flex-row items-center gap-3">

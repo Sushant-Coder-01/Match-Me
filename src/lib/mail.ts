@@ -8,7 +8,8 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendVerificationEmail = async (email: string, token: string) => {
-  const link = `http://localhost:3000/verify-email?token=${token}`;
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+  const link = `${baseUrl}/verify-email?token=${token}`;
   const user = await getUserByEmail(email);
 
   return resend.emails.send({

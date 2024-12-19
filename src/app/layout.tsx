@@ -7,6 +7,7 @@ import TopNav from "@/components/nav-bar/TopNav";
 import { ToastContainer } from "react-toastify";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import NetworkStatus from "@/components/NetworkStatus ";
 
 export const metadata: Metadata = {
   title: "MatchMe",
@@ -26,6 +27,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <SessionProvider>
           <Providers userId={userId} profileComplete={profileComplete}>
             <TopNav />
+            <NetworkStatus />
             <main className="container mx-auto">{children}</main>
             <ToastContainer
               position="top-right"

@@ -65,7 +65,7 @@ const LoginForm = () => {
   }
 
   return (
-    <Card className="w-10/12 md:w-1/3 mx-auto px-1 py-5">
+    <Card className="w-11/12 md:w-1/3 mx-auto mt-5 px-1 py-5">
       <CardHeader className="flex flex-col items-center gap-2">
         <div className="flex flex-row items-center gap-3">
           <BsFillShieldLockFill size={30} className="text-pink-500" />

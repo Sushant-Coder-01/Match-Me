@@ -2,7 +2,7 @@ import ForgotPasswordForm from "./ForgotPasswordForm";
 
 const ForgotPasswordPage = () => {
   return (
-    <div>
+    <div className="w-full mx-auto ">
       <ForgotPasswordForm />
     </div>
   );
