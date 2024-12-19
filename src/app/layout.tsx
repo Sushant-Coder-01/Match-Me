@@ -27,8 +27,6 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
         <SessionProvider>
           <Providers userId={userId} profileComplete={profileComplete}>
             <TopNav />
-            <NetworkStatus />
-            <main className="container mx-auto">{children}</main>
             <ToastContainer
               position="top-right"
               autoClose={3000}
@@ -37,6 +35,8 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
               pauseOnHover
               theme="light"
             />
+            <main className="container mx-auto">{children}</main>
+            <NetworkStatus />
           </Providers>
         </SessionProvider>
       </body>

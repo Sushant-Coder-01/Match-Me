@@ -4,6 +4,7 @@ import { GetMemberParams } from "@/types";
 import EmptyState from "@/components/EmptyState";
 import MemberCard from "./MemberCard";
 import PaginationComponent from "@/components/PaginationComponent";
+import NetworkStatus from "@/components/NetworkStatus ";
 
 type Props = {
   searchParams: Promise<GetMemberParams>;
@@ -19,6 +20,7 @@ const MembersPage = async ({ searchParams }: Props) => {
 
   return (
     <div>
+      <NetworkStatus />
       <div className="md:h-[68vh] my-5 mb-10 md:my-0 md:mb-0">
         <div className="m-3 md:m-0  md:mt-10 gap-3 md:gap-8 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
           {members &&

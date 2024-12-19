@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getUserRole } from "./authActions";
 import { cloudinary } from "@/lib/cloudinary";
 import { Photo } from "@prisma/client";
+import { pusherServer } from "@/lib/pusher";
 
 export const getUnapprovedPhotos = async () => {
   try {
@@ -48,7 +49,7 @@ export const approvePhoto = async (photoId: string) => {
       });
     }
 
-    return prisma.member.update({
+    await prisma.member.update({
       where: { id: member.id },
       data: {
         ...memberUpdate,
@@ -60,6 +61,13 @@ export const approvePhoto = async (photoId: string) => {
         },
       },
     });
+
+    pusherServer.trigger("photo-channel", "photoApproved", {
+      photoId,
+      photoUrl: photo.url,
+    });
+
+    return photo;
   } catch (error) {
     console.log(error);
     throw error;
@@ -69,6 +77,7 @@ export const approvePhoto = async (photoId: string) => {
 export async function rejectPhoto(photo: Photo) {
   try {
     const role = await getUserRole();
+    const photoId = photo.id;
 
     if (role !== "ADMIN") throw new Error("Forbidden");
 
@@ -76,9 +85,20 @@ export async function rejectPhoto(photo: Photo) {
       await cloudinary.v2.uploader.destroy(photo.publicId);
     }
 
-    return prisma.photo.delete({
-      where: { id: photo.id },
+    await prisma.photo.update({
+      where: { id: photoId },
+      data: { isApproved: false },
     });
+
+    await prisma.photo.delete({
+      where: { id: photoId },
+    });
+
+    pusherServer.trigger("photo-channel", "photoUnapproved", {
+      photoId,
+    });
+
+    return { photoId };
   } catch (error) {
     console.log(error);
     throw error;

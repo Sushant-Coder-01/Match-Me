@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 const MemberPhotoUpload = () => {
   const router = useRouter();
   const onAddImage = async (result: CloudinaryUploadWidgetResults) => {
+    console.log("onAddImage called with result:", result);
     if (result.info && typeof result.info === "object") {
       await addImage(result.info.secure_url, result.info.public_id);
       router.refresh();

@@ -1,31 +1,30 @@
 "use client";
 
-import React, { useEffect } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { useEffect, useState } from "react";
 
-const NetworkStatus: React.FC = () => {
+const NetworkStatus = () => {
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [showOnlineMessage, setShowOnlineMessage] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
   useEffect(() => {
     const handleOnline = () => {
-      toast.dismiss(); // Dismiss any previous "offline" toasts
-      toast.success("You're back online!", { autoClose: 3000 });
+      setIsOnline(true);
+      setShowOnlineMessage(true);
+      setTimeout(() => {
+        setShowOnlineMessage(false);
+      }, 3000);
     };
 
     const handleOffline = () => {
-      toast.error("You are offline. Check your connection!", {
-        autoClose: false,
-      });
+      setIsOnline(false);
     };
 
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
-    // Show initial offline state if necessary
-    if (!navigator.onLine) {
-      toast.error("You are offline. Check your connection!", {
-        autoClose: false,
-      });
-    }
+    // Set hasMounted to true after the initial render
+    setHasMounted(true);
 
     return () => {
       window.removeEventListener("online", handleOnline);
@@ -33,7 +32,22 @@ const NetworkStatus: React.FC = () => {
     };
   }, []);
 
-  return <ToastContainer />;
+  return (
+    <div>
+      {!isOnline && hasMounted && (
+        <div className="fixed bottom-0 left-0 right-0 bg-pink-600 text-white text-center py-2 shadow-lg">
+          <p className="font-semibold">
+            You are offline. Check your connection!
+          </p>
+        </div>
+      )}
+      {isOnline && showOnlineMessage && (
+        <div className="fixed bottom-0 left-0 right-0 bg-green-500 text-white text-center py-2 shadow-lg">
+          <p className="font-semibold">You are back online!</p>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default NetworkStatus;
