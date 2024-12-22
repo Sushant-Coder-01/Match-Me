@@ -56,6 +56,8 @@ model Member {
   targetLikes       Like[]    @relation("target")
   senderMessages    Message[] @relation("sender")
   recipientMessages Message[] @relation("recipient")
+  sentRequests      Request[] @relation("sentRequests")
+  receivedRequests  Request[] @relation("receivedRequests")
 }
 
 model Photo {
@@ -108,4 +110,21 @@ enum TokenType {
 enum Role {
   ADMIN
   MEMBER
+}
+
+model Request {
+  id         String        @id @default(cuid())
+  senderId   String
+  receiverId String
+  status     RequestStatus @default(PENDING)
+  createdAt  DateTime      @default(now())
+
+  sender   Member @relation("sentRequests", fields: [senderId], references: [userId], onDelete: Cascade)
+  receiver Member @relation("receivedRequests", fields: [receiverId], references: [userId], onDelete: Cascade)
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
 }
