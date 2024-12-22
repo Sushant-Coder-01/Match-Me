@@ -1,6 +1,7 @@
 "use client";
 
 import PresenceDot from "@/components/PresenceDot";
+import SendRequestButton from "@/components/SendRequestButton";
 import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import { calculateAge } from "@/lib/util";
 import {
@@ -19,10 +20,11 @@ import { PiUserListFill } from "react-icons/pi";
 
 type Props = {
   member: Member | null | undefined;
+  userId?: string;
   navLinks: { name: string; href: string }[];
 };
 
-const MemberSidebar = ({ member, navLinks }: Props) => {
+const MemberSidebar = ({ member, userId, navLinks }: Props) => {
   const pathName = usePathname();
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -59,6 +61,14 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
                 </div>
                 <div className="text-sm text-neutral-600">
                   {member?.city}, {member?.country}
+                </div>
+                <div className="mt-4">
+                  {userId && (
+                    <SendRequestButton
+                      senderId={userId}
+                      receiverId={member?.id}
+                    />
+                  )}
                 </div>
               </div>
             )}
@@ -140,6 +150,14 @@ const MemberSidebar = ({ member, navLinks }: Props) => {
                   </div>
                   <div className="text-sm text-neutral-600">
                     {member?.city}, {member?.country}
+                  </div>
+                  <div className="mt-4">
+                    {userId && (
+                      <SendRequestButton
+                        senderId={userId}
+                        receiverId={member?.id}
+                      />
+                    )}
                   </div>
                 </div>
               )}

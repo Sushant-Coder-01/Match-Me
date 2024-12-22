@@ -26,7 +26,7 @@ const Layout = async ({ children, params }: Props) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 md:gap-5">
       <div className="col-span-12 md:col-span-3 md:mb-0">
-        <MemberSidebar member={member} navLinks={navLinks} />
+        <MemberSidebar userId={userId} member={member} navLinks={navLinks} />
       </div>
 
       <div className="col-span-12 md:col-span-9">

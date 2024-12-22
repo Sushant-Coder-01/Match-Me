@@ -112,7 +112,7 @@ const EditForm = ({ member }: Props) => {
     setShowSuggestionModal(false);
   };
 
-  const descriptionValue = watch("description") || "";
+  const descriptionValue = watch("description");
 
   return (
     <div className="relative">

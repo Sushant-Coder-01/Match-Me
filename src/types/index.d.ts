@@ -76,3 +76,11 @@ type Session = {
   };
   expires: string;
 };
+
+type sendResponse = {
+  senderId: string;
+  receiverId: string;
+  id: string;
+  status: $Enums.RequestStatus;
+  createdAt: Date;
+};

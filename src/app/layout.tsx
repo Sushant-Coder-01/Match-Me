@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import NetworkStatus from "@/components/NetworkStatus ";
+import NotificationSystem from "@/components/NotificationSystem";
 
 export const metadata: Metadata = {
   title: "MatchMe",
@@ -35,6 +36,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
               pauseOnHover
               theme="light"
             />
+            {userId && <NotificationSystem userId={userId} />}
             <main className="container mx-auto">{children}</main>
             <NetworkStatus />
           </Providers>
