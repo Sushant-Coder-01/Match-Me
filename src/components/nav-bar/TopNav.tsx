@@ -131,8 +131,8 @@ const TopNav = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && !session && (
-          <NavbarMenu>
-            <NavbarMenuItem className="flex flex-col items-center space-y-5">
+          <NavbarMenu className="fixed inset-0 flex items-center justify-center md:hidden">
+            <NavbarMenuItem className=" w-full flex flex-col items-center space-y-5">
               <Link
                 href="/login"
                 onClick={handleLinkClick}

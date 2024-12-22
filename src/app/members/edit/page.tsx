@@ -9,7 +9,7 @@ const page = async () => {
 
   const member = await getMemberByUserId(userId);
 
-  if(!member) return notFound();
+  if (!member) return notFound();
 
   return (
     <div>
@@ -19,7 +19,7 @@ const page = async () => {
         </CardHeader>
         <Divider />
         <CardBody>
-          <EditForm member={member}/>
+          <EditForm member={member} />
         </CardBody>
       </Card>
     </div>
