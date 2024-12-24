@@ -83,4 +83,5 @@ type sendResponse = {
   id: string;
   status: $Enums.RequestStatus;
   createdAt: Date;
+  rejectedAt: Date?;
 };

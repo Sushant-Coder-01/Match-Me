@@ -2,6 +2,7 @@
 
 import PresenceDot from "@/components/PresenceDot";
 import SendRequestButton from "@/components/SendRequestButton";
+import { useRequestStore } from "@/hooks/useRequestStore";
 import { USER_DEFAULT_IMAGE } from "@/lib/constant";
 import { calculateAge } from "@/lib/util";
 import {
@@ -12,10 +13,10 @@ import {
   Divider,
   Image,
 } from "@nextui-org/react";
-import { Member } from "@prisma/client";
+import { Member, RequestStatus } from "@prisma/client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiUserListFill } from "react-icons/pi";
 
 type Props = {
@@ -27,25 +28,55 @@ type Props = {
 const MemberSidebar = ({ member, userId, navLinks }: Props) => {
   const pathName = usePathname();
   const [openMenu, setOpenMenu] = useState(false);
+  const { requestInfo, fetchRequestInfo } = useRequestStore();
 
-  const handleOpenMenu = () => {
-    setOpenMenu(false);
+  useEffect(() => {
+    if (userId && member?.userId) {
+      const [firstId, secondId] =
+        userId < member.userId
+          ? [userId, member.userId]
+          : [member.userId, userId];
+
+      fetchRequestInfo(firstId, secondId);
+    }
+  }, [userId, member?.userId, fetchRequestInfo]);
+
+  const renderNavLinks = () => {
+    return navLinks
+      .filter((link) => {
+        if (!requestInfo || requestInfo.status !== RequestStatus.ACCEPTED) {
+          return link?.name === "Profile";
+        }
+        return true;
+      })
+      .map((link) => (
+        <Link
+          key={link?.name}
+          href={link?.href}
+          onClick={() => setOpenMenu(!openMenu)}
+          className={`flex justify-start rounded-lg px-4 py-2 text-lg transition-all ${
+            pathName === link?.href
+              ? "bg-pink-500 text-white"
+              : "bg-white hover:bg-neutral-200 hover:text-pink-500"
+          }`}
+        >
+          {link?.name}
+        </Link>
+      ));
   };
 
   return (
     <div className="relative">
-      <div className="hidden relative md:block">
-        <Card className="w-full h-full md:mt-10 flex flex-col items-center justify-center  md:h-[80vh] ">
+      <div className="hidden md:block">
+        <Card className="w-full h-full mt-10 flex flex-col items-center justify-center">
           <div className="relative rounded-full mt-6">
-            <div>
-              <Image
-                alt="User Profile Main Image"
-                src={member?.image || USER_DEFAULT_IMAGE}
-                width={200}
-                height={200}
-                className="aspect-square object-cover rounded-full"
-              />
-            </div>
+            <Image
+              alt="User Profile Main Image"
+              src={member?.image || USER_DEFAULT_IMAGE}
+              width={200}
+              height={200}
+              className="aspect-square object-cover rounded-full"
+            />
             {member && (
               <div className="absolute top-4 right-3 z-50">
                 <PresenceDot member={member} />
@@ -57,46 +88,35 @@ const MemberSidebar = ({ member, userId, navLinks }: Props) => {
             {member && (
               <div className="flex flex-col items-center">
                 <div className="text-2xl font-bold text-default-foreground mb-2">
-                  {member?.name}, {calculateAge(member.dateOfBirth)}
+                  {member.name}, {calculateAge(member.dateOfBirth)}
                 </div>
                 <div className="text-sm text-neutral-600">
-                  {member?.city}, {member?.country}
+                  {member.city}, {member.country}
                 </div>
                 <div className="mt-4">
-                  {userId && (
-                    <SendRequestButton
-                      senderId={userId}
-                      receiverId={member?.id}
-                    />
-                  )}
+                  <SendRequestButton
+                    senderId={userId}
+                    receiverId={member.userId}
+                  />
                 </div>
               </div>
             )}
-            <Divider className="my-4" />
-            <nav className="flex flex-col justify-center p-4 text-lg md:gap-y-3">
-              {navLinks.map((link) => (
-                <Button
-                  as={Link}
-                  key={link.name}
-                  href={link.href}
-                  className={`flex justify-start rounded-lg px-4 py-2 text-lg  transition-all ${
-                    pathName === link.href
-                      ? "bg-pink-500 text-white"
-                      : "bg-white hover:bg-neutral-200 hover:text-pink-500"
-                  }`}
-                >
-                  {link.name}
-                </Button>
-              ))}
-            </nav>
+            {navLinks.length > 0 && (
+              <>
+                <Divider className="my-4" />
+                <nav className="flex flex-col justify-center p-4 text-lg md:gap-y-3">
+                  {renderNavLinks()}
+                </nav>
+              </>
+            )}
           </CardBody>
 
-          <CardFooter className="w-full flex justify-center md:mt-6">
+          <CardFooter className="w-full flex justify-center mt-6">
             <Button
               as={Link}
               href="/members"
               fullWidth
-              className="mt-4 py-2 px-6 mx-4 bg-white text-lg font-semibold rounded-lg border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition"
+              className="py-2 px-6 mx-4 bg-white text-lg font-semibold rounded-lg border-2 border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition"
             >
               Go Back
             </Button>
@@ -104,15 +124,13 @@ const MemberSidebar = ({ member, userId, navLinks }: Props) => {
         </Card>
       </div>
 
-      {/* Mobile Filter Icon */}
+      {/* Mobile Menu */}
       <div className="block md:hidden fixed bottom-4 right-4 z-50">
         <Button
           isIconOnly
           size="lg"
           color="primary"
-          onPress={() => {
-            setOpenMenu(!openMenu);
-          }}
+          onPress={() => setOpenMenu(!openMenu)}
           aria-label="Open Filters"
         >
           <PiUserListFill
@@ -123,18 +141,16 @@ const MemberSidebar = ({ member, userId, navLinks }: Props) => {
       </div>
 
       {openMenu && (
-        <div className="block absolute z-50 w-full md:hidden">
-          <Card className="w-full h-full md:mt-10 flex flex-col items-center justify-center md:h-[80vh] ">
+        <div className="absolute z-50 w-full">
+          <Card className="flex flex-col items-center justify-center">
             <div className="relative rounded-full mt-6">
-              <div>
-                <Image
-                  alt="User Profile Main Image"
-                  src={member?.image || USER_DEFAULT_IMAGE}
-                  width={200}
-                  height={200}
-                  className="aspect-square object-cover rounded-full"
-                />
-              </div>
+              <Image
+                alt="User Profile Main Image"
+                src={member?.image || USER_DEFAULT_IMAGE}
+                width={200}
+                height={200}
+                className="aspect-square object-cover rounded-full"
+              />
               {member && (
                 <div className="absolute top-4 right-3 z-50">
                   <PresenceDot member={member} />
@@ -146,38 +162,25 @@ const MemberSidebar = ({ member, userId, navLinks }: Props) => {
               {member && (
                 <div className="flex flex-col items-center">
                   <div className="text-2xl font-bold text-default-foreground mb-2">
-                    {member?.name}, {calculateAge(member.dateOfBirth)}
+                    {member.name}, {calculateAge(member.dateOfBirth)}
                   </div>
                   <div className="text-sm text-neutral-600">
-                    {member?.city}, {member?.country}
+                    {member.city}, {member.country}
                   </div>
-                  <div className="mt-4">
-                    {userId && (
-                      <SendRequestButton
-                        senderId={userId}
-                        receiverId={member?.id}
-                      />
-                    )}
-                  </div>
+                  <SendRequestButton
+                    senderId={userId}
+                    receiverId={member.userId}
+                  />
                 </div>
               )}
-              <Divider className="my-4" />
-              <nav className="flex flex-col justify-center p-4 text-lg md:gap-y-3">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={`flex justify-start rounded-lg px-4 py-2 text-lg  transition-all ${
-                      pathName === link.href
-                        ? "bg-pink-500 text-white"
-                        : "bg-white hover:bg-neutral-200 hover:text-pink-500"
-                    }`}
-                    onClick={handleOpenMenu}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </nav>
+              {navLinks.length > 0 && (
+                <>
+                  <Divider className="my-4" />
+                  <nav className="flex flex-col justify-center p-4 text-lg md:gap-y-3">
+                    {renderNavLinks()}
+                  </nav>
+                </>
+              )}
             </CardBody>
 
             <CardFooter className="w-full flex justify-center mb-10">

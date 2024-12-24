@@ -1,12 +1,18 @@
 import { acceptRequest } from "@/app/actions/requestActions";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === "POST") {
-    const { requestId } = req.body;
+export async function POST(req: NextRequest) {
+  try {
+    const { requestId } = await req.json();
     const request = await acceptRequest(requestId);
-    res.status(200).json(request);
-  } else {
-    res.status(405).json({ message: "Method not allowed" });
+    return NextResponse.json(request, { status: 200 });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error("Error Accepting Request:", error);
+      return NextResponse.json(
+        { message: error.message || "Method not allowed" },
+        { status: 500 }
+      );
+    }
   }
 }

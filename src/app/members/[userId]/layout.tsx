@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ReactNode } from "react";
 import MemberSidebar from "../MemberSidebar";
 import { Card } from "@nextui-org/react";
+import { getAuthUserId } from "@/app/actions/authActions";
 
 type Props = {
   children: ReactNode;
@@ -10,8 +11,9 @@ type Props = {
 };
 
 const Layout = async ({ children, params }: Props) => {
-  const { userId } = await params;
-  const member = await getMemberByUserId(userId);
+  const userId = await getAuthUserId();
+  const { userId: recepientId } = await params;
+  const member = await getMemberByUserId(recepientId);
 
   const basePath = `/members/${member?.userId}`;
 

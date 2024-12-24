@@ -114,13 +114,14 @@ enum Role {
 
 model Request {
   id         String        @id @default(cuid())
-  senderId   String
-  receiverId String
+  senderId   String?
+  receiverId String?
   status     RequestStatus @default(PENDING)
   createdAt  DateTime      @default(now())
+  rejectedAt DateTime?
 
-  sender   Member @relation("sentRequests", fields: [senderId], references: [userId], onDelete: Cascade)
-  receiver Member @relation("receivedRequests", fields: [receiverId], references: [userId], onDelete: Cascade)
+  sender   Member? @relation("sentRequests", fields: [senderId], references: [userId], onDelete: Cascade)
+  receiver Member? @relation("receivedRequests", fields: [receiverId], references: [userId], onDelete: Cascade)
 }
 
 enum RequestStatus {
