@@ -25,7 +25,7 @@ const NotificationSystem = ({ userId }: Props) => {
       toast.info(`New request from user ${data.senderId}`);
     });
 
-    channel.bind("request-accepted", (data: sendResponse) => {
+    channel.bind("request-accepted", () => {
       toast.success("Your request was accepted!");
     });
 

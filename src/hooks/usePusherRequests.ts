@@ -1,7 +1,11 @@
 import { useEffect } from "react";
 import { pusherClient } from "@/lib/pusher";
-import { sendResponse } from "@/types";
 import { useRequestStore } from "./useRequestStore";
+import { sendResponse } from "@/types";
+
+type Data = {
+  request : sendResponse
+}
 
 export const usePusherRequests = (userId: string | undefined) => {
   const { setRequestInfo } = useRequestStore();
@@ -11,15 +15,15 @@ export const usePusherRequests = (userId: string | undefined) => {
 
     const channel = pusherClient.subscribe(`user-${userId}`);
 
-    channel.bind("new-request", (data: any) => {
+    channel.bind("new-request", (data: Data) => {
       setRequestInfo(data.request);
     });
 
-    channel.bind("request-accepted", (data: any) => {
+    channel.bind("request-accepted", (data: Data) => {
       setRequestInfo(data.request);
     });
 
-    channel.bind("request-rejected", (data: any) => {
+    channel.bind("request-rejected", (data: Data) => {
       setRequestInfo(data.request);
     });
 

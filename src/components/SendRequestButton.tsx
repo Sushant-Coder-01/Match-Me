@@ -2,7 +2,6 @@ import { Button } from "@nextui-org/react";
 import { useRequestStore } from "@/hooks/useRequestStore";
 import { useSession } from "next-auth/react";
 import { usePusherRequests } from "@/hooks/usePusherRequests";
-import { useEffect, useState } from "react";
 
 type Props = {
   senderId: string | undefined;
@@ -24,7 +23,6 @@ const SendRequestButton = ({ senderId, receiverId }: Props) => {
     sendRequest,
     acceptRequest,
     rejectRequest,
-    fetchRequestInfo,
   } = useRequestStore();
 
   // Determine if the current user is the sender or receiver
