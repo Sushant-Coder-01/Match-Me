@@ -1,7 +1,6 @@
 "use client";
 
 import { createMessage } from "@/app/actions/messageActions";
-import useKeyboardHeight from "@/hooks/useKeyboardHeight ";
 import { messageSchema, MessageSchema } from "@/lib/schemas/MessageSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input } from "@nextui-org/react";
@@ -11,7 +10,6 @@ import { IoSend } from "react-icons/io5";
 import { toast } from "react-toastify";
 
 const ChatForm = () => {
-  const keyboardHeight = useKeyboardHeight();
   const params = useParams<{ userId: string }>();
   const {
     register,
@@ -43,7 +41,6 @@ const ChatForm = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div
           className="flex justify-center items-start gap-2"
-          style={{ marginBottom: `${keyboardHeight}px` }}
         >
           <Input
             fullWidth
