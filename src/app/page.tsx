@@ -67,12 +67,6 @@ const Home = async () => {
               >
                 Get Started
               </a>
-              <a
-                href="/about"
-                className="px-6 py-3 border-2 border-yellow-300 text-white text-lg font-semibold rounded-lg shadow-lg hover:bg-yellow-300 hover:text-pink-800 transition"
-              >
-                Learn More
-              </a>
             </div>
           </section>
         </div>
