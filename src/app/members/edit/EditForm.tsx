@@ -13,14 +13,12 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { BsStars } from "react-icons/bs";
-import { useViewportHeight } from "@/hooks/useViewportHeight ";
 
 type Props = {
   member: Member;
 };
 
 const EditForm = ({ member }: Props) => {
-  useViewportHeight();
   const router = useRouter();
   const [suggestionLoading, setSuggestionLoading] = useState(false);
   const [suggestion, setSuggestion] = useState("");

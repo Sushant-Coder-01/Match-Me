@@ -20,13 +20,3 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #ff0a16; /* Thumb color on hover */
 }
-
-:root {
-  --vh: 1vh;
-}
-
-html,
-body {
-  height: calc(var(--vh, 1vh) * 100);
-  overflow: hidden;
-}
