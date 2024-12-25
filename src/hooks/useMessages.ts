@@ -68,17 +68,23 @@ const useMessages = (initialMessages: MessageDto[]) => {
 
   const unreadUserCounts = initialMessages.reduce(
     (result, message) => {
+      const key = isOutbox ? message.recipientId : message.senderId;
+      if (!key) {
+        throw new Error("Key is undefined!");
+      }
       if (!message.dateRead) {
-        const key = isOutbox ? message.recipientId : message.senderId;
-        if (!key) {
-          throw new Error("Key is undefined!");
-        }
         result[key] = (result[key] || 0) + 1;
       }
       return result;
     },
     {} as Record<string, number>
   );
+
+  Object.keys(unreadUserCounts).forEach((key) => {
+    if (unreadUserCounts[key] < 0) {
+      unreadUserCounts[key] = 0;
+    }
+  });
 
   console.log("unreadUserCounts: ", unreadUserCounts);
 

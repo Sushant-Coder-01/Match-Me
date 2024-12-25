@@ -21,7 +21,7 @@ const NavLink = ({ href, label }: Props) => {
         <span>{label}</span>
         {href === "/messages" && (
           <span className="absolute top-0 ml-3 mb-3 ">
-            {unreadCount !== 0 && (
+            {unreadCount > 0 && (
               <Badge content={unreadCount} color="danger" variant="shadow">
                 <></>
               </Badge>

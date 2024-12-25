@@ -23,6 +23,7 @@ const MessageBox = ({ message, currentUserId }: Props) => {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messageEndRef]);
 
+
   const renderAvatar = () => {
     return (
       <div className="hidden md:flex flex-col items-end justify-end">

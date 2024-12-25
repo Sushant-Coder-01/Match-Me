@@ -22,6 +22,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
   const userId = session?.user?.id || null;
   const profileComplete = session?.user?.profileComplete as boolean;
+
   return (
     <html lang="en">
       <body>

@@ -25,7 +25,9 @@ const useMessageStore = create<MessagesState>()(
         })),
       setMessages: (messages) => set({ messages: messages }),
       updateUnreadCount: (amount) =>
-        set((state) => ({ unreadCount: state.unreadCount + amount })),
+        set((state) => ({
+          unreadCount: Math.max(0, state.unreadCount + amount),
+        })),
     }),
     { name: "MessageStore" }
   )

@@ -141,7 +141,7 @@ const MemberSidebar = ({ member, userId, navLinks }: Props) => {
       </div>
 
       {openMenu && (
-        <div className="absolute z-50 w-full">
+        <div className="absolute z-50 w-full block md:hidden">
           <Card className="flex flex-col items-center justify-center">
             <div className="relative rounded-full mt-6">
               <Image
