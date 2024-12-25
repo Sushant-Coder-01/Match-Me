@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
-import MemberSidebar from "../MemberSidebar";
 import { getAuthUserId } from "@/app/actions/authActions";
 import { getMemberByUserId } from "@/app/actions/memberActions";
 import { Card } from "@nextui-org/react";
+import MemberSidebar from "./MemberSidebar";
 
 type Props = {
   children: ReactNode;
