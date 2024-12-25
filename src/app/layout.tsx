@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   title: "MatchMe",
   description: "A Dating App",
   icons: {
-    icon: "/images/app_logo.svg",
+    icon: "/images/app_logo.svg?v=1",
   },
 };
 
