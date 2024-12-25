@@ -9,12 +9,13 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import NetworkStatus from "@/components/NetworkStatus ";
 import NotificationSystem from "@/components/NotificationSystem";
+import { FAVICON } from "@/lib/constant";
 
 export const metadata: Metadata = {
   title: "MatchMe",
   description: "A Dating App",
   icons: {
-    icon: { rel: "icon", url: "/images/app_logo.svg", type: "image/svg+xml" }, // SVG
+    icon: FAVICON,
   },
 };
 
