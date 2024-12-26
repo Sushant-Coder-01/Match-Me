@@ -2,6 +2,10 @@
 
 A dating app where users can create profiles, match with others, and chat. This project is built using Next.js and integrates various features to create a seamless experience for users.
 
+## MatchMe Dating App Demo
+
+[![MatchMe Demo](https://img.youtube.com/vi/eL1AvjYiQm8/0.jpg)](https://www.youtube.com/watch?v=eL1AvjYiQm8)
+
 ## Project Info
 
 - **Name**: MatchMe
